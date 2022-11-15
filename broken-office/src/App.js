@@ -1,5 +1,13 @@
+import React from "react";
+
+import Home from "./Home.jsx";
+
 function App() {
-  return;
+  return (
+    <>
+      <Home />
+    </>
+  );
 }
 
 export default App;
