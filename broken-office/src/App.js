@@ -1,12 +1,19 @@
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router";
+import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 import HomeAdmin from "./containers/HomeAdmin";
 
 function App() {
   return (
     <Box display="flex" flexDirection="column">
-      {/* Navbar */}
+      <NavBar />
+
+      <footer>
+        <BottomNav />
+      </footer>
+
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<></>} />
@@ -25,7 +32,7 @@ function App() {
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 }
