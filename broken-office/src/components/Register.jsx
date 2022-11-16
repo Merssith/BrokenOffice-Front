@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Paper, TextField, Button, Typography } from "@mui/material";
+import { Grid, TextField, Button, Typography } from "@mui/material";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [lastName, setLastName] = useState("");
   const [globerId, setGloberId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,8 +13,8 @@ const Register = () => {
   const nameOnChange = (event) => {
     setName(event.target.value);
   };
-  const surnameOnChange = (event) => {
-    setSurname(event.target.value);
+  const lastNameOnChange = (event) => {
+    setLastName(event.target.value);
   };
   const globerIdOnChange = (event) => {
     setGloberId(event.target.value);
@@ -36,14 +36,14 @@ const Register = () => {
   };
 
   return (
-    <Paper
-      elevation={10}
+    <Grid
       sx={{
         width: "80%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         paddingBottom: "30px",
+        margin: "auto",
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
@@ -60,12 +60,12 @@ const Register = () => {
       />
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
-        value={surname}
-        id="input-surname"
-        label="Surname"
+        value={lastName}
+        id="input-lastname"
+        label="Lastname"
         type="text"
         required
-        onChange={surnameOnChange}
+        onChange={lastNameOnChange}
       />
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
@@ -150,7 +150,7 @@ const Register = () => {
       >
         Login
       </Button>
-    </Paper>
+    </Grid>
   );
 };
 

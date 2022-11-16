@@ -4,6 +4,10 @@ import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HomeAdmin from "./containers/HomeAdmin";
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -16,9 +20,9 @@ function App() {
 
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<></>} />
-        <Route path="/signin" element={<></>} />
-        <Route path="/register" element={<></>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/createsuccess" element={<></>} />
 
         {/* User logged routes*/}
