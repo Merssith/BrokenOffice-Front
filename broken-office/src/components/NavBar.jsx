@@ -26,14 +26,6 @@ function NavBar() {
       <ThemeProvider theme={navColor}>
         <AppBar>
           <Toolbar>
-            {/* <ArrowBackIcon
-              sx={{
-                marginLeft: "-0.5rem",
-                position: "fixed",
-                "&:active": { color: "grey" },
-              }}
-
-            /> */}
             <div
               style={{
                 display: "flex",
@@ -43,7 +35,7 @@ function NavBar() {
             >
               <Typography
                 sx={{
-                  "&:active": { color: "grey" },
+                  "&:active": { color: "#696969" },
                 }}
                 variant="h6"
               >

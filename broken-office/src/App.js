@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router";
+import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 import HomeAdmin from "./containers/HomeAdmin";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
@@ -11,6 +13,11 @@ function App() {
   return (
     <Box display="flex" flexDirection="column">
       <NavBar />
+
+      <footer>
+        <BottomNav />
+      </footer>
+
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<Home />} />
