@@ -36,72 +36,80 @@ const Register = () => {
   };
 
   return (
-    <Paper elevation={10} sx={{ width: "80%" }}>
+    <Paper
+      elevation={10}
+      sx={{
+        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingBottom: "30px",
+      }}
+    >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
         Register
       </Typography>
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={name}
         id="input-name"
         label="Name"
         type="text"
-        fullWidth
         required
         onChange={nameOnChange}
       />
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={surname}
         id="input-surname"
         label="Surname"
         type="text"
-        fullWidth
         required
         onChange={surnameOnChange}
       />
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={globerId}
         id="input-globerId"
         label="Glober ID"
         type="text"
-        fullWidth
         required
         onChange={globerIdOnChange}
       />
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={email}
         id="outlined-basic-email"
         label="Email"
         type="text"
-        fullWidth
         required
         onChange={emailOnChange}
       />
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={password}
         id="outlined-basic-password"
         label="Password"
         type="password"
-        fullWidth
         required
         onChange={passwordOnChange}
       />
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         value={password}
         id="outlined-basic-password"
         label="Confirm Password"
         type="password"
-        fullWidth
         required
         onChange={passwordOnChange}
       />
       <Button
-        sx={{ marginTop: "20px" }}
+        sx={{
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
         onClick={handleGeolocation}
         type="button"
         variant="contained"
@@ -111,7 +119,12 @@ const Register = () => {
         Geolocalize me
       </Button>
       <Button
-        sx={{ marginTop: "20px" }}
+        sx={{
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
         onClick={handleSubmit}
         type="submit"
         variant="contained"
@@ -124,7 +137,12 @@ const Register = () => {
         Alredy registred?
       </Typography>
       <Button
-        sx={{ marginTop: "20px" }}
+        sx={{
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
         type="button"
         variant="contained"
         href="/login"

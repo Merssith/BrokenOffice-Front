@@ -18,13 +18,22 @@ const Login = () => {
   };
 
   return (
-    <Paper elevation={10} sx={{ width: "80%" }}>
+    <Paper
+      elevation={10}
+      sx={{
+        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingBottom: "30px",
+      }}
+    >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
         Login
       </Typography>
 
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         label="E-mail"
         type="text"
         placeholder="Enter E-Mail"
@@ -34,7 +43,7 @@ const Login = () => {
       />
 
       <TextField
-        sx={{ marginTop: "15px" }}
+        sx={{ marginTop: "15px", width: "80%" }}
         label="Password"
         placeholder="Enter password"
         type="password"
@@ -44,11 +53,15 @@ const Login = () => {
       />
 
       <Button
-        sx={{ marginTop: "20px" }}
+        sx={{
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
         type="submit"
         color="primary"
         variant="contained"
-        fullWidth
         onClick={handleLogin}
       >
         Login
@@ -60,7 +73,12 @@ const Login = () => {
         Not registered?
       </Typography>
       <Button
-        sx={{ marginTop: "20px" }}
+        sx={{
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
         type="button"
         variant="contained"
         href="/register"
