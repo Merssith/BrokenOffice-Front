@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Paper, TextField, Button, Typography, Link } from "@mui/material";
+import { Grid, TextField, Button, Typography, Link } from "@mui/material";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +18,14 @@ const Login = () => {
   };
 
   return (
-    <Paper
-      elevation={10}
+    <Grid
       sx={{
         width: "80%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         paddingBottom: "30px",
+        margin: "auto",
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
@@ -86,7 +86,7 @@ const Login = () => {
       >
         Register
       </Button>
-    </Paper>
+    </Grid>
   );
 };
 
