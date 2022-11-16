@@ -23,9 +23,9 @@ function App() {
         <Route path="/ticket/:id" element={<></>} />
 
         {/* Admin routes*/}
-        <Route path="/admin/*" element={<HomeAdmin/>} />
+        <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Box>
   );
 }
