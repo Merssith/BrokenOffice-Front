@@ -25,10 +25,18 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault(); //axios.post ("/login")
     axios
-      .post("http://localhost:3001/api/users/login", {
-        email,
-        password,
-      })
+      .post(
+        "http://localhost:3001/api/users/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+
+          withCredentials: true,
+        }
+      )
       .then((user) => {
         dispatch(setUser(user.data));
         console.log("LOGUEO EXITOSO!");

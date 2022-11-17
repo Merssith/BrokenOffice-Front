@@ -18,7 +18,7 @@ function App() {
   const pathName = window.location.pathname;
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/users/me").then((usuario) => {
+    axios.get("/api/users/me").then((usuario) => {
       dispatch(setUser(usuario.data));
     });
   }, []);
