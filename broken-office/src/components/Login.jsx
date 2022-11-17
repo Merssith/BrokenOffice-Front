@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, Typography, Link } from "@mui/material";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/users";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  ///// Redux
+  const dispatch = useDispatch();
+  ////
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,6 +24,26 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault(); //axios.post ("/login")
+    axios
+      .post(
+        "/api/users/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((user) => {
+        dispatch(setUser(user.data));
+        console.log("LOGUEO EXITOSO!");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("ERROR!");
+      });
   };
 
   return (
