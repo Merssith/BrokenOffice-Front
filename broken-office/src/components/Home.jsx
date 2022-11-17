@@ -11,8 +11,6 @@ const handleRegisterBtn = (e) => {
   e.preventDefault();
 };
 
-const isLogged = false;
-
 const Home = () => {
   const user = useSelector((state) => state.user);
   console.log(user);
@@ -76,6 +74,7 @@ const Home = () => {
             margin: "auto",
           }}
         >
+          <Grid></Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h6">
             Welcome {user.name}
           </Typography>
@@ -117,7 +116,7 @@ const Home = () => {
             type="submit"
             color="primary"
             variant="contained"
-            href="/profile"
+            href="/user/profile"
           >
             Profile
           </Button>

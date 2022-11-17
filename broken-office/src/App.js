@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/users";
+import Profile from "./components/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function App() {
 
         {/* User logged routes*/}
         <Route path="/" element={<></>} />
-        <Route path="/user/profile" element={<></>} />
+        <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/profile/edit" element={<></>} />
         <Route path="/ticket/create" element={<></>} />
         <Route path="/ticket/history" element={<></>} />
@@ -49,6 +50,7 @@ function App() {
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
+      <BottomNav />
       {/* <Footer /> */}
     </Box>
   );
