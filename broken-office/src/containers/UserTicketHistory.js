@@ -15,46 +15,45 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const UserTicketHistory = () => {
-  //const [tickets, setTickets] = useState([]);
-  //   const user = useSelector((state) => {
-  //     state.user
-  //   });
+  const [tickets, setTickets] = useState([]);
+  const user = useSelector((state) => state.user);
 
-  //   useEffect(() => {
-  //     axios
-  //       .get("/incidents/all", { id: user.id, role: user.role })
-  //       .then((response) => {
-  //         setTickets(response.data.incidents);
-  //       })
-  //       .catch("");
-  //   }, []);
+  useEffect(() => {
+    axios
+      .get("/api/incidents/all", { id: user.id, role: user.role })
+      .then((response) => {
+        console.log(response.data);
+        setTickets(response.data);
+      })
+      .catch("");
+  }, []);
 
-  const tickets = [
-    {
-      id: 1,
-      date: 17 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 2,
-      date: 21 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 3,
-      date: 29 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 4,
-      date: 30 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-  ];
+  // const tickets = [
+  //   {
+  //     id: 1,
+  //     date: 17 / 12 / 22,
+  //     details: "computer ",
+  //     status: "pending",
+  //   },
+  //   {
+  //     id: 2,
+  //     date: 21 / 12 / 22,
+  //     details: "computer ",
+  //     status: "pending",
+  //   },
+  //   {
+  //     id: 3,
+  //     date: 29 / 12 / 22,
+  //     details: "computer ",
+  //     status: "pending",
+  //   },
+  //   {
+  //     id: 4,
+  //     date: 30 / 12 / 22,
+  //     details: "computer ",
+  //     status: "pending",
+  //   },
+  // ];
 
   return (
     <>
@@ -66,18 +65,22 @@ const UserTicketHistory = () => {
         sx={{ width: "90%", m: 4 }}
       >
         <Grid>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             UserTicketHistory
           </Typography>
         </Grid>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <Table
+            sx={{ minWidth: "80%" }}
+            size="small"
+            aria-label="a dense table"
+          >
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell align="right">DATE</TableCell>
-                <TableCell align="right">DESCRIPTION&nbsp;(g)</TableCell>
-                <TableCell align="right">STATUS&nbsp;(g)</TableCell>
+                <TableCell align="right">DESCRIPTION</TableCell>
+                <TableCell align="right">STATUS</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

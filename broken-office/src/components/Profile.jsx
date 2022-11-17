@@ -58,10 +58,10 @@ const Profile = () => {
           }}
         >
           <Grid>
-            <img style={{ maxWidth: "25vw" }} src={user.avatar} />
+            <img style={{ maxWidth: "20vw" }} src={user.avatar} />
           </Grid>
           <Grid>
-            <Typography mt="10px" mb="30px" align="center" variant="h4">
+            <Typography mt="10px" mb="30px" align="center" variant="h5">
               {user.name} {user.lastName}
             </Typography>
           </Grid>
@@ -77,19 +77,19 @@ const Profile = () => {
             padding: "20px",
           }}
         >
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
+          <Typography mt="10px" mb="30px" align="center" variant="h6">
             Glober ID : {user.id}
           </Typography>
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
+          <Typography mt="10px" mb="30px" align="center" variant="h6">
             Email : {user.email}
           </Typography>
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
+          <Typography mt="10px" mb="30px" align="center" variant="h6">
             Name : {user.name}
           </Typography>
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
+          <Typography mt="10px" mb="30px" align="center" variant="h6">
             Lastname : {user.lastName}
           </Typography>
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
+          <Typography mt="10px" mb="30px" align="center" variant="h6">
             Location : GEOLOC
           </Typography>
         </Paper>
