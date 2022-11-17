@@ -13,12 +13,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/users";
 
-
 import UserTicketHistory from "./containers/UserTicketHistory";
 
-
 import Profile from "./components/Profile";
-
 
 function App() {
   const [path, setPath] = useState("");
@@ -52,7 +49,7 @@ function App() {
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/profile/edit" element={<></>} />
         <Route path="/ticket/create" element={<></>} />
-        <Route path="/ticket/history" element={<UserTicketHistory/>} />
+        <Route path="/ticket/history" element={<UserTicketHistory />} />
         <Route path="/ticket/:id" element={<></>} />
 
         {/* Admin routes*/}
