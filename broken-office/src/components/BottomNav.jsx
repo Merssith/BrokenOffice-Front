@@ -25,7 +25,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 //Historial
 import ArticleIcon from "@mui/icons-material/Article";
 import { useNavigate, useParams } from "react-router";
-import { Link } from "react-router-dom";
 export default function BottomNav() {
   // const params = useParams();
   const navigate = useNavigate();
