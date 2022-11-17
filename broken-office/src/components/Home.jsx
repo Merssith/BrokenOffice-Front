@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import globant from "../utils/globant.png";
 const handleLoginBtn = (e) => {
   e.preventDefault();
 };
@@ -74,6 +75,7 @@ const Home = () => {
           <Typography mt="10px" mb="30px" align="center" variant="h6">
             Welcome {user.name}
           </Typography>
+          <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
           <Button
             sx={{
               marginTop: "20px",
@@ -101,11 +103,10 @@ const Home = () => {
             color="primary"
             variant="contained"
           >
-            <Link style={{ textDecoration: "none" }} to="/my-tickets">
+            <Link style={{ textDecoration: "none" }} to="/ticket/history">
               My Tickets
             </Link>
           </Button>
-
           <Button
             sx={{
               marginTop: "20px",

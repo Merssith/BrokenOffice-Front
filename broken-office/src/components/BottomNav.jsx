@@ -43,7 +43,7 @@ export default function BottomNav() {
           </IconButton>
           <Box sx={{ flexGrow: 0.5 }} />
           <IconButton color="primary">
-            <Link to="/my-tickets">
+            <Link to="/ticket/history">
               <ArticleIcon
                 sx={{
                   fontSize: "2.5rem",
