@@ -2,21 +2,34 @@ import { Box } from "@mui/material";
 import { Route, Routes } from "react-router";
 import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
-import NavBar from "./components/NavBar";
 import HomeAdmin from "./containers/HomeAdmin";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/users";
 
 function App() {
+  const dispatch = useDispatch();
+  const pathName = window.location.pathname;
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/users/me").then((usuario) => {
+      dispatch(setUser(usuario.data));
+    });
+  }, []);
+
   return (
     <Box display="flex" flexDirection="column">
       <NavBar />
-
-      <footer>
-        <BottomNav />
-      </footer>
+      {pathName === "/" ? null : (
+        <footer>
+          <BottomNav />
+        </footer>
+      )}
 
       <Routes>
         {/* Public routes */}

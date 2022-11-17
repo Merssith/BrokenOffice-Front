@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, Typography } from "@mui/material";
-
+import axios from "axios";
 const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -31,8 +31,16 @@ const Register = () => {
   const handleGeolocation = (event) => {
     event.preventDefault(); // Capturar localizacion -> setGeolocation();
   };
+
+  //////
   const handleSubmit = (event) => {
     event.preventDefault(); // axios.post("/register")
+    axios.post("http://localhost:3001/api/users/", {
+      name: name,
+      lastName: lastName,
+      email: email,
+      password: password,
+    });
   };
 
   return (

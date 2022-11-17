@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./Login";
 import Register from "./Register";
 import { Button, Grid, Paper, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const handleLoginBtn = (e) => {
   e.preventDefault();
@@ -10,12 +11,14 @@ const handleRegisterBtn = (e) => {
   e.preventDefault();
 };
 
-const isLogged = true;
+const isLogged = false;
 
 const Home = () => {
+  const user = useSelector((state) => state.user);
+  console.log(user);
   return (
     <>
-      {isLogged === false ? (
+      {user.email === null ? (
         <Grid
           sx={{
             width: "100%",
@@ -74,7 +77,7 @@ const Home = () => {
           }}
         >
           <Typography mt="10px" mb="30px" align="center" variant="h6">
-            Welcome USER
+            Welcome {user.name}
           </Typography>
           <Button
             sx={{
