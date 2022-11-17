@@ -26,14 +26,13 @@ const Login = () => {
     e.preventDefault(); //axios.post ("/login")
     axios
       .post(
-        "http://localhost:3001/api/users/login",
+        "/api/users/login",
         {
           email,
           password,
         },
         {
           headers: { "Content-Type": "application/json" },
-
           withCredentials: true,
         }
       )

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, Typography } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -32,15 +34,21 @@ const Register = () => {
     event.preventDefault(); // Capturar localizacion -> setGeolocation();
   };
 
-  //////
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
-    event.preventDefault(); // axios.post("/register")
-    axios.post("http://localhost:3001/api/users/", {
-      name: name,
-      lastName: lastName,
-      email: email,
-      password: password,
-    });
+    event.preventDefault();
+    if (password === passwordTwo) {
+      axios
+        .post("/api/users/", {
+          name: name,
+          lastName: lastName,
+          email: email,
+          password: password,
+        })
+        .then((res) => console.log(res));
+      navigate("/login");
+    } else alert("contraseñas no coinciden");
   };
 
   return (
@@ -104,12 +112,12 @@ const Register = () => {
       />
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
-        value={password}
+        value={passwordTwo}
         id="outlined-basic-password"
         label="Confirm Password"
         type="password"
         required
-        onChange={passwordOnChange}
+        onChange={passwordTwoOnChange}
       />
       <Button
         sx={{

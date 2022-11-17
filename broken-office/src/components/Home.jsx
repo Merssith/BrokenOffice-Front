@@ -1,19 +1,15 @@
 import React from "react";
-import Login from "./Login";
-import Register from "./Register";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 const handleLoginBtn = (e) => {
   e.preventDefault();
 };
 const handleRegisterBtn = (e) => {
   e.preventDefault();
 };
-
 const Home = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   return (
     <>
       {user.email === null ? (
@@ -90,7 +86,9 @@ const Home = () => {
             variant="contained"
             href="/new-ticket"
           >
-            New Ticket
+            <Link style={{ textDecoration: "none" }} to="/new-ticket">
+              New Ticket
+            </Link>
           </Button>
           <Button
             sx={{
@@ -102,10 +100,12 @@ const Home = () => {
             type="submit"
             color="primary"
             variant="contained"
-            href="/my-tickets"
           >
-            My Tickets
+            <Link style={{ textDecoration: "none" }} to="/my-tickets">
+              My Tickets
+            </Link>
           </Button>
+
           <Button
             sx={{
               marginTop: "20px",
@@ -116,14 +116,15 @@ const Home = () => {
             type="submit"
             color="primary"
             variant="contained"
-            href="/user/profile"
+            // href="/user/profile"
           >
-            Profile
+            <Link style={{ textDecoration: "none" }} to="/user/profile">
+              Profile
+            </Link>
           </Button>
         </Grid>
       )}
     </>
   );
 };
-
 export default Home;
