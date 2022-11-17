@@ -1,8 +1,39 @@
 import React from "react";
 import { Button, Paper, Grid, Typography } from "@mui/material";
+import axios from "axios";
 import avatar from "../utils/avatar.png";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { setUser } from "../store/users";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user);
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        "/api/users/logout",
+        {},
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then(() =>
+        dispatch(
+          setUser({
+            fullname: null,
+            email: null,
+          })
+        )
+      );
+    navigate("/");
+  };
+
   return (
     <>
       <Grid
@@ -27,11 +58,11 @@ const Profile = () => {
           }}
         >
           <Grid>
-            <img src={avatar} />
+            <img style={{ maxWidth: "25vw" }} src={user.avatar} />
           </Grid>
           <Grid>
             <Typography mt="10px" mb="30px" align="center" variant="h4">
-              Name Lastname
+              {user.name} {user.lastName}
             </Typography>
           </Grid>
         </Grid>
@@ -47,16 +78,16 @@ const Profile = () => {
           }}
         >
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Glober ID : ID
+            Glober ID : {user.id}
           </Typography>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Email : EMAIL
+            Email : {user.email}
           </Typography>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Name : NOMBRE
+            Name : {user.name}
           </Typography>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Lastname : APELLIDO
+            Lastname : {user.lastName}
           </Typography>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
             Location : GEOLOC
@@ -72,7 +103,7 @@ const Profile = () => {
           type="submit"
           color="primary"
           variant="contained"
-          // href="/"
+          onClick={handleLogOut}
         >
           Log out
         </Button>

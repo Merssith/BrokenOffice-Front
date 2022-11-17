@@ -7,18 +7,24 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/users";
 import Profile from "./components/Profile";
 
 function App() {
+  const [path, setPath] = useState("");
   const dispatch = useDispatch();
-  const pathName = window.location.pathname;
+
+  // useEffect(() => {
+  //   setPath(window.location.pathname);
+  //   console.log(path);
+  // }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/users/me").then((usuario) => {
+    axios.get("/api/users/me").then((usuario) => {
+      console.log(usuario.data);
       dispatch(setUser(usuario.data));
     });
   }, []);
@@ -26,11 +32,6 @@ function App() {
   return (
     <Box display="flex" flexDirection="column">
       <NavBar />
-      {pathName === "/" ? null : (
-        <footer>
-          <BottomNav />
-        </footer>
-      )}
 
       <Routes>
         {/* Public routes */}
@@ -50,6 +51,7 @@ function App() {
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
+      {/* {path === "/" || "/login" || "/register" ? null : <BottomNav />} */}
       <BottomNav />
       {/* <Footer /> */}
     </Box>
