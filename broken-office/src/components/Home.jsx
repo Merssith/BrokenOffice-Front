@@ -11,6 +11,7 @@ const handleRegisterBtn = (e) => {
 };
 
 const isLogged = true;
+const isAdmin = false;
 
 const Home = () => {
   return (
@@ -73,6 +74,7 @@ const Home = () => {
             margin: "auto",
           }}
         >
+          <Grid></Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h6">
             Welcome USER
           </Typography>
@@ -114,7 +116,7 @@ const Home = () => {
             type="submit"
             color="primary"
             variant="contained"
-            href="/profile"
+            href="/user/profile"
           >
             Profile
           </Button>
