@@ -71,10 +71,10 @@ const Home = () => {
             margin: "auto",
           }}
         >
-          <Grid></Grid>
-          <Typography mt="10px" mb="30px" align="center" variant="h6">
-            Welcome {user.name}
+          <Typography mt="10px" mb="30px" align="center" variant="h5">
+            Welcome, {user.name}
           </Typography>
+
           <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
           <Button
             sx={{
@@ -86,9 +86,8 @@ const Home = () => {
             type="submit"
             color="primary"
             variant="contained"
-            href="/new-ticket"
           >
-            <Link style={{ textDecoration: "none" }} to="/new-ticket">
+            <Link style={{ textDecoration: "none" }} to="/ticket/create">
               New Ticket
             </Link>
           </Button>
