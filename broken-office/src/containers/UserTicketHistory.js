@@ -58,29 +58,28 @@ const UserTicketHistory = () => {
   return (
     <>
       <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ width: "90%", m: 4 }}
+        sx={{
+          width: "80%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingBottom: "30px",
+          margin: "auto",
+        }}
       >
         <Grid>
-          <Typography variant="h4" gutterBottom>
-            UserTicketHistory
+          <Typography mt="10px" mb="30px" align="center" variant="h5">
+            Ticket History
           </Typography>
         </Grid>
-        <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: "80%" }}
-            size="small"
-            aria-label="a dense table"
-          >
+        <TableContainer sx={{ width: "100%" }} component={Paper}>
+          <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell align="right">DATE</TableCell>
-                <TableCell align="right">DESCRIPTION</TableCell>
-                <TableCell align="right">STATUS</TableCell>
+                <TableCell>DATE</TableCell>
+                <TableCell>DESCRIPTION</TableCell>
+                <TableCell>STATUS</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -93,13 +92,10 @@ const UserTicketHistory = () => {
                   key={ticket.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="ticket">
-                    {ticket.id}
-                  </TableCell>
-
-                  <TableCell align="right">{ticket.date}</TableCell>
-                  <TableCell align="right">{ticket.details}</TableCell>
-                  <TableCell align="right">{ticket.status}</TableCell>
+                  <TableCell>{ticket.id}</TableCell>
+                  <TableCell>{ticket.createdAt}</TableCell>
+                  <TableCell>{ticket.details}</TableCell>
+                  <TableCell>{ticket.status}</TableCell>
                 </TableRow>
                 // </Link>
               ))}

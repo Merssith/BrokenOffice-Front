@@ -7,21 +7,17 @@ import { setUser } from "../store/users";
 
 const Login = () => {
   const navigate = useNavigate();
-
   ///// Redux
   const dispatch = useDispatch();
   ////
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const emailOnChange = (e) => {
     setEmail(e.target.value);
   };
-
   const passwordOnChange = (e) => {
     setPassword(e.target.value);
   };
-
   const handleLogin = (e) => {
     e.preventDefault(); //axios.post ("/login")
     axios
@@ -45,7 +41,6 @@ const Login = () => {
         console.log("ERROR!");
       });
   };
-
   return (
     <Grid
       sx={{
@@ -60,7 +55,6 @@ const Login = () => {
       <Typography mt="10px" mb="30px" align="center" variant="h5">
         Login
       </Typography>
-
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="E-mail"
@@ -70,7 +64,6 @@ const Login = () => {
         required
         onChange={emailOnChange}
       />
-
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="Password"
@@ -80,7 +73,6 @@ const Login = () => {
         required
         onChange={passwordOnChange}
       />
-
       <Button
         sx={{
           marginTop: "20px",
@@ -118,5 +110,4 @@ const Login = () => {
     </Grid>
   );
 };
-
 export default Login;

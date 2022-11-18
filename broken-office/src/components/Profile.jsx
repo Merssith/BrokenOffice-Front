@@ -58,7 +58,7 @@ const Profile = () => {
           }}
         >
           <Grid>
-            <img style={{ maxWidth: "20vw" }} src={user.avatar} />
+            <img style={{ maxWidth: "15vw" }} src={user.avatar} />
           </Grid>
           <Grid>
             <Typography mt="10px" mb="30px" align="center" variant="h5">
