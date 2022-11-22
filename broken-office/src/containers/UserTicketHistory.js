@@ -17,8 +17,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const UserTicketHistory = () => {
-  // const [tickets, setTickets] = useState([]);
-  // const user = useSelector((state) => state.user);
+  const [tickets, setTickets] = useState([]);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios
