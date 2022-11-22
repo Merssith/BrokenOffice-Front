@@ -21,6 +21,7 @@ const NewTicket = () => {
     e.preventDefault();
     setDevice(e.target.value);
   };
+  const handleSubject = () => {};
   const handleDescription = (e) => {
     e.preventDefault();
     setDescription(e.target.value);
@@ -49,7 +50,6 @@ const NewTicket = () => {
   return (
     <>
       <Grid
-        container
         sx={{
           width: "100%",
           display: "flex",
@@ -62,8 +62,16 @@ const NewTicket = () => {
         <Typography mt="10px" mb="30px" align="center" variant="h5">
           New Ticket
         </Typography>
-        <Grid>
-          <FormControl sx={{ width: "100%", marginTop: "15px" }}>
+        <Grid
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+            width: "75%",
+            margin: "auto",
+          }}
+        >
+          {/* <FormControl sx={{ width: "100%", marginTop: "15px" }}>
             <InputLabel>Select device</InputLabel>
             <Select
               labelId="usuarios-select"
@@ -72,24 +80,41 @@ const NewTicket = () => {
               value={device}
               onChange={handleDevice}
             >
-              {/* {User.devices
-              ? user.map((usuario, i) => (
-                  <MenuItem key={i} value={usuario.id}>
-                    {usuario.devices}
-                  </MenuItem>
-                ))
-              : null} */}
+              {User.devices
+                ? user.map((usuario, i) => (
+                    <MenuItem key={i} value={usuario.id}>
+                      {usuario.devices}
+                    </MenuItem>
+                  ))
+                : null}
             </Select>
-          </FormControl>
-
+          </FormControl> */}
           <TextField
-            sx={{ marginTop: "15px", width: "100%" }}
-            id="outlined-multiline-static"
+            sx={{
+              marginTop: "15px",
+              width: "100%",
+              maxWidth: "500px",
+              margin: "auto",
+            }}
+            label="Subject"
+            placeholder="Subject"
+            fullWidth
+            onChange={handleSubject}
+          />
+          <TextField
+            sx={{
+              marginTop: "15px",
+              width: "100%",
+              maxWidth: "500px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
             label="Description"
             placeholder="Enter a description here..."
             multiline
+            fullWidth
             onChange={handleDescription}
-            rows={4}
+            rows={6}
           />
         </Grid>
         <Button
@@ -97,7 +122,8 @@ const NewTicket = () => {
             marginTop: "20px",
             backgroundColor: "#BFD732",
             borderRadius: "20px",
-            width: "40%",
+            width: "50%",
+            maxWidth: "200px",
           }}
           variant="contained"
           component="label"
@@ -111,7 +137,8 @@ const NewTicket = () => {
             marginTop: "20px",
             backgroundColor: "#BFD732",
             borderRadius: "20px",
-            width: "40%",
+            width: "50%",
+            maxWidth: "200px",
           }}
           onClick={handleGeolocation}
           type="button"
@@ -126,7 +153,8 @@ const NewTicket = () => {
             marginTop: "20px",
             backgroundColor: "#BFD732",
             borderRadius: "20px",
-            width: "40%",
+            width: "50%",
+            maxWidth: "200px",
           }}
           type="button"
           variant="contained"

@@ -33,9 +33,7 @@ function NavBar() {
               }}
             >
               <Typography
-                sx={{
-                  "&:active": { color: "#696969" },
-                }}
+                sx={{ fontWeight: "bold", "&:active": { color: "#696969" } }}
                 variant="h6"
               >
                 BROKEN OFFICE

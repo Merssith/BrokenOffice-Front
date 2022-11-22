@@ -54,7 +54,7 @@ const Register = () => {
   return (
     <Grid
       sx={{
-        width: "80%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -124,7 +124,8 @@ const Register = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         onClick={handleGeolocation}
         type="button"
@@ -139,7 +140,8 @@ const Register = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         onClick={handleSubmit}
         type="submit"
@@ -157,7 +159,8 @@ const Register = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         type="button"
         variant="contained"

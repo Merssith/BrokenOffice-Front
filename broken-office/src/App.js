@@ -17,6 +17,7 @@ import { setUser } from "./store/users";
 import UserTicketHistory from "./containers/UserTicketHistory";
 
 import Profile from "./components/Profile";
+import SingleTicket from "./components/SingleTicket";
 
 function App() {
   const [path, setPath] = useState("");
@@ -51,7 +52,7 @@ function App() {
         <Route path="/user/profile/edit" element={<></>} />
         <Route path="/ticket/create" element={<NewTicket />} />
         <Route path="/ticket/history" element={<UserTicketHistory />} />
-        <Route path="/ticket/:id" element={<></>} />
+        <Route path="/ticket/:id" element={<SingleTicket />} />
 
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />

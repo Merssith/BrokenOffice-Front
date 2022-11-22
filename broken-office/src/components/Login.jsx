@@ -78,7 +78,8 @@ const Login = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         type="submit"
         color="primary"
@@ -87,10 +88,14 @@ const Login = () => {
       >
         Login
       </Button>
-      <Typography sx={{ textAlign: "center", marginTop: "5px" }}>
+      <Typography
+        sx={{ fontSize: "small ", textAlign: "center", marginTop: "5px" }}
+      >
         <Link href="#">Forgot your password?</Link>
       </Typography>
-      <Typography sx={{ textAlign: "center", marginTop: "30px" }}>
+      <Typography
+        sx={{ fontSize: "medium", textAlign: "center", marginTop: "25px" }}
+      >
         Not registered?
       </Typography>
       <Button
@@ -98,7 +103,8 @@ const Login = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         type="button"
         variant="contained"
