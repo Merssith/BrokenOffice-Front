@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, TextField, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
-
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -135,6 +135,32 @@ const Register = () => {
       >
         Geolocalize me
       </Button>
+
+      <Button
+        type="button"
+        variant="contained"
+        sx={{
+          overflow: "hidden",
+          marginTop: "20px",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          width: "70%",
+        }}
+      >
+        Add Photo
+        <AddAPhotoIcon sx={{ marginLeft: "0.5rem" }} />
+        <input
+          type="file"
+          style={{
+            position: "absolute",
+            transform: "scale(2)",
+            marginLeft: "2rem",
+            opacity: "0",
+            cursor: "pointer",
+          }}
+        />
+      </Button>
+
       <Button
         sx={{
           marginTop: "20px",
@@ -152,7 +178,7 @@ const Register = () => {
         Register
       </Button>
       <Typography sx={{ textAlign: "center", marginTop: "20px" }}>
-        Alredy registred?
+        Already registered?
       </Typography>
       <Button
         sx={{
@@ -169,6 +195,7 @@ const Register = () => {
       >
         Login
       </Button>
+      <div style={{ height: "10vh" }}></div>
     </Grid>
   );
 };

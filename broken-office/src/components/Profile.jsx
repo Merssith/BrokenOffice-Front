@@ -1,14 +1,17 @@
 import React from "react";
-import { Button, Paper, Grid, Typography } from "@mui/material";
+import { Button, Paper, Grid, Typography, IconButton } from "@mui/material";
 import axios from "axios";
 import avatar from "../utils/avatar.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setUser } from "../store/users";
-
+import { setAvatar } from "../store/users";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const avatarForm = new FormData();
 
   const user = useSelector((state) => state.user);
 
@@ -36,6 +39,28 @@ const Profile = () => {
     navigate("/");
   };
 
+  const handleImage = (e) => {
+    const avatar = e.target.files[0];
+
+    avatarForm.append("avatar", avatar);
+
+    // console.log(e.target.files[0]);
+
+    axios({
+      method: "put",
+      url: `/api/users/avatar/${user.id}`,
+      data: avatarForm,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch(setAvatar(response.data.avatar));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Typography mt="10px" mb="30px" align="center" variant="h5">
@@ -44,6 +69,57 @@ const Profile = () => {
       <Grid
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
+        <Grid
+          sx={{
+            width: "60%",
+            maxWidth: "400px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+            margin: "auto",
+          }}
+        >
+          <Grid>
+            <img
+              style={{
+                maxWidth: "20vw",
+                borderRadius: "20%",
+                border: "2px, solid black",
+              }}
+              src={user.avatar}
+            />
+          </Grid>
+
+          <IconButton
+            sx={{
+              overflow: "hidden",
+              position: "absolute",
+              marginRight: "5.6rem",
+              marginTop: "2.5rem",
+              color: "#bfd732",
+            }}
+          >
+            <AddAPhotoIcon />
+            <input
+              type="file"
+              style={{
+                position: "absolute",
+                transform: "scale(2)",
+                marginLeft: "2rem",
+                opacity: "0",
+                cursor: "pointer",
+              }}
+              onChange={handleImage}
+            />
+          </IconButton>
+
+          <Grid>
+            <Typography mt="10px" mb="30px" align="center" variant="h5">
+              {user.name} {user.lastName}
+            </Typography>
+          </Grid>
+        </Grid>
         <Paper
           sx={{
             width: "60%",
@@ -133,6 +209,7 @@ const Profile = () => {
           Log out
         </Button>
       </Grid>
+      <div style={{ height: "10vh" }}></div>
     </>
   );
 };
