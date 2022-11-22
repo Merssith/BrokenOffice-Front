@@ -7,21 +7,17 @@ import { setUser } from "../store/users";
 
 const Login = () => {
   const navigate = useNavigate();
-
   ///// Redux
   const dispatch = useDispatch();
   ////
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const emailOnChange = (e) => {
     setEmail(e.target.value);
   };
-
   const passwordOnChange = (e) => {
     setPassword(e.target.value);
   };
-
   const handleLogin = (e) => {
     e.preventDefault(); //axios.post ("/login")
     axios
@@ -45,7 +41,6 @@ const Login = () => {
         console.log("ERROR!");
       });
   };
-
   return (
     <Grid
       sx={{
@@ -60,7 +55,6 @@ const Login = () => {
       <Typography mt="10px" mb="30px" align="center" variant="h5">
         Login
       </Typography>
-
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="E-mail"
@@ -70,7 +64,6 @@ const Login = () => {
         required
         onChange={emailOnChange}
       />
-
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="Password"
@@ -80,13 +73,13 @@ const Login = () => {
         required
         onChange={passwordOnChange}
       />
-
       <Button
         sx={{
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         type="submit"
         color="primary"
@@ -95,10 +88,14 @@ const Login = () => {
       >
         Login
       </Button>
-      <Typography sx={{ textAlign: "center", marginTop: "5px" }}>
+      <Typography
+        sx={{ fontSize: "small ", textAlign: "center", marginTop: "5px" }}
+      >
         <Link href="#">Forgot your password?</Link>
       </Typography>
-      <Typography sx={{ textAlign: "center", marginTop: "30px" }}>
+      <Typography
+        sx={{ fontSize: "medium", textAlign: "center", marginTop: "25px" }}
+      >
         Not registered?
       </Typography>
       <Button
@@ -106,7 +103,8 @@ const Login = () => {
           marginTop: "20px",
           backgroundColor: "#BFD732",
           borderRadius: "20px",
-          width: "70%",
+          width: "50%",
+          maxWidth: "200px",
         }}
         type="button"
         variant="contained"
@@ -118,5 +116,4 @@ const Login = () => {
     </Grid>
   );
 };
-
 export default Login;

@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import NewTicket from "./components/NewTicket";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -16,6 +17,7 @@ import { setUser } from "./store/users";
 import UserTicketHistory from "./containers/UserTicketHistory";
 
 import Profile from "./components/Profile";
+import SingleTicket from "./components/SingleTicket";
 
 function App() {
   const [path, setPath] = useState("");
@@ -47,9 +49,9 @@ function App() {
         <Route path="/" element={<></>} />
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/profile/edit" element={<></>} />
-        <Route path="/ticket/create" element={<></>} />
+        <Route path="/ticket/create" element={<NewTicket />} />
         <Route path="/ticket/history" element={<UserTicketHistory />} />
-        <Route path="/ticket/:id" element={<></>} />
+        <Route path="/ticket/:id" element={<SingleTicket />} />
 
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />

@@ -7,10 +7,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Button,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -18,95 +20,101 @@ const UserTicketHistory = () => {
   // const [tickets, setTickets] = useState([]);
   // const user = useSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/incidents/all", { id: user.id, role: user.role })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setTickets(response.data);
-  //     })
-  //     .catch("");
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
+      .then((response) => {
+        console.log(response.data);
+        setTickets(response.data);
+      })
+      .catch("");
+  }, []);
 
-  const tickets = [
-    {
-      id: 1,
-      date: 17 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 2,
-      date: 21 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 3,
-      date: 29 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-    {
-      id: 4,
-      date: 30 / 12 / 22,
-      details: "computer ",
-      status: "pending",
-    },
-  ];
+  const navigate = useNavigate();
+
+  const handleMoreInfo = (id) => {
+    console.log(id);
+    // Me guardo el ticket.id
+    // Lo guardo en un estado de redux
+    navigate(`/ticket/${id}`);
+  };
 
   return (
     <>
       <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ width: "90%", m: 4 }}
+        sx={{
+          width: "95%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingBottom: "30px",
+          margin: "auto",
+        }}
       >
         <Grid>
-          <Typography variant="h4" gutterBottom>
-            UserTicketHistory
+          <Typography mt="10px" mb="30px" align="center" variant="h5">
+            Ticket History
           </Typography>
         </Grid>
-        <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: "80%" }}
-            size="small"
-            aria-label="a dense table"
-          >
+
+        <TableContainer sx={{ width: "100%" }} component={Paper}>
+          <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell align="right">DATE</TableCell>
-                <TableCell align="right">DESCRIPTION</TableCell>
-                <TableCell align="right">STATUS</TableCell>
+                {/* <TableCell sx={{ fontSize: 12 }}>ID</TableCell> */}
+                <TableCell
+                  sx={{ width: "20%", textAlign: "center", fontSize: 12 }}
+                >
+                  Date
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: "50%",
+                    textAlign: "center",
+                    fontSize: 12,
+                  }}
+                >
+                  Description
+                </TableCell>
+                <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  Status
+                </TableCell>
+                <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  +
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {tickets.map((ticket) => (
-                //     <Link
-                //     to={`/ticket/${ticket.id}`}
-                //     style={{ textDecoration: "none" }}
-                //   >
+              {tickets.map((ticket, i) => (
                 <TableRow
-                  key={ticket.id}
+                  key={i}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="ticket">
-                    {ticket.id}
+                  {/* <TableCell sx={{ fontSize: 12 }}>{ticket.id}</TableCell> */}
+                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                    {ticket.date}
                   </TableCell>
-
-                  <TableCell align="right">{ticket.date}</TableCell>
-                  <TableCell align="right">{ticket.details}</TableCell>
-                  <TableCell align="right">{ticket.status}</TableCell>
+                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                    {ticket.details}
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                    {ticket.status}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      textAlign: "right",
+                    }}
+                  >
+                    {/* <Link to={`/ticket/${ticket.id}`}>+</Link> */}
+                    <Button onClick={() => handleMoreInfo(ticket.id)}>
+                      <AddIcon sx={{ fontSize: "medium" }} />
+                    </Button>
+                  </TableCell>
                 </TableRow>
-                // </Link>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid></Grid>
       </Grid>
     </>
   );
