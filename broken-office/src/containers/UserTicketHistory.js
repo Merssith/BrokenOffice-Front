@@ -15,45 +15,45 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const UserTicketHistory = () => {
-  const [tickets, setTickets] = useState([]);
-  const user = useSelector((state) => state.user);
+  // const [tickets, setTickets] = useState([]);
+  // const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    axios
-      .get("/api/incidents/all", { id: user.id, role: user.role })
-      .then((response) => {
-        console.log(response.data);
-        setTickets(response.data);
-      })
-      .catch("");
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/incidents/all", { id: user.id, role: user.role })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setTickets(response.data);
+  //     })
+  //     .catch("");
+  // }, []);
 
-  // const tickets = [
-  //   {
-  //     id: 1,
-  //     date: 17 / 12 / 22,
-  //     details: "computer ",
-  //     status: "pending",
-  //   },
-  //   {
-  //     id: 2,
-  //     date: 21 / 12 / 22,
-  //     details: "computer ",
-  //     status: "pending",
-  //   },
-  //   {
-  //     id: 3,
-  //     date: 29 / 12 / 22,
-  //     details: "computer ",
-  //     status: "pending",
-  //   },
-  //   {
-  //     id: 4,
-  //     date: 30 / 12 / 22,
-  //     details: "computer ",
-  //     status: "pending",
-  //   },
-  // ];
+  const tickets = [
+    {
+      id: 1,
+      date: 17 / 12 / 22,
+      details: "computer ",
+      status: "pending",
+    },
+    {
+      id: 2,
+      date: 21 / 12 / 22,
+      details: "computer ",
+      status: "pending",
+    },
+    {
+      id: 3,
+      date: 29 / 12 / 22,
+      details: "computer ",
+      status: "pending",
+    },
+    {
+      id: 4,
+      date: 30 / 12 / 22,
+      details: "computer ",
+      status: "pending",
+    },
+  ];
 
   return (
     <>

@@ -28,7 +28,6 @@ function App() {
 
   useEffect(() => {
     axios.get("/api/users/me").then((usuario) => {
-      console.log(usuario.data);
       dispatch(setUser(usuario.data));
     });
   }, []);
