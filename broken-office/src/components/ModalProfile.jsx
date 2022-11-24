@@ -69,7 +69,7 @@ function ModalProfile() {
     name: name,
     telephone: telPhone,
   };
-  console.log(changes);
+  // console.log(changes);
   return (
     <Modal
       title="Edit profile"
