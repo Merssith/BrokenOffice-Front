@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import useGeolocation from "../hooks/useGeolocation";
 import Geocode from "react-geocode";
@@ -15,6 +16,22 @@ const NewTicket = () => {
   const location = useGeolocation();
   const lat = location.coordinates.lat;
   const lng = location.coordinates.lng;
+
+import {
+  Grid,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  TextField,
+  Button,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+
+const NewTicket = () => {
+  const photo = useSelector((state)=> state.photo)
+  //console.log("esta es la foto", photo)
+
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
@@ -174,6 +191,24 @@ const NewTicket = () => {
             rows={6}
           />
         </Grid>
+        <Link to="/photo">
+        <Button
+          sx={{
+            marginTop: "20px",
+            backgroundColor: "#BFD732",
+            borderRadius: "20px",
+            width: "50%",
+            maxWidth: "200px",
+          }}
+          variant="contained"
+          component="label"
+          fullWidth
+        >
+          Take Photo
+          {/* <input hidden accept="image/*" multiple type="file" /> */}
+        </Button>
+        </Link>
+       
         <Button
           sx={{
             marginTop: "20px",
@@ -189,7 +224,12 @@ const NewTicket = () => {
           Add Photo
           <input hidden accept="image/*" multiple type="file" />
         </Button>
-        {/* <Button
+
+
+
+     
+        <Button
+
           sx={{
             marginTop: "20px",
             backgroundColor: "#BFD732",
