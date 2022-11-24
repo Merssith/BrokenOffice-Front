@@ -1,21 +1,39 @@
-import React from "react";
-import { Button, Paper, Grid, Typography, IconButton } from "@mui/material";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import {
+  Button,
+  Paper,
+  Grid,
+  Typography,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import axios from "axios";
 import avatar from "../utils/avatar.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setUser } from "../store/users";
-import { setAvatar } from "../store/users";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { Modal } from "antd";
+import { setAvatar } from "../store/avatar";
+import ModalProfile from "./ModalProfile";
+import { setModalBool } from "../store/modalBool";
 const Profile = () => {
+  const [profilePhoto, setProfilePhoto] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const avatarForm = new FormData();
-
+  const avatar = useSelector((state) => state.avatar);
   const user = useSelector((state) => state.user);
+  const modalBool = useSelector((state) => state.modalBool);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleEdit = () => {};
+  //////////////////HANDLES
+  const handleBool = () => {
+    if (modalBool === true) {
+      dispatch(setModalBool(false));
+    } else {
+      dispatch(setModalBool(true));
+    }
+  };
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -39,27 +57,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  const handleImage = (e) => {
-    const avatar = e.target.files[0];
-
-    avatarForm.append("avatar", avatar);
-
-    // console.log(e.target.files[0]);
-
-    axios({
-      method: "put",
-      url: `/api/users/avatar/${user.id}`,
-      data: avatarForm,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then((response) => {
-        console.log(response);
-        dispatch(setAvatar(response.data.avatar));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  ////////////////////////////////////
 
   return (
     <>
@@ -79,47 +77,7 @@ const Profile = () => {
             alignItems: "center",
             margin: "auto",
           }}
-        >
-          <Grid>
-            <img
-              style={{
-                maxWidth: "20vw",
-                borderRadius: "20%",
-                border: "2px, solid black",
-              }}
-              src={user.avatar}
-            />
-          </Grid>
-
-          <IconButton
-            sx={{
-              overflow: "hidden",
-              position: "absolute",
-              marginRight: "5.6rem",
-              marginTop: "2.5rem",
-              color: "#bfd732",
-            }}
-          >
-            <AddAPhotoIcon />
-            <input
-              type="file"
-              style={{
-                position: "absolute",
-                transform: "scale(2)",
-                marginLeft: "2rem",
-                opacity: "0",
-                cursor: "pointer",
-              }}
-              onChange={handleImage}
-            />
-          </IconButton>
-
-          <Grid>
-            <Typography mt="10px" mb="30px" align="center" variant="h5">
-              {user.name} {user.lastName}
-            </Typography>
-          </Grid>
-        </Grid>
+        ></Grid>
         <Paper
           sx={{
             width: "60%",
@@ -144,13 +102,18 @@ const Profile = () => {
             <Grid>
               <img
                 style={{
-                  maxWidth: "60%",
+                  maxWidth: "20vw",
+                  borderRadius: "20%",
+                  border: "1px solid black",
                 }}
                 src={user.avatar}
               />
             </Grid>
             <Grid>
-              <Typography sx={{ margin: "auto" }} variant="h6">
+              <Typography
+                sx={{ marginLeft: "1rem", textAlign: "center" }}
+                variant="h6"
+              >
                 {user.name} {user.lastName}
               </Typography>
             </Grid>
@@ -186,10 +149,11 @@ const Profile = () => {
                 type="submit"
                 color="primary"
                 variant="contained"
-                onClick={handleEdit}
+                onClick={handleBool}
               >
                 Edit
               </Button>
+              <ModalProfile />
             </Grid>
           </Grid>
         </Paper>

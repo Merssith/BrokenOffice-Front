@@ -19,12 +19,11 @@ import { useSelector } from "react-redux";
 const UserTicketHistory = () => {
   const [tickets, setTickets] = useState([]);
   const user = useSelector((state) => state.user);
-
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setTickets(response.data);
       })
       .catch("");
@@ -33,7 +32,7 @@ const UserTicketHistory = () => {
   const navigate = useNavigate();
 
   const handleMoreInfo = (id) => {
-    console.log(id);
+    // console.log(id);
     // Me guardo el ticket.id
     // Lo guardo en un estado de redux
     navigate(`/ticket/${id}`);

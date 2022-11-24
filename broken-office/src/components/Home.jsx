@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import globant from "../utils/globant.png";
+import "../styles/global.css";
 const handleLoginBtn = (e) => {
   e.preventDefault();
 };
@@ -87,7 +88,10 @@ const Home = () => {
             color="primary"
             variant="contained"
           >
-            <Link style={{ textDecoration: "none" }} to="/ticket/create">
+            <Link
+              style={{ color: "#444444", textDecoration: "none" }}
+              to="/ticket/create"
+            >
               New Ticket
             </Link>
           </Button>
@@ -102,7 +106,10 @@ const Home = () => {
             color="primary"
             variant="contained"
           >
-            <Link style={{ textDecoration: "none" }} to="/ticket/history">
+            <Link
+              style={{ color: "#444444", textDecoration: "none" }}
+              to="/ticket/history"
+            >
               My Tickets
             </Link>
           </Button>
@@ -118,12 +125,16 @@ const Home = () => {
             variant="contained"
             // href="/user/profile"
           >
-            <Link style={{ textDecoration: "none" }} to="/user/profile">
+            <Link
+              style={{ color: "#444444", textDecoration: "none" }}
+              to="/user/profile"
+            >
               Profile
             </Link>
           </Button>
         </Grid>
       )}
+      <Outlet />
     </>
   );
 };

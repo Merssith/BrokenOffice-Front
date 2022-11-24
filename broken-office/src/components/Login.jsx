@@ -34,11 +34,11 @@ const Login = () => {
       )
       .then((user) => {
         dispatch(setUser(user.data));
-        console.log("LOGUEO EXITOSO!");
+        // console.log("LOGUEO EXITOSO!");
         navigate("/");
       })
       .catch((err) => {
-        console.log("ERROR!");
+        // console.log("ERROR!");
       });
   };
   return (
