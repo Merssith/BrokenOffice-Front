@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, Typography, Link } from "@mui/material";
+import { Grid, TextField, Button, Typography, Link, FormHelperText } from "@mui/material";
 import axios from "axios";
 import {  useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/users";
+import { isEmail, isValidPassword } from "../utils/validation";
+
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,14 +15,24 @@ const Login = () => {
   ////
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPass, setIsValidPass] = useState(true);
+
   const emailOnChange = (e) => {
-    setEmail(e.target.value);
+    const emailInput = e.target.value;
+    setEmail(emailInput);
+    isEmail(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
   };
   const passwordOnChange = (e) => {
-    setPassword(e.target.value);
+    const passwordInput = e.target.value;
+    setPassword(passwordInput);
+    isValidPassword(passwordInput)
+      ? setIsValidPass(true)
+      : setIsValidPass(false);
   };
   const handleLogin = (e) => {
-    e.preventDefault(); //axios.post ("/login")
+    if(isValidEmail && isValidPass )
+   { e.preventDefault(); //axios.post ("/login")
     axios
       .post(
         "/api/users/login",
@@ -39,7 +52,7 @@ const Login = () => {
       })
       .catch((err) => {
         // console.log("ERROR!");
-      });
+      })} else {alert("Los datos ingresados no son correctos")};
   };
   return (
     <Grid
@@ -64,6 +77,9 @@ const Login = () => {
         required
         onChange={emailOnChange}
       />
+            {isValidEmail ? null : (
+        <FormHelperText error>Dirección de correo incorrecta</FormHelperText>
+      )}
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="Password"
@@ -73,6 +89,14 @@ const Login = () => {
         required
         onChange={passwordOnChange}
       />
+       {isValidPass ? null : (
+        <FormHelperText error>
+          Debe tener al menos 6 caracteres,
+          <br /> una mayúscula, una minúscula,
+          <br />
+          un número y un caracter especial
+        </FormHelperText>
+      )}
       <Button
         sx={{
           marginTop: "20px",
