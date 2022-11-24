@@ -36,15 +36,8 @@ const Profile = () => {
           withCredentials: true,
         }
       )
-      .then(() =>
-        dispatch(
-          setUser({
-            fullname: null,
-            email: null,
-          })
-        )
-      );
-    navigate("/");
+      .then(() => dispatch(setUser({})))
+      .then(() => navigate("/"));
   };
 
   ////////////////////////////////////
