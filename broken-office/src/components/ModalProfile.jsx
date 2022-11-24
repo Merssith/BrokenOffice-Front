@@ -86,93 +86,103 @@ function ModalProfile() {
         ,
       ]}
     >
-      <TextField
-        defaultValue={user.name}
-        label="Name"
-        variant="filled"
-        onChange={nameOnChange}
-      />
-      <TextField
-        sx={{ marginTop: "1rem" }}
-        label="Email"
-        defaultValue={user.email}
-        variant="filled"
-        onChange={emailOnChange}
-      />
-      <TextField
-        sx={{ marginTop: "1rem" }}
-        label="Telephone number"
-        defaultValue={user.telephone}
-        variant="filled"
-        onChange={telPhoneOnChange}
-      />
-
-      <div style={{ height: "0.8rem" }}></div>
-      <Button
-        variant="contained"
-        sx={{
-          overflow: "hidden",
-          backgroundColor: "#BFD732",
-          color: "white",
-          textAlign: "center",
-          width: "9.2rem",
-          justifyContent: "space-around",
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        GEOLOCATION
-        <ExploreIcon />
-      </Button>
-
-      <div style={{ height: "0.8rem" }}></div>
-
-      <Button
-        variant="contained"
-        sx={{
-          overflow: "hidden",
-          backgroundColor: "#BFD732",
-          color: "white",
-          justifyContent: "space-around",
-          width: "9.2rem",
-        }}
-      >
-        EDIT PHOTO
-        {/* <div style={{ width: "0.5rem" }}></div> */}
-        <AddAPhotoIcon />
-        <input
-          type="file"
-          style={{
-            position: "absolute",
-            transform: "scale(2)",
-            marginLeft: "2rem",
-            opacity: "0",
-            cursor: "pointer",
-          }}
-          onChange={handleImage}
+        <TextField
+          defaultValue={user.name}
+          label="Name"
+          variant="filled"
+          onChange={nameOnChange}
         />
-      </Button>
-      {checkConfirm == "none" ? null : checkConfirm == "spin" ? (
-        <Loading3QuartersOutlined
-          style={{
-            color: "#444444",
-            position: "absolute",
-            marginTop: "0.2rem",
-            marginLeft: "0.5rem",
-            fontSize: "2rem",
-          }}
-          spin
+        <TextField
+          sx={{ marginTop: "1rem" }}
+          label="Email"
+          defaultValue={user.email}
+          variant="filled"
+          onChange={emailOnChange}
         />
-      ) : checkConfirm == "checked" ? (
-        <CheckCircleIcon
+        <TextField
+          sx={{ marginTop: "1rem" }}
+          label="Telephone number"
+          defaultValue={user.telephone}
+          variant="filled"
+          onChange={telPhoneOnChange}
+        />
+
+        <div style={{ height: "0.8rem" }}></div>
+        <Button
+          variant="contained"
           sx={{
-            color: "#BFD732",
-            position: "absolute",
-
-            marginTop: "0.2rem",
-            marginLeft: "0.5rem",
-            fontSize: "2rem",
+            overflow: "hidden",
+            backgroundColor: "#BFD732",
+            color: "white",
+            textAlign: "center",
+            width: "9.2rem",
+            justifyContent: "space-around",
           }}
-        />
-      ) : null}
+        >
+          GEOLOCATION
+          <ExploreIcon />
+        </Button>
+
+        <div style={{ height: "0.8rem" }}></div>
+
+        <Button
+          variant="contained"
+          sx={{
+            overflow: "hidden",
+            backgroundColor: "#BFD732",
+            color: "white",
+            justifyContent: "space-around",
+            width: "9.2rem",
+          }}
+        >
+          EDIT PHOTO
+          {/* <div style={{ width: "0.5rem" }}></div> */}
+          <AddAPhotoIcon />
+          <input
+            type="file"
+            style={{
+              position: "absolute",
+              transform: "scale(2)",
+              marginLeft: "2rem",
+              opacity: "0",
+              cursor: "pointer",
+            }}
+            onChange={handleImage}
+          />
+        </Button>
+
+        {checkConfirm == "none" ? null : checkConfirm == "spin" ? (
+          <Loading3QuartersOutlined
+            style={{
+              color: "#444444",
+              position: "absolute",
+              marginTop: "16.4rem",
+              marginLeft: "12rem",
+              fontSize: "2rem",
+            }}
+            spin
+          />
+        ) : checkConfirm == "checked" ? (
+          <CheckCircleIcon
+            sx={{
+              color: "#BFD732",
+              position: "absolute",
+
+              marginTop: "16.4rem",
+              marginLeft: "12rem",
+              fontSize: "2rem",
+            }}
+          />
+        ) : null}
+      </div>
     </Modal>
   );
 }

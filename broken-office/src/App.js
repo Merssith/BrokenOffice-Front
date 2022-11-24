@@ -14,13 +14,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./store/users";
-
 import UserTicketHistory from "./containers/UserTicketHistory";
-
 import Profile from "./components/Profile";
 import SingleTicket from "./components/SingleTicket";
-
 import Photo from "./containers/Photo";
+import { useMediaQuery } from "@mui/material";
+import NavBarDesktop from "./components/NavBarDesktop";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,10 +31,10 @@ function App() {
       dispatch(setUser(usuario.data));
     });
   }, []);
-
+  const isActive = useMediaQuery("(max-width: 800px)");
   return (
     <Box display="flex" flexDirection="column">
-      <NavBar />
+      {!isActive ? <NavBarDesktop /> : <NavBar />}
 
       <Routes>
         {/* Public routes */}
@@ -57,7 +56,10 @@ function App() {
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
-      {location.pathname === "/" || !user.email ? null : <BottomNav />}
+      {location.pathname === "/" || !user.email || !isActive ? null : (
+        <BottomNav />
+      )}
+
       {/* <Footer /> */}
     </Box>
   );

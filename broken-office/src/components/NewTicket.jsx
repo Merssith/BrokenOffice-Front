@@ -2,8 +2,23 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
+
+const ButtonGeneric = {
+  margin: "1.5rem",
+  color: "#444444",
+  width: "auto",
+  transform: "scale(1.3)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
 
 const NewTicket = () => {
   //console.log("esta es la foto", photo)
@@ -12,7 +27,7 @@ const NewTicket = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-
+  const navigate = useNavigate();
   const handleDevice = (e) => {
     setDevice(e.target.value);
   };
@@ -119,64 +134,20 @@ const NewTicket = () => {
             rows={6}
           />
         </Grid>
-        <Link to="/photo">
-          <Button
-            sx={{
-              marginTop: "20px",
-              backgroundColor: "#BFD732",
-              borderRadius: "20px",
-              width: "50%",
-              maxWidth: "200px",
-            }}
-            variant="contained"
-            component="label"
-            fullWidth
-          >
-            Take Photo
-            {/* <input hidden accept="image/*" multiple type="file" /> */}
-          </Button>
-        </Link>
 
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
           variant="contained"
           component="label"
           fullWidth
+          onClick={() => navigate("/photo")}
         >
-          Add Photo
-          <input hidden accept="image/*" multiple type="file" />
+          Take Photo
+          {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
 
-        {/* <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
-          onClick={handleGeolocation}
-          type="button"
-          variant="contained"
-          component="label"
-          fullWidth
-        >
-          Geolocalize me
-        </Button> */}
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
           type="button"
           variant="contained"
           onClick={handleNewTicket}
@@ -185,6 +156,7 @@ const NewTicket = () => {
           Submit
         </Button>
       </Grid>
+      <div style={{ height: "3rem" }}></div>
     </>
   );
 };
