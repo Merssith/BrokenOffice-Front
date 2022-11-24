@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import globant from "../utils/globant.png";
 import "../styles/global.css";
+import useGeolocation from "../hooks/useGeolocation";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/users";
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -19,10 +23,6 @@ const ButtonGeneric = {
     color: "white",
   },
 };
-import useGeolocation from "../hooks/useGeolocation";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/users";
 
 const Home = () => {
   const dispatch = useDispatch();

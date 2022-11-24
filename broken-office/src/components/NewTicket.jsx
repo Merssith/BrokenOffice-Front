@@ -27,7 +27,7 @@ const NewTicket = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-
+  const navigate = useNavigate();
   const handleDevice = (e) => {
     setDevice(e.target.value);
   };
