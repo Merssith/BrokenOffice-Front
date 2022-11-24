@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setPhoto } from "../store/photo";
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -21,8 +23,9 @@ const ButtonGeneric = {
 };
 
 const NewTicket = () => {
-  //console.log("esta es la foto", photo)
-
+  const dispatch = useDispatch();
+  const photo = useSelector((state) => state.photo);
+  // console.log("esta es la foto", photo);
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
@@ -41,22 +44,24 @@ const NewTicket = () => {
   const handleNewTicket = async (e) => {
     e.preventDefault();
     console.log(user);
-    axios.post(
-      "/api/incidents",
-      {
-        status: "OPEN",
-        place: user.place,
-        subject: subject,
-        geoCords: user.geoCords,
-        details: description,
-        userId: user.id,
-        photo: "",
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    );
+    axios
+      .post(
+        "/api/incidents",
+        {
+          status: "OPEN",
+          place: user.place,
+          subject: subject,
+          geoCords: user.geoCords,
+          details: description,
+          userId: user.id,
+          photo: photo ? photo : "",
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then(() => dispatch(setPhoto("")));
 
     document.getElementById("subject-input").value = "";
     document.getElementById("description-input").value = "";

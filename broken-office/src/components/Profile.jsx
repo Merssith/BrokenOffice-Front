@@ -131,10 +131,12 @@ const Profile = () => {
           >
             <Typography mt="10px">Glober ID : {user.id}</Typography>
             <Typography mt="10px">Email : {user.email}</Typography>
-            <Typography mt="10px">
-              Telephone number : {user.telephone}
-            </Typography>
-            <Typography mt="10px">Location : {user.geoCords}</Typography>
+            {user.telephone && (
+              <Typography mt="10px">
+                Telephone number : {user.telephone}
+              </Typography>
+            )}
+            <Typography mt="10px">Location : {user.place}</Typography>
             <Grid
               sx={{
                 width: "100%",

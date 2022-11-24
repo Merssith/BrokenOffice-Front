@@ -56,7 +56,7 @@ const SingleTicket = () => {
           Details: {ticket.details}
         </Typography>
       </Grid>
-      <Grid>
+      <Grid sx={{ width: "10%" }}>
         <img src={ticket.photo} alt="Ticket" />
       </Grid>
       <Button

@@ -16,7 +16,6 @@ const Photo = () => {
 
     dispatch(setPhoto(imageSrc));
     navigate("/ticket/create");
-    console.log("ESTA ES LA FOTO", imageSrc);
   }, [webcamRef]);
   const isActive = useMediaQuery("(max-width: 800px)");
   return (
