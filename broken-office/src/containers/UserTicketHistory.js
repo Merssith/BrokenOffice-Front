@@ -20,22 +20,18 @@ const UserTicketHistory = () => {
   const [tickets, setTickets] = useState([]);
   const user = useSelector((state) => state.user);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
       .then((response) => {
-        console.log(response.data);
         setTickets(response.data);
       })
       .catch("");
   }, []);
 
-  const navigate = useNavigate();
-
   const handleMoreInfo = (id) => {
-    console.log(id);
-    // Me guardo el ticket.id
-    // Lo guardo en un estado de redux
     navigate(`/ticket/${id}`);
   };
 
@@ -61,7 +57,6 @@ const UserTicketHistory = () => {
           <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                {/* <TableCell sx={{ fontSize: 12 }}>ID</TableCell> */}
                 <TableCell
                   sx={{ width: "20%", textAlign: "center", fontSize: 12 }}
                 >
@@ -74,19 +69,20 @@ const UserTicketHistory = () => {
                     fontSize: 12,
                   }}
                 >
-                  Description
+                  Subject
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                   Status
                 </TableCell>
-                <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                  +
-                </TableCell>
+                <TableCell
+                  sx={{ textAlign: "center", fontSize: 12 }}
+                ></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {tickets.map((ticket, i) => (
                 <TableRow
+                  onClick={() => handleMoreInfo(ticket.id)}
                   key={i}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
@@ -95,7 +91,7 @@ const UserTicketHistory = () => {
                     {ticket.date}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                    {ticket.details}
+                    {ticket.subject}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.status}
@@ -104,12 +100,7 @@ const UserTicketHistory = () => {
                     sx={{
                       textAlign: "right",
                     }}
-                  >
-                    {/* <Link to={`/ticket/${ticket.id}`}>+</Link> */}
-                    <Button onClick={() => handleMoreInfo(ticket.id)}>
-                      <AddIcon sx={{ fontSize: "medium" }} />
-                    </Button>
-                  </TableCell>
+                  ></TableCell>
                 </TableRow>
               ))}
             </TableBody>
