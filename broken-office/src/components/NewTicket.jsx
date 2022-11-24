@@ -11,8 +11,11 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const NewTicket = () => {
+  const photo = useSelector((state)=> state.photo)
+  //console.log("esta es la foto", photo)
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [device, setDevice] = useState("");
@@ -117,6 +120,24 @@ const NewTicket = () => {
             rows={6}
           />
         </Grid>
+        <Link to="/photo">
+        <Button
+          sx={{
+            marginTop: "20px",
+            backgroundColor: "#BFD732",
+            borderRadius: "20px",
+            width: "50%",
+            maxWidth: "200px",
+          }}
+          variant="contained"
+          component="label"
+          fullWidth
+        >
+          Take Photo
+          {/* <input hidden accept="image/*" multiple type="file" /> */}
+        </Button>
+        </Link>
+       
         <Button
           sx={{
             marginTop: "20px",
@@ -132,6 +153,7 @@ const NewTicket = () => {
           Add Photo
           <input hidden accept="image/*" multiple type="file" />
         </Button>
+     
         <Button
           sx={{
             marginTop: "20px",

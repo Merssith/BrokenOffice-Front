@@ -18,6 +18,7 @@ import UserTicketHistory from "./containers/UserTicketHistory";
 
 import Profile from "./components/Profile";
 import SingleTicket from "./components/SingleTicket";
+import Photo from "./containers/Photo"
 
 function App() {
   const [path, setPath] = useState("");
@@ -53,6 +54,7 @@ function App() {
         <Route path="/ticket/create" element={<NewTicket />} />
         <Route path="/ticket/history" element={<UserTicketHistory />} />
         <Route path="/ticket/:id" element={<SingleTicket />} />
+        <Route path="/photo" element={<Photo />} />
 
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
