@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,  } from "react-redux";
 import { useNavigate } from "react-router";
 import Webcam from "react-webcam";
 import { setPhoto } from "../store/photo";

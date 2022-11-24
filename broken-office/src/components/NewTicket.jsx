@@ -17,7 +17,7 @@ const NewTicket = () => {
   const lat = location.coordinates.lat;
   const lng = location.coordinates.lng;
 
-  const photo = useSelector((state) => state.photo);
+
   //console.log("esta es la foto", photo)
 
   const user = useSelector((state) => state.user);

@@ -10,7 +10,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
-  const [geolocation, setGeolocation] = useState("");
+
 
   const nameOnChange = (event) => {
     setName(event.target.value);

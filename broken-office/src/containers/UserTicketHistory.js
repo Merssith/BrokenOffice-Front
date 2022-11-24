@@ -7,12 +7,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   Typography,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -30,7 +29,7 @@ const UserTicketHistory = () => {
         setTickets(response.data);
       })
       .catch("");
-  }, []);
+  }, [user.id]);
 
   const handleMoreInfo = (id) => {
     // console.log(id);
