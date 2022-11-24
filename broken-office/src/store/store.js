@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./users";
+import photoReducer from "./photo";
 
 import avatarReducer from "./avatar";
 
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userReducer,
     avatar: avatarReducer,
     modalBool: modalBoolReducer,
+    photo: photoReducer,
   },
 });
 

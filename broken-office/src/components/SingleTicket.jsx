@@ -1,28 +1,28 @@
 import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Grid, Button, Typography } from "@mui/material";
-
-const handleDeleteTicket = () => {
-  // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
-  // navigate ("/usertickethistory")
-};
-
-const tickets = [
-  {
-    id: 1,
-    status: "ABIERTO",
-    geoCords: "Vila Carlos Paz, Cordoba",
-    subject: "Notebook DELL no funciona",
-    details:
-      "No me anda la computadora nueva. Debo admitir que me la olvidé en la mesa del patio todo el fin de semana. Recién el lunes me acordé donde estaba. Como sabrán llovió desde el viernes hasta el domingo. No me despidan porfa",
-    photo:
-      "https://www.computershopping.com.ar/Images/Productos/DELL-LAT-3520_Foto0.jpg",
-    date: "2022-11-18",
-
-    userId: 1,
-  },
-];
+import axios from "axios";
 
 const SingleTicket = () => {
+  const [ticket, setTicket] = useState({});
+  const params = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`/api/incidents/search?id=${params.id}`)
+      .then((response) => {
+        setTicket(response.data[0]);
+      })
+      .catch("");
+  }, []);
+
+  const handleDeleteTicket = () => {
+    // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
+    axios.delete(`/api/incidents/delete/${ticket.id}`);
+    navigate("/ticket/history");
+  };
   return (
     <Grid
       sx={{
@@ -35,29 +35,29 @@ const SingleTicket = () => {
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        TicketID: {tickets[0].id}
+        TicketID: {ticket.id}
       </Typography>
       <Grid>
         <Typography mt="10px" mb="30px" align="center">
-          Status: {tickets[0].status}
+          Status: {ticket.status}
         </Typography>
         <Typography mt="10px" mb="30px" align="center">
-          Device: {tickets[0].device}
+          Device: {ticket.device}
         </Typography>
         <Typography mt="10px" mb="30px" align="center">
-          Location: {tickets[0].geoCords}
+          Location: {ticket.place}
         </Typography>
         <Typography mt="10px" mb="30px" align="center">
-          Subject: {tickets[0].subject}
+          Subject: {ticket.subject}
         </Typography>
       </Grid>
       <Grid>
         <Typography mt="10px" mb="30px" align="center">
-          Details: {tickets[0].details}
+          Details: {ticket.details}
         </Typography>
       </Grid>
       <Grid>
-        <img src={tickets[0].photo} />
+        <img src={ticket.photo} />
       </Grid>
       <Button
         sx={{
