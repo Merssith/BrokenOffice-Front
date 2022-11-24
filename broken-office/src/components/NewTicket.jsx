@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import useGeolocation from "../hooks/useGeolocation";
 import Geocode from "react-geocode";
@@ -17,19 +17,7 @@ const NewTicket = () => {
   const lat = location.coordinates.lat;
   const lng = location.coordinates.lng;
 
-import {
-  Grid,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  TextField,
-  Button,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-
-const NewTicket = () => {
-  const photo = useSelector((state)=> state.photo)
+  const photo = useSelector((state) => state.photo);
   //console.log("esta es la foto", photo)
 
   const user = useSelector((state) => state.user);
@@ -104,7 +92,7 @@ const NewTicket = () => {
         // console.log(city, state, country);
         const localPlace = city + ", " + state + ", " + country;
         setPlace(place);
-                // console.log(place); -> Ciudad, Provincia, Pais
+        // console.log(place); -> Ciudad, Provincia, Pais
         // console.log(address); -> Direccion, Ciudad, Provincia, Pais
       },
       (error) => {
@@ -192,23 +180,23 @@ const NewTicket = () => {
           />
         </Grid>
         <Link to="/photo">
-        <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
-          variant="contained"
-          component="label"
-          fullWidth
-        >
-          Take Photo
-          {/* <input hidden accept="image/*" multiple type="file" /> */}
-        </Button>
+          <Button
+            sx={{
+              marginTop: "20px",
+              backgroundColor: "#BFD732",
+              borderRadius: "20px",
+              width: "50%",
+              maxWidth: "200px",
+            }}
+            variant="contained"
+            component="label"
+            fullWidth
+          >
+            Take Photo
+            {/* <input hidden accept="image/*" multiple type="file" /> */}
+          </Button>
         </Link>
-       
+
         <Button
           sx={{
             marginTop: "20px",
@@ -225,11 +213,7 @@ const NewTicket = () => {
           <input hidden accept="image/*" multiple type="file" />
         </Button>
 
-
-
-     
         <Button
-
           sx={{
             marginTop: "20px",
             backgroundColor: "#BFD732",
@@ -244,7 +228,7 @@ const NewTicket = () => {
           fullWidth
         >
           Geolocalize me
-        </Button> */}
+        </Button>
         <Button
           sx={{
             marginTop: "20px",
