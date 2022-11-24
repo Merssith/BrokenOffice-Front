@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import useGeolocation from "../hooks/useGeolocation";
 import Geocode from "react-geocode";
@@ -12,11 +12,26 @@ Geocode.setLanguage("en");
 Geocode.setRegion("es");
 Geocode.setLocationType("ROOFTOP");
 
+const ButtonGeneric = {
+  margin: "1.5rem",
+  color: "#444444",
+  width: "auto",
+  transform: "scale(1.3)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
+
 const NewTicket = () => {
   const location = useGeolocation();
+  const navigate = useNavigate();
   const lat = location.coordinates.lat;
   const lng = location.coordinates.lng;
-
 
   //console.log("esta es la foto", photo)
 
@@ -179,32 +194,20 @@ const NewTicket = () => {
             rows={6}
           />
         </Grid>
-        <Link to="/photo">
-          <Button
-            sx={{
-              marginTop: "20px",
-              backgroundColor: "#BFD732",
-              borderRadius: "20px",
-              width: "50%",
-              maxWidth: "200px",
-            }}
-            variant="contained"
-            component="label"
-            fullWidth
-          >
-            Take Photo
-            {/* <input hidden accept="image/*" multiple type="file" /> */}
-          </Button>
-        </Link>
 
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
+          variant="contained"
+          component="label"
+          fullWidth
+          onClick={() => navigate("/photo")}
+        >
+          Take Photo
+          {/* <input hidden accept="image/*" multiple type="file" /> */}
+        </Button>
+
+        <Button
+          sx={ButtonGeneric}
           variant="contained"
           component="label"
           fullWidth
@@ -214,13 +217,7 @@ const NewTicket = () => {
         </Button>
 
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
           onClick={handleGeolocation}
           type="button"
           variant="contained"
@@ -230,13 +227,7 @@ const NewTicket = () => {
           Geolocalize me
         </Button>
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "50%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
           type="button"
           variant="contained"
           onClick={handleNewTicket}
@@ -245,6 +236,7 @@ const NewTicket = () => {
           Submit
         </Button>
       </Grid>
+      <div style={{ height: "3rem" }}></div>
     </>
   );
 };

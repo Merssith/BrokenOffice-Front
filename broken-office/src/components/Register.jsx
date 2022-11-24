@@ -3,6 +3,22 @@ import { Grid, TextField, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+
+const ButtonGeneric = {
+  margin: "2rem",
+  color: "#444444",
+  width: "auto",
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
+
 const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -10,7 +26,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
-
 
   const nameOnChange = (event) => {
     setName(event.target.value);
@@ -119,56 +134,9 @@ const Register = () => {
         required
         onChange={passwordTwoOnChange}
       />
-      <Button
-        sx={{
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "50%",
-          maxWidth: "200px",
-        }}
-        onClick={handleGeolocation}
-        type="button"
-        variant="contained"
-        component="label"
-        fullWidth
-      >
-        Geolocalize me
-      </Button>
 
       <Button
-        type="button"
-        variant="contained"
-        sx={{
-          overflow: "hidden",
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "70%",
-        }}
-      >
-        Add Photo
-        <AddAPhotoIcon sx={{ marginLeft: "0.5rem" }} />
-        <input
-          type="file"
-          style={{
-            position: "absolute",
-            transform: "scale(2)",
-            marginLeft: "2rem",
-            opacity: "0",
-            cursor: "pointer",
-          }}
-        />
-      </Button>
-
-      <Button
-        sx={{
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "50%",
-          maxWidth: "200px",
-        }}
+        sx={ButtonGeneric}
         onClick={handleSubmit}
         type="submit"
         variant="contained"
@@ -181,13 +149,7 @@ const Register = () => {
         Already registered?
       </Typography>
       <Button
-        sx={{
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "50%",
-          maxWidth: "200px",
-        }}
+        sx={ButtonGeneric}
         type="button"
         variant="contained"
         href="/login"
@@ -195,7 +157,7 @@ const Register = () => {
       >
         Login
       </Button>
-      <div style={{ height: "10vh" }}></div>
+      <div style={{ height: "8vh" }}></div>
     </Grid>
   );
 };

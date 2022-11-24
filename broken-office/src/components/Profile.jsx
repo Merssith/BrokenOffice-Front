@@ -9,6 +9,22 @@ import { setUser } from "../store/users";
 
 import ModalProfile from "./ModalProfile";
 import { setModalBool } from "../store/modalBool";
+import EditIcon from "@mui/icons-material/Edit";
+const ButtonGeneric = {
+  margin: "2rem",
+  color: "#444444",
+  width: "auto",
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
+
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +71,11 @@ const Profile = () => {
         Profile
       </Typography>
       <Grid
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         <Grid
           sx={{
@@ -70,8 +90,7 @@ const Profile = () => {
         ></Grid>
         <Paper
           sx={{
-            width: "60%",
-            maxWidth: "300px",
+            width: "60vw",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -127,35 +146,27 @@ const Profile = () => {
               sx={{
                 width: "100%",
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: "center",
                 marginTop: "10px",
               }}
             >
               <Button
-                sx={{
-                  backgroundColor: "#BFD732",
-                  borderRadius: "20px",
-                  width: "30%",
-                }}
+                sx={ButtonGeneric}
                 type="submit"
                 color="primary"
                 variant="contained"
                 onClick={handleBool}
               >
                 Edit
+                <div style={{ width: "0.2rem" }}></div>
+                <EditIcon sx={{ fontSize: "1rem" }} />
               </Button>
               <ModalProfile />
             </Grid>
           </Grid>
         </Paper>
         <Button
-          sx={{
-            marginTop: "20px",
-            backgroundColor: "#BFD732",
-            borderRadius: "20px",
-            width: "30%",
-            maxWidth: "200px",
-          }}
+          sx={ButtonGeneric}
           type="submit"
           color="primary"
           variant="contained"

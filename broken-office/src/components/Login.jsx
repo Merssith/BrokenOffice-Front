@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button, Typography, Link } from "@mui/material";
 import axios from "axios";
-import {  useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/users";
+
+const ButtonGeneric = {
+  margin: "2rem",
+  color: "#444444",
+  width: "8rem",
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -74,13 +89,7 @@ const Login = () => {
         onChange={passwordOnChange}
       />
       <Button
-        sx={{
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "50%",
-          maxWidth: "200px",
-        }}
+        sx={ButtonGeneric}
         type="submit"
         color="primary"
         variant="contained"
@@ -99,13 +108,7 @@ const Login = () => {
         Not registered?
       </Typography>
       <Button
-        sx={{
-          marginTop: "20px",
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "50%",
-          maxWidth: "200px",
-        }}
+        sx={ButtonGeneric}
         type="button"
         variant="contained"
         href="/register"
