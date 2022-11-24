@@ -16,7 +16,7 @@ const Register = () => {
   const [globerId, setGloberId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordTwo, setPasswordTwo] = useState("");//se puede borrar no se usa
+  const [passwordTwo, setPasswordTwo] = useState(""); //se puede borrar no se usa
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPass, setIsValidPass] = useState(true);
   const [areSamePass, setAreSamePass] = useState(true);
@@ -67,7 +67,9 @@ const Register = () => {
         })
         .then((res) => console.log(res));
       navigate("/login");
-    } else {alert("Los datos ingresados no son correctos")};
+    } else {
+      alert("The data entered is not correct");
+    }
   };
 
   return (
@@ -121,7 +123,7 @@ const Register = () => {
         onChange={emailOnChange}
       />
       {isValidEmail ? null : (
-        <FormHelperText error>Dirección de correo incorrecta</FormHelperText>
+        <FormHelperText error>Invalid email address</FormHelperText>
       )}
 
       <TextField
@@ -135,10 +137,9 @@ const Register = () => {
       />
       {isValidPass ? null : (
         <FormHelperText error>
-          Debe tener al menos 6 caracteres,
-          <br /> una mayúscula, una minúscula,
-          <br />
-          un número y un caracter especial
+          It must be at least 6 characters
+          <br /> one uppercase, one lowercase,
+          <br />a number and a special character
         </FormHelperText>
       )}
       <TextField
@@ -151,9 +152,7 @@ const Register = () => {
         onChange={passwordTwoOnChange}
       />
       {areSamePass ? null : (
-        <FormHelperText error>
-          Las contraseñas deben de ser iguales
-        </FormHelperText>
+        <FormHelperText error>Passwords must be the same</FormHelperText>
       )}
       <Button
         sx={{
