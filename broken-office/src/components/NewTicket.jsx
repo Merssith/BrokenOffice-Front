@@ -4,13 +4,6 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
-import useGeolocation from "../hooks/useGeolocation";
-import Geocode from "react-geocode";
-
-Geocode.setApiKey("AIzaSyAl-XghXzVClVpAK2vsLYS1Nb7vOLF6xtg");
-Geocode.setLanguage("en");
-Geocode.setRegion("es");
-Geocode.setLocationType("ROOFTOP");
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -28,18 +21,12 @@ const ButtonGeneric = {
 };
 
 const NewTicket = () => {
-  const location = useGeolocation();
-  const navigate = useNavigate();
-  const lat = location.coordinates.lat;
-  const lng = location.coordinates.lng;
-
   //console.log("esta es la foto", photo)
 
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-  const [place, setPlace] = useState("");
 
   const handleDevice = (e) => {
     setDevice(e.target.value);
@@ -53,18 +40,17 @@ const NewTicket = () => {
 
   const handleNewTicket = async (e) => {
     e.preventDefault();
-    handleGeolocation();
-    console.log(place);
+    console.log(user);
     axios.post(
       "/api/incidents",
       {
         status: "OPEN",
-        place: place,
+        place: user.place,
         subject: subject,
-        geoCords: lat + "," + lng,
+        geoCords: user.geoCords,
         details: description,
         userId: user.id,
-        // photo: "www.myphoto.com",
+        photo: "",
       },
       {
         headers: { "Content-Type": "application/json" },
@@ -75,52 +61,6 @@ const NewTicket = () => {
     document.getElementById("subject-input").value = "";
     document.getElementById("description-input").value = "";
   };
-
-  const handleGeolocation = async () => {
-    await Geocode.fromLatLng(lat, lng).then(
-      (response) => {
-        const address = response.results[0].formatted_address;
-        let city, state, country;
-        for (
-          let i = 0;
-          i < response.results[0].address_components.length;
-          i++
-        ) {
-          for (
-            let j = 0;
-            j < response.results[0].address_components[i].types.length;
-            j++
-          ) {
-            switch (response.results[0].address_components[i].types[j]) {
-              case "locality":
-                city = response.results[0].address_components[i].long_name;
-                break;
-              case "administrative_area_level_1":
-                state = response.results[0].address_components[i].long_name;
-                break;
-              case "country":
-                country = response.results[0].address_components[i].long_name;
-                break;
-            }
-          }
-        }
-        // console.log(city, state, country);
-        const localPlace = city + ", " + state + ", " + country;
-        setPlace(place);
-        // console.log(place); -> Ciudad, Provincia, Pais
-        // console.log(address); -> Direccion, Ciudad, Provincia, Pais
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  };
-
-  // useEffect(() => {
-  //   handleGeolocation();
-  //   console.log("Hola");
-  //   console.log(place);
-  // }, []);
 
   return (
     <>
@@ -206,26 +146,6 @@ const NewTicket = () => {
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
 
-        <Button
-          sx={ButtonGeneric}
-          variant="contained"
-          component="label"
-          fullWidth
-        >
-          Add Photo
-          <input hidden accept="image/*" multiple type="file" />
-        </Button>
-
-        <Button
-          sx={ButtonGeneric}
-          onClick={handleGeolocation}
-          type="button"
-          variant="contained"
-          component="label"
-          fullWidth
-        >
-          Geolocalize me
-        </Button>
         <Button
           sx={ButtonGeneric}
           type="button"

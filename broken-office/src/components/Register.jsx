@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, Typography } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  FormHelperText,
+} from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { isEmail, isValidPassword, samePassword } from "../utils/validation";
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -25,7 +32,10 @@ const Register = () => {
   const [globerId, setGloberId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordTwo, setPasswordTwo] = useState("");
+  const [passwordTwo, setPasswordTwo] = useState(""); //se puede borrar no se usa
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPass, setIsValidPass] = useState(true);
+  const [areSamePass, setAreSamePass] = useState(true);
 
   const nameOnChange = (event) => {
     setName(event.target.value);
@@ -37,13 +47,23 @@ const Register = () => {
     setGloberId(event.target.value);
   };
   const emailOnChange = (event) => {
-    setEmail(event.target.value);
+    const emailInput = event.target.value;
+    setEmail(emailInput);
+    isEmail(emailInput) ? setIsValidEmail(true) : setIsValidEmail(false);
   };
   const passwordOnChange = (event) => {
-    setPassword(event.target.value);
+    const passwordInput = event.target.value;
+    setPassword(passwordInput);
+    isValidPassword(passwordInput)
+      ? setIsValidPass(true)
+      : setIsValidPass(false);
   };
   const passwordTwoOnChange = (event) => {
-    setPasswordTwo(event.target.value);
+    const passwordTwoInput = event.target.value;
+    setPasswordTwo(passwordTwoInput);
+    samePassword(password, passwordTwoInput)
+      ? setAreSamePass(true)
+      : setAreSamePass(false);
   };
   const handleGeolocation = (event) => {
     event.preventDefault(); // Capturar localizacion -> setGeolocation();
@@ -53,7 +73,7 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (password === passwordTwo) {
+    if (isValidEmail && isValidPass && areSamePass) {
       axios
         .post("/api/users/", {
           name: name,
@@ -63,7 +83,9 @@ const Register = () => {
         })
         .then((res) => console.log(res));
       navigate("/login");
-    } else alert("contraseñas no coinciden");
+    } else {
+      alert("The data entered is not correct");
+    }
   };
 
   return (
@@ -116,6 +138,10 @@ const Register = () => {
         required
         onChange={emailOnChange}
       />
+      {isValidEmail ? null : (
+        <FormHelperText error>Invalid email address</FormHelperText>
+      )}
+
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={password}
@@ -125,6 +151,13 @@ const Register = () => {
         required
         onChange={passwordOnChange}
       />
+      {isValidPass ? null : (
+        <FormHelperText error>
+          It must be at least 6 characters
+          <br /> one uppercase, one lowercase,
+          <br />a number and a special character
+        </FormHelperText>
+      )}
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={passwordTwo}
@@ -134,6 +167,9 @@ const Register = () => {
         required
         onChange={passwordTwoOnChange}
       />
+      {areSamePass ? null : (
+        <FormHelperText error>Passwords must be the same</FormHelperText>
+      )}
 
       <Button
         sx={ButtonGeneric}

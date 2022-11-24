@@ -1,16 +1,9 @@
-import React from "react";
-import { Button, Grid, Paper, Typography, styled } from "@mui/material";
+import React, { useEffect } from "react";
+import { Button, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import globant from "../utils/globant.png";
 import "../styles/global.css";
-
-const handleLoginBtn = (e) => {
-  e.preventDefault();
-};
-const handleRegisterBtn = (e) => {
-  e.preventDefault();
-};
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -26,92 +19,83 @@ const ButtonGeneric = {
     color: "white",
   },
 };
+import useGeolocation from "../hooks/useGeolocation";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/users";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  const { location, place } = useGeolocation();
+  console.log(user);
+  useEffect(() => {
+    axios
+      .put(`/api/users/update/${user.id}`, {
+        geoCords: location.coordinates.lat + "," + location.coordinates.lng,
+        place: place,
+      })
+      .then((res) => dispatch(setUser(res.data)));
+  }, [place]);
+
   return (
     <>
-      {user.email === null ? (
-        <Grid
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            paddingBottom: "30px",
-            margin: "auto",
-          }}
-        >
-          <Typography mt="10px" mb="30px" align="center" variant="h4">
-            Welcome to BrokenOffice
-          </Typography>
-          <Typography mt="10px" mb="30px" align="center" variant="h6">
-            In first place, please login
-          </Typography>
-          <Button
-            sx={ButtonGeneric}
-            type="submit"
-            variant="contained"
-            href="/login"
-          >
-            Login
-          </Button>
-          <Typography mt="10px" mb="10px" align="center" variant="h6">
-            or
-          </Typography>
-          <Button
-            sx={ButtonGeneric}
-            type="submit"
-            variant="contained"
-            href="/register"
-          >
-            Register
-          </Button>
-        </Grid>
-      ) : (
-        <Grid
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            paddingBottom: "30px",
-            margin: "auto",
-          }}
-        >
-          <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Welcome, {user.name}
-          </Typography>
+      <Grid
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingBottom: "30px",
+          margin: "auto",
+        }}
+      >
+        <Typography mt="10px" mb="30px" align="center" variant="h5">
+          Welcome, {user.name}
+        </Typography>
 
-          <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
-          <Button
-            sx={ButtonGeneric}
-            variant="contained"
-            onClick={() => navigate("/ticket/create")}
+        <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
+        <Button
+          sx={ButtonGeneric}
+          type="submit"
+          color="primary"
+          variant="contained"
+        >
+          <Link
+            style={{ color: "#444444", textDecoration: "none" }}
+            to="/ticket/create"
           >
             New Ticket
-          </Button>
-          <Button
-            sx={ButtonGeneric}
-            type="submit"
-            color="primary"
-            variant="contained"
-            onClick={() => navigate("/ticket/history")}
+          </Link>
+        </Button>
+        <Button
+          sx={ButtonGeneric}
+          type="submit"
+          color="primary"
+          variant="contained"
+        >
+          <Link
+            style={{ color: "#444444", textDecoration: "none" }}
+            to="/ticket/history"
           >
             My Tickets
-          </Button>
-          <Button
-            sx={ButtonGeneric}
-            type="submit"
-            color="primary"
-            variant="contained"
-            onClick={() => navigate("/user/profile")}
+          </Link>
+        </Button>
+        <Button
+          sx={ButtonGeneric}
+          type="submit"
+          color="primary"
+          variant="contained"
+          // href="/user/profile"
+        >
+          <Link
+            style={{ color: "#444444", textDecoration: "none" }}
+            to="/user/profile"
           >
             Profile
-          </Button>
-        </Grid>
-      )}
+          </Link>
+        </Button>
+      </Grid>
       <Outlet />
     </>
   );
