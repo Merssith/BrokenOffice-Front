@@ -9,7 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import NewTicket from "./components/NewTicket";
 
-import { useEffect, useState } from "react";
+import { useEffect,} from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./store/users";
@@ -18,22 +18,20 @@ import UserTicketHistory from "./containers/UserTicketHistory";
 
 import Profile from "./components/Profile";
 import SingleTicket from "./components/SingleTicket";
-import { setAvatar } from "./store/avatar";
-import userEvent from "@testing-library/user-event";
+
 import Photo from "./containers/Photo";
 
 function App() {
-  const [path, setPath] = useState("");
   const dispatch = useDispatch();
-  const avatar = useSelector((state) => state.avatar);
   const location = useLocation();
   const user = useSelector((state) => state.user);
+
   useEffect(() => {
     axios.get("/api/users/me").then((usuario) => {
       dispatch(setUser(usuario.data));
     });
   }, []);
-  // console.log("LOCATION", location);
+
   return (
     <Box display="flex" flexDirection="column">
       <NavBar />
@@ -57,7 +55,6 @@ function App() {
         {/* Admin routes*/}
         <Route path="/admin/*" element={<HomeAdmin />} />
       </Routes>
-      {/* {path === "/" || "/login" || "/register" ? null : <BottomNav />} */}
       {location.pathname === "/" || !user.email ? null : <BottomNav />}
       {/* <Footer /> */}
     </Box>

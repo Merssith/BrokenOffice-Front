@@ -1,30 +1,20 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import {
-  Button,
-  Paper,
-  Grid,
-  Typography,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import React from "react";
+
+import { Button, Paper, Grid, Typography } from "@mui/material";
 import axios from "axios";
-import avatar from "../utils/avatar.png";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setUser } from "../store/users";
-import { Modal } from "antd";
-import { setAvatar } from "../store/avatar";
+
 import ModalProfile from "./ModalProfile";
 import { setModalBool } from "../store/modalBool";
 const Profile = () => {
-  const [profilePhoto, setProfilePhoto] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const avatar = useSelector((state) => state.avatar);
+
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   //////////////////HANDLES
   const handleBool = () => {
@@ -107,6 +97,7 @@ const Profile = () => {
                   border: "1px solid black",
                 }}
                 src={user.avatar}
+                alt="User avatar"
               />
             </Grid>
             <Grid>

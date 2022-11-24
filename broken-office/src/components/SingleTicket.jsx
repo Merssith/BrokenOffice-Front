@@ -16,7 +16,7 @@ const SingleTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
-  }, []);
+  }, [params.id]);
 
   const handleDeleteTicket = () => {
     // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
@@ -57,7 +57,7 @@ const SingleTicket = () => {
         </Typography>
       </Grid>
       <Grid>
-        <img src={ticket.photo} />
+        <img src={ticket.photo} alt="Ticket" />
       </Grid>
       <Button
         sx={{
