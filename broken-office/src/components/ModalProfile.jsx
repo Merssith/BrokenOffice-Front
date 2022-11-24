@@ -9,7 +9,6 @@ import { setModalBool } from "../store/modalBool";
 import { Loading3QuartersOutlined, LoadingOutlined } from "@ant-design/icons";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 function ModalProfile() {
-  /////
   const dispatch = useDispatch();
   const avatarForm = new FormData();
   const user = useSelector((state) => state.user);
