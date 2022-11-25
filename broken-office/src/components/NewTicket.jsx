@@ -54,7 +54,7 @@ const NewTicket = () => {
 
   const handleNewTicket = async (e) => {
     e.preventDefault();
-    console.log(user);
+
     axios
       .post(
         "/api/incidents",
@@ -77,7 +77,7 @@ const NewTicket = () => {
     document.getElementById("subject-input").value = "";
     document.getElementById("description-input").value = "";
   };
-  console.log(photo);
+ 
   return (
     <>
       <Grid

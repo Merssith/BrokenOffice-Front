@@ -11,6 +11,7 @@ import ModalProfile from "./ModalProfile";
 import { setModalBool } from "../store/modalBool";
 import EditIcon from "@mui/icons-material/Edit";
 
+
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
@@ -33,6 +34,7 @@ const Profile = () => {
 
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
+
 
   
   //////////////////HANDLES

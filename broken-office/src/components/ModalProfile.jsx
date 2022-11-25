@@ -98,7 +98,7 @@ function ModalProfile() {
 
   ///////////////////////
 
-  console.log(changes);
+  
   return (
     <Modal
       title="Edit profile"
