@@ -33,7 +33,7 @@ const Start = () => {
         Welcome to BrokenOffice
       </Typography>
       <Typography mt="10px" mb="30px" align="center" variant="h6">
-        In first place, please login
+        Please login or register first
       </Typography>
       <Button
         sx={ButtonGeneric}
@@ -44,9 +44,6 @@ const Start = () => {
       >
         Login
       </Button>
-      <Typography mt="10px" mb="10px" align="center" variant="h6">
-        or
-      </Typography>
       <Button
         sx={ButtonGeneric}
         type="submit"
