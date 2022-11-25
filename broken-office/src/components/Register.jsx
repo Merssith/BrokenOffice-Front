@@ -120,7 +120,7 @@ const Register = () => {
         required
         onChange={lastNameOnChange}
       />
-      <TextField
+      {/* <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={globerId}
         id="input-globerId"
@@ -128,7 +128,7 @@ const Register = () => {
         type="text"
         required
         onChange={globerIdOnChange}
-      />
+      /> */}
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={email}

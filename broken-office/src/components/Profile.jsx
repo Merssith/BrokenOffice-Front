@@ -11,7 +11,6 @@ import ModalProfile from "./ModalProfile";
 import { setModalBool } from "../store/modalBool";
 import EditIcon from "@mui/icons-material/Edit";
 
-
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
@@ -27,16 +26,14 @@ const ButtonGeneric = {
   },
 };
 
-
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
+  console.log(user.place);
 
-
-  
   //////////////////HANDLES
   const handleBool = () => {
     if (modalBool === true) {
@@ -60,7 +57,6 @@ const Profile = () => {
       .then(() => dispatch(setUser({})))
       .then(() => navigate("/"));
   };
-
 
   ////////////////////////////////////
 
@@ -153,7 +149,10 @@ const Profile = () => {
               </Typography>
             )}
             <Typography variant="subtitle1" mt="10px">
-              {<strong>Location:</strong>} {user.place}
+              {<strong>Location:</strong>}
+            </Typography>
+            <Typography variant="subtitle1" mt="10px">
+              {user.place}
             </Typography>
             <Grid
               sx={{

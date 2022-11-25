@@ -28,7 +28,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { location, place } = useGeolocation();
-
+  
   useEffect(() => {
     axios
       .put(`/api/users/update/${user.id}`, {
