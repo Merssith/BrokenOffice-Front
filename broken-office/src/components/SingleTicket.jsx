@@ -85,8 +85,8 @@ const SingleTicket = () => {
           {ticket.details}
         </Typography>
       </Grid>
-      <Grid sx={{ width: "10%" }}>
-        <img src={ticket.photo} alt="Ticket" />
+      <Grid sx={{ width: "70%", maxWidth: '350px' }}>
+        <img width="100%" src={ticket.photo} alt="Ticket" />
       </Grid>
       <Button
         sx={ButtonGeneric}
