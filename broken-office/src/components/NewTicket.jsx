@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setPhoto } from "../store/photo";
+import { setModalBool } from "../store/modalBool";
+import ModalPhoto from "./ModalPhoto";
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -30,7 +31,17 @@ const NewTicket = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-  const navigate = useNavigate();
+  
+  const modalBool = useSelector((state) => state.modalBool);
+
+  //////////////////HANDLES
+  const handleBool = () => {
+    if (modalBool === true) {
+      dispatch(setModalBool(false));
+    } else {
+      dispatch(setModalBool(true));
+    }
+  };
   const handleDevice = (e) => {
     setDevice(e.target.value);
   };
@@ -43,7 +54,7 @@ const NewTicket = () => {
 
   const handleNewTicket = async (e) => {
     e.preventDefault();
-    console.log(user);
+
     axios
       .post(
         "/api/incidents",
@@ -66,7 +77,7 @@ const NewTicket = () => {
     document.getElementById("subject-input").value = "";
     document.getElementById("description-input").value = "";
   };
-
+ 
   return (
     <>
       <Grid
@@ -145,12 +156,12 @@ const NewTicket = () => {
           variant="contained"
           component="label"
           fullWidth
-          onClick={() => navigate("/photo")}
+          onClick={handleBool}
         >
           Take Photo
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
-
+        <ModalPhoto />
         <Button
           sx={ButtonGeneric}
           type="button"

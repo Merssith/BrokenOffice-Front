@@ -1,15 +1,16 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import Webcam from "react-webcam";
-import { setPhoto } from "../store/photo";
 import { Button, useMediaQuery } from "@mui/material";
+import { Modal } from "antd";
+import Webcam from "react-webcam";
+import React from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { useDispatch, useSelector } from "react-redux";
+import { setModalBool } from "../store/modalBool";
+import { setPhoto } from "../store/photo";
+
 
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
-  width: "auto",
   transform: "scale(1.2)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",
@@ -21,22 +22,37 @@ const ButtonGeneric = {
   },
 };
 
-const Photo = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const webcamRef = React.useRef(null);
+function ModalPhoto() {
 
-  
+  const modalBool = useSelector((state) => state.modalBool);
+  const dispatch = useDispatch();
+  const webcamRef = React.useRef(null);
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
 
     dispatch(setPhoto(imageSrc));
-    navigate("/ticket/create");
+    handleCancel()
   }, [webcamRef]);
   const isActive = useMediaQuery("(max-width: 800px)");
+
+  const handleCancel = () => {
+    dispatch(setModalBool(false));
+  };
+
+
   return (
-    <>
+    <Modal
+    open={modalBool}
+    onCancel={handleCancel}
+    sx={{
+      textAlign: "center",
+      
+    }}
+    footer={[
+      <Button onClick={handleCancel}>Cancel</Button>,
+    ]}
+  >
       {isActive ? (
         <div
           style={{
@@ -56,10 +72,9 @@ const Photo = () => {
             variant="contained"
             sx={ButtonGeneric}
             onClick={capture}
-            endIcon={<AddAPhotoIcon sx={{size:'large'}}/>}
+            endIcon={<AddAPhotoIcon />}
           >
             Capture photo
-            <div style={{ width: "1rem" }}></div>
             
           </Button>
           {/* {imgSrc && <img src={imageSrc} />} */}
@@ -92,8 +107,8 @@ const Photo = () => {
           {/* {imgSrc && <img src={imageSrc} />} */}
         </div>
       )}
-    </>
+    </Modal>
   );
-};
+}
 
-export default Photo;
+export default ModalPhoto;

@@ -8,6 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ArticleIcon from "@mui/icons-material/Article";
 import { useNavigate } from "react-router";
+
 export default function BottomNav() {
   const navigate = useNavigate();
   return (
