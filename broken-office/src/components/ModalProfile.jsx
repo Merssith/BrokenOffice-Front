@@ -19,11 +19,18 @@ function ModalProfile() {
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
   const [checkConfirm, setCheckConfirm] = useState("none");
-  const [email, setEmail] = useState(user.email);
-  const [name, setName] = useState(user.name);
-  const [telPhone, setTelPhone] = useState(user.telephone);
-  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [telPhone, setTelPhone] = useState("");
+  const [lastName, setLastName] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+
+  useEffect(() => {
+    setEmail(user.email);
+    setName(user.name);
+    setTelPhone(user.telephone);
+    setLastName(user.lastName);
+  }, [user]);
 
   const emailOnChange = (e) => {
     const emailInput = e.target.value;
@@ -85,7 +92,7 @@ function ModalProfile() {
 
   ///////////////////////
 
-  console.log(changes);
+  console.log("CAMBIOS ", changes);
   return (
     <Modal
       title="Edit profile"
