@@ -10,6 +10,7 @@ import { setUser } from "../store/users";
 import ModalProfile from "./ModalProfile";
 import { setModalBool } from "../store/modalBool";
 import EditIcon from "@mui/icons-material/Edit";
+
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
@@ -25,6 +26,7 @@ const ButtonGeneric = {
   },
 };
 
+
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const Profile = () => {
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
 
+  
   //////////////////HANDLES
   const handleBool = () => {
     if (modalBool === true) {
@@ -55,6 +58,7 @@ const Profile = () => {
       .then(() => dispatch(setUser({})))
       .then(() => navigate("/"));
   };
+
 
   ////////////////////////////////////
 
@@ -93,7 +97,7 @@ const Profile = () => {
         >
           <Grid
             sx={{
-              width: "90%",
+              width: "100%",
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
@@ -101,7 +105,7 @@ const Profile = () => {
               margin: "auto",
             }}
           >
-            <Grid>
+            <Grid sx={{ alignItems: "left" }}>
               <img
                 style={{
                   maxWidth: "20vw",
@@ -117,7 +121,11 @@ const Profile = () => {
                 sx={{ marginLeft: "1rem", textAlign: "center" }}
                 variant="h6"
               >
-                {user.name} {user.lastName}
+                {
+                  <strong>
+                    {user.name} {user.lastName}
+                  </strong>
+                }
               </Typography>
             </Grid>
           </Grid>
@@ -129,14 +137,22 @@ const Profile = () => {
               flexDirection: "column",
             }}
           >
-            <Typography mt="10px">Glober ID : {user.id}</Typography>
-            <Typography mt="10px">Email : {user.email}</Typography>
+            <Typography variant="subtitle1" mt="10px">
+              {" "}
+              {<strong>Glober ID:</strong>} {user.id}
+            </Typography>
+            <Typography variant="subtitle1" mt="10px">
+              {" "}
+              {<strong>Email:</strong>} {user.email}
+            </Typography>
             {user.telephone && (
-              <Typography mt="10px">
-                Telephone number : {user.telephone}
+              <Typography variant="subtitle1" mt="10px">
+                {<strong>Telephone number:</strong>} {user.telephone}
               </Typography>
             )}
-            <Typography mt="10px">Location : {user.place}</Typography>
+            <Typography variant="subtitle1" mt="10px">
+              {<strong>Location:</strong>} {user.place}
+            </Typography>
             <Grid
               sx={{
                 width: "100%",
@@ -151,10 +167,9 @@ const Profile = () => {
                 color="primary"
                 variant="contained"
                 onClick={handleBool}
+                endIcon={<EditIcon />}
               >
                 Edit
-                <div style={{ width: "0.2rem" }}></div>
-                <EditIcon sx={{ fontSize: "1rem" }} />
               </Button>
               <ModalProfile />
             </Grid>

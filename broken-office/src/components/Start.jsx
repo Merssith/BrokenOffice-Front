@@ -1,9 +1,21 @@
-import React, { useEffect } from "react";
-import { Button, Grid, Paper, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
-import globant from "../utils/globant.png";
+import React from "react";
+import { Button, Grid, Typography } from "@mui/material";
 import "../styles/global.css";
+
+const ButtonGeneric = {
+  margin: "1rem",
+  color: "#444444",
+  width: "auto",
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
 
 const Start = () => {
   return (
@@ -24,11 +36,7 @@ const Start = () => {
         In first place, please login
       </Typography>
       <Button
-        sx={{
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "30%",
-        }}
+        sx={ButtonGeneric}
         type="submit"
         color="primary"
         variant="contained"
@@ -40,11 +48,7 @@ const Start = () => {
         or
       </Typography>
       <Button
-        sx={{
-          backgroundColor: "#BFD732",
-          borderRadius: "20px",
-          width: "30%",
-        }}
+        sx={ButtonGeneric}
         type="submit"
         color="primary"
         variant="contained"

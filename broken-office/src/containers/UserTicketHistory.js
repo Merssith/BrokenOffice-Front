@@ -59,7 +59,7 @@ const UserTicketHistory = () => {
                 <TableCell
                   sx={{ width: "20%", textAlign: "center", fontSize: 12 }}
                 >
-                  Date
+                  {<strong>Date</strong>}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -68,10 +68,10 @@ const UserTicketHistory = () => {
                     fontSize: 12,
                   }}
                 >
-                  Subject
+                  {<strong>Subject</strong>}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                  Status
+                {<strong>Status</strong>}
                 </TableCell>
                 <TableCell
                   sx={{ textAlign: "center", fontSize: 12 }}

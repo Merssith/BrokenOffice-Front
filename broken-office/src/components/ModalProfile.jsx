@@ -1,16 +1,29 @@
 import { Button, TextField } from "@mui/material";
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import ExploreIcon from "@mui/icons-material/Explore";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalBool } from "../store/modalBool";
-import { Loading3QuartersOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Loading3QuartersOutlined } from "@ant-design/icons";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router";
 import { isEmail } from "../utils/validation";
 import { FormHelperText } from "@mui/material";
+
+const ButtonGeneric = {
+  margin: "2rem",
+  color: "#444444",
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
 
 function ModalProfile() {
   const navigate = useNavigate();
@@ -97,9 +110,8 @@ function ModalProfile() {
       footer={[
         <Button onClick={handleCancel}>Cancel</Button>,
         <Button color="primary" onClick={handleSubmit}>
-          Submit
-        </Button>,
-        ,
+          Save
+        </Button>
       ]}
     >
       <div
@@ -148,16 +160,11 @@ function ModalProfile() {
 
         <Button
           variant="contained"
-          sx={{
-            overflow: "hidden",
-            backgroundColor: "#BFD732",
-            color: "white",
-            justifyContent: "space-around",
-            width: "9.2rem",
-          }}
+          sx={ButtonGeneric}
+          endIcon={ <AddAPhotoIcon />}
         >
           EDIT PHOTO
-          <AddAPhotoIcon />
+         
           <input
             type="file"
             style={{
