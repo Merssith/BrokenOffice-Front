@@ -23,12 +23,14 @@ const ButtonGeneric = {
     color: "white",
   },
 };
+const rol = "admin"; // "admin" - "superadmin"
 
 const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { location, place } = useGeolocation();
-  
+  console.log(user);
+
   useEffect(() => {
     axios
       .put(`/api/users/update/${user.id}`, {
@@ -86,7 +88,6 @@ const Home = () => {
           type="submit"
           color="primary"
           variant="contained"
-          // href="/user/profile"
         >
           <Link
             style={{ color: "#444444", textDecoration: "none" }}
@@ -95,6 +96,54 @@ const Home = () => {
             Profile
           </Link>
         </Button>
+        {(user.userRoleId === 1) | (rol === "superadmin") ? (
+          <>
+            <Button
+              sx={ButtonGeneric}
+              type="submit"
+              color="primary"
+              variant="contained"
+            >
+              <Link
+                style={{ color: "#444444", textDecoration: "none" }}
+                to="/tickets/all"
+              >
+                ALL TICKETS
+              </Link>
+            </Button>
+
+            <Button
+              sx={ButtonGeneric}
+              type="submit"
+              color="primary"
+              variant="contained"
+            >
+              <Link
+                style={{ color: "#444444", textDecoration: "none" }}
+                to="/users/all"
+              >
+                ALL USERS
+              </Link>
+            </Button>
+          </>
+        ) : null}
+        {(user.userRoleId === 2) | (rol === "admin") ? (
+          <>
+            <Button
+              sx={ButtonGeneric}
+              type="submit"
+              color="primary"
+              variant="contained"
+            >
+              <Link
+                style={{ color: "#444444", textDecoration: "none" }}
+                to="/tickets"
+              >
+                ASIGNED TICKETS
+              </Link>
+            </Button>
+          </>
+        ) : null}
       </Grid>
       <Outlet />
     </>

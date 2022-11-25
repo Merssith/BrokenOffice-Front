@@ -9,6 +9,10 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import NewTicket from "./components/NewTicket";
 import Start from "./components/Start";
+import AsignedTickets from "./components/Admin/AsignedTickets";
+import ManageTicket from "./components/Admin/ManageTicket";
+import ViewTickets from "./components/SuperAdmin/ViewTickets";
+import ViewUsers from "./components/SuperAdmin/ViewUsers";
 
 import { useEffect } from "react";
 import axios from "axios";
@@ -39,28 +43,24 @@ function App() {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={!user.email ? <Start /> : <Home />} />
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/createsuccess" element={<></>} />
-
         {/* User logged routes*/}
-        <Route path="/" element={<></>} />
         <Route path="/user/profile" element={<Profile />} />
-        <Route path="/user/profile/edit" element={<></>} />
         <Route path="/ticket/create" element={<NewTicket />} />
         <Route path="/ticket/history" element={<UserTicketHistory />} />
         <Route path="/ticket/:id" element={<SingleTicket />} />
-        <Route path="/photo" element={<Photo />} />
-
         {/* Admin routes*/}
-        <Route path="/admin/*" element={<HomeAdmin />} />
+        <Route path="/tickets" element={<AsignedTickets />} />
+        <Route path="/tickets/manage/:id" element={<ManageTicket />} />
+        <Route path="/tickets/all" element={<ViewTickets />} />
+        <Route path="/users/all" element={<ViewUsers />} />
       </Routes>
       {location.pathname === "/" || !user.email || !isActive ? null : (
         <BottomNav />
       )}
 
-      {/* <Footer /> */}
+      {!isActive ? <Footer /> : null}
     </Box>
   );
 }
