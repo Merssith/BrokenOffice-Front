@@ -1,12 +1,11 @@
 import { Button, useMediaQuery } from "@mui/material";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import Webcam from "react-webcam";
 import React from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalBool } from "../store/modalBool";
 import { setPhoto } from "../store/photo";
-
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -23,7 +22,6 @@ const ButtonGeneric = {
 };
 
 function ModalPhoto() {
-
   const modalBool = useSelector((state) => state.modalBool);
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
@@ -32,7 +30,8 @@ function ModalPhoto() {
     const imageSrc = webcamRef.current.getScreenshot();
 
     dispatch(setPhoto(imageSrc));
-    handleCancel()
+    messageSuccess();
+    handleCancel();
   }, [webcamRef]);
   const isActive = useMediaQuery("(max-width: 800px)");
 
@@ -40,19 +39,26 @@ function ModalPhoto() {
     dispatch(setModalBool(false));
   };
 
+  const messageSuccess = () => {
+    message.success({
+      content: "Photo uploaded successfully!",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 4,
+    });
+  };
 
   return (
     <Modal
-    open={modalBool}
-    onCancel={handleCancel}
-    sx={{
-      textAlign: "center",
-      
-    }}
-    footer={[
-      <Button onClick={handleCancel}>Cancel</Button>,
-    ]}
-  >
+      open={modalBool}
+      onCancel={handleCancel}
+      sx={{
+        textAlign: "center",
+      }}
+      footer={[<Button onClick={handleCancel}>Cancel</Button>]}
+    >
       {isActive ? (
         <div
           style={{
@@ -75,7 +81,6 @@ function ModalPhoto() {
             endIcon={<AddAPhotoIcon />}
           >
             Capture photo
-            
           </Button>
           {/* {imgSrc && <img src={imageSrc} />} */}
         </div>

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setPhoto } from "../store/photo";
 import { setModalBool } from "../store/modalBool";
 import ModalPhoto from "./ModalPhoto";
+import { message } from "antd";
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -31,7 +32,7 @@ const NewTicket = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-  
+
   const modalBool = useSelector((state) => state.modalBool);
 
   //////////////////HANDLES
@@ -72,12 +73,26 @@ const NewTicket = () => {
           withCredentials: true,
         }
       )
-      .then(() => dispatch(setPhoto("")));
+      .then(() => {
+        dispatch(setPhoto(""));
+      });
+    messageSuccess();
 
     document.getElementById("subject-input").value = "";
     document.getElementById("description-input").value = "";
   };
- 
+
+  const messageSuccess = () => {
+    message.success({
+      content: "Ticket created successfully!",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 4,
+    });
+  };
+
   return (
     <>
       <Grid

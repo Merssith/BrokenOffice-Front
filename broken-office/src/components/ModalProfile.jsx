@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
-import { Modal } from "antd";
-import { useState } from "react";
+import { Modal, message } from "antd";
+import { useEffect, useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useNavigate } from "react-router";
 import { isEmail } from "../utils/validation";
 import { FormHelperText } from "@mui/material";
-
+import "../styles/ModalProfile.css";
+import { updateUser } from "../store/users";
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
@@ -37,6 +38,13 @@ function ModalProfile() {
   const [telPhone, setTelPhone] = useState(user.telephone);
   const [lastName, setLastName] = useState(user.lastName);
   const [isValidEmail, setIsValidEmail] = useState(true);
+
+  useEffect(() => {
+    setEmail(user.email);
+    setName(user.name);
+    setTelPhone(user.telephone);
+    setLastName(user.lastName);
+  }, [user]);
 
   const emailOnChange = (e) => {
     const emailInput = e.target.value;
@@ -74,9 +82,9 @@ function ModalProfile() {
       setTimeout(resolve, 1000);
     }).then(function () {
       setCheckConfirm("checked");
+      messagePhoto();
     });
   };
-
   const changes = {
     email: email,
     name: name,
@@ -89,16 +97,50 @@ function ModalProfile() {
     if (isValidEmail) {
       axios.put(`/api/users/update/${user.id}`, changes).then(() => {
         dispatch(setModalBool(false));
+        dispatch(updateUser(changes));
         navigate("/user/profile");
+        messageSubmit();
       });
     } else {
-      alert("The data entered is not correct");
+      messageError("The data entered is not correct");
     }
   };
 
   ///////////////////////
 
-  
+  const messagePhoto = () => {
+    message.success({
+      content: "Photo changed successfully!",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 2,
+    });
+  };
+
+  const messageError = () => {
+    message.error({
+      content: "The data entered is not correct",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 2,
+    });
+  };
+
+  const messageSubmit = () => {
+    message.success({
+      content: "Changes were successfully saved!",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 2,
+    });
+  };
+
   return (
     <Modal
       title="Edit profile"
@@ -111,7 +153,7 @@ function ModalProfile() {
         <Button onClick={handleCancel}>Cancel</Button>,
         <Button color="primary" onClick={handleSubmit}>
           Save
-        </Button>
+        </Button>,
       ]}
     >
       <div
@@ -161,10 +203,9 @@ function ModalProfile() {
         <Button
           variant="contained"
           sx={ButtonGeneric}
-          endIcon={ <AddAPhotoIcon />}
+          endIcon={<AddAPhotoIcon />}
         >
           EDIT PHOTO
-         
           <input
             type="file"
             style={{
