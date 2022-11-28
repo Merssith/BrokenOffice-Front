@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Grid, Button, Typography } from "@mui/material";
 import axios from "axios";
-
+import { message, notification } from "antd";
+import "../styles/ModalProfile.css";
 const ButtonGeneric = {
   marginTop: "10%",
   marginBottom: "15%",
@@ -37,8 +38,21 @@ const SingleTicket = () => {
   const handleDeleteTicket = () => {
     // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
     axios.delete(`/api/incidents/delete/${ticket.id}`);
+    messageDelete();
     navigate("/ticket/history");
   };
+
+  const messageDelete = () => {
+    message.success({
+      content: "Ticket deleted successfully!",
+      className: "delete",
+      style: {
+        zIndex: "1",
+      },
+      duration: 4,
+    });
+  };
+
   return (
     <Grid
       sx={{
@@ -61,17 +75,25 @@ const SingleTicket = () => {
           {ticket.status}
         </Typography>
         <Typography mt="10px" align="center">
-        {<strong>Device</strong>}
+          {<strong>Device</strong>}
         </Typography>
-        {ticket.device ? ( <Typography mb="30px" align="center">{ticket.device}</Typography>) :(<Typography mb="30px" align="center">No device detected</Typography>)}
+        {ticket.device ? (
+          <Typography mb="30px" align="center">
+            {ticket.device}
+          </Typography>
+        ) : (
+          <Typography mb="30px" align="center">
+            No device detected
+          </Typography>
+        )}
         <Typography mt="10px" align="center">
-        {<strong>Location</strong>}
+          {<strong>Location</strong>}
         </Typography>
         <Typography mb="30px" align="center">
           {ticket.place}
         </Typography>
         <Typography mt="10px" align="center">
-        {<strong>Subject</strong>}
+          {<strong>Subject</strong>}
         </Typography>
         <Typography mb="30px" align="center">
           {ticket.subject}
@@ -79,13 +101,13 @@ const SingleTicket = () => {
       </Grid>
       <Grid>
         <Typography mt="10px" align="center">
-        {<strong>Details</strong>}
+          {<strong>Details</strong>}
         </Typography>
         <Typography mb="30px" align="center">
           {ticket.details}
         </Typography>
       </Grid>
-      <Grid sx={{ width: "70%", maxWidth: '350px' }}>
+      <Grid sx={{ width: "70%", maxWidth: "350px" }}>
         <img width="100%" src={ticket.photo} alt="Ticket" />
       </Grid>
       <Button

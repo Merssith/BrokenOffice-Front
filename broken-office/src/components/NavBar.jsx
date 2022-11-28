@@ -23,7 +23,7 @@ function NavBar() {
   return (
     <>
       <ThemeProvider theme={navColor}>
-        <AppBar>
+        <AppBar sx={{ zIndex: "1" }}>
           <Toolbar>
             <div
               style={{
