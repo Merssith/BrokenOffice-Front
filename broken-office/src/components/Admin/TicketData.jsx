@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 
 const TicketData = ({ ticket, device }) => {
-  console.log(device);
   return (
     <>
       {ticket.user ? (

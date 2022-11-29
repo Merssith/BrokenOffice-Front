@@ -1,29 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Grid,
-  Typography,
-  FormControl,
-  Select,
-  MenuItem,
-  Menu,
-  InputLabel,
-  Input,
-} from "@mui/material";
+import { Grid, Typography, FormControl, Select, MenuItem } from "@mui/material";
 
 const StatusChanger = ({ ticket }) => {
-  // console.log(ticket);
-
-  // console.log(status);
-
-  // useEffect(() => {
-  //   setStatus(ticket.status);
-  //   console.log("Nuevo estado", status);
-  // }, [ticket]);
-
   const handleStatus = (e) => {
-    console.log(e.target.value);
     axios.put(`/api/incidents/update/${ticket.id}`, { status: e.target.value });
   };
 
@@ -65,3 +45,5 @@ const StatusChanger = ({ ticket }) => {
 };
 
 export default StatusChanger;
+
+

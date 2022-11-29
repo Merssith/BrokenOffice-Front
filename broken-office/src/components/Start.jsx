@@ -6,6 +6,7 @@ const ButtonGeneric = {
   margin: "1rem",
   color: "#444444",
   width: "auto",
+  boxShadow: 4,
   transform: "scale(1.2)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",

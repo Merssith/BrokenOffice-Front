@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -71,11 +72,8 @@ const UserTicketHistory = () => {
                   <Typography>{<strong>Subject</strong>}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                <Typography>{<strong>Status</strong>}</Typography>
+                  <Typography>{<strong>Status</strong>}</Typography>
                 </TableCell>
-                <TableCell
-                  sx={{ textAlign: "center", fontSize: 12 }}
-                ></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -93,13 +91,47 @@ const UserTicketHistory = () => {
                     {ticket.subject}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                    {ticket.status}
+                    {ticket.status === "OPEN" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#6CDF3C",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "PENDING" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#FFFA1B",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "IN PROCESS" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#F8B932",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "CLOSED" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#F05432",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "right",
-                    }}
-                  ></TableCell>
                 </TableRow>
               ))}
             </TableBody>
