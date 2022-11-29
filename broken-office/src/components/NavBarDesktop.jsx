@@ -25,8 +25,8 @@ function NavBarDesktop() {
                 }}
               />
               {/* <Typography sx={{ position: "fixed", mb: "50px" }} variant="h6">
-                    HOME
-                  </Typography> */}
+                HOME
+              </Typography> */}
             </Link>
           </IconButton>
           <Box sx={{ flexGrow: 0.5 }} />

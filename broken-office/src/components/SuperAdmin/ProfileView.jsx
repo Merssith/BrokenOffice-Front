@@ -1,15 +1,41 @@
 import React from "react";
+import { Paper, Grid, Typography } from "@mui/material";
 
-import { Button, Paper, Grid, Typography } from "@mui/material";
-import axios from "axios";
-
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { setUser } from "../store/users";
 
-import ModalProfile from "./ModalProfile";
-import { setModalBool } from "../store/modalBool";
-import EditIcon from "@mui/icons-material/Edit";
+const user = {
+  fullName: "Maribel Navarro",
+  id: 5,
+  name: "Maribel",
+  lastName: "Navarro",
+  email: "maribel@1.com",
+  password: "$2b$10$0KOWkG9QTReUn.4yEcabx.yqwdwHNFw7tSc1MNqCR.dqi4vmDmK2G",
+  salt: "$2b$10$0KOWkG9QTReUn.4yEcabx.",
+  telephone: 1234567,
+  geoCords: "-36.892630851664954,-60.313803273329924",
+  place: "Olavarría, Provincia de Buenos Aires, Argentina",
+  avatar:
+    "https://res.cloudinary.com/dsdiadotw/image/upload/v1668696029/avatar_default_rgp6yr.png",
+  createdAt: "2022-11-29T17:02:03.022Z",
+  updatedAt: "2022-11-29T20:46:21.257Z",
+  userRoleId: 2,
+  officeId: 3,
+  userRole: {
+    id: 2,
+    name: "Admin",
+    createdAt: "2022-11-29T17:02:02.639Z",
+    updatedAt: "2022-11-29T17:02:02.639Z",
+  },
+  office: {
+    id: 3,
+    name: "Córdoba",
+    geoCords: "-31.4005355,-64.2259629",
+    createdAt: "2022-11-29T17:02:02.654Z",
+    updatedAt: "2022-11-29T17:02:02.654Z",
+  },
+  items: [],
+  incidents: [],
+};
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -27,39 +53,10 @@ const ButtonGeneric = {
   },
 };
 
-const Profile = () => {
-  const dispatch = useDispatch();
+const ProfileView = ({ USER }) => {
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-  const modalBool = useSelector((state) => state.modalBool);
-  console.log(user.place);
-
   //////////////////HANDLES
-  const handleBool = () => {
-    if (modalBool === true) {
-      dispatch(setModalBool(false));
-    } else {
-      dispatch(setModalBool(true));
-    }
-  };
-
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    axios
-      .post(
-        "/api/users/logout",
-        {},
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
-      .then(() => dispatch(setUser({})))
-      .then(() => navigate("/"));
-  };
-
-  ////////////////////////////////////
 
   return (
     <>
@@ -133,54 +130,34 @@ const Profile = () => {
             </Typography>
             <Typography variant="subtitle1" mt="10px">
               {" "}
-              {<strong>Email:</strong>} {user.email}
+              {<strong>Rol:</strong>} {user.userRole.name}
             </Typography>
-            {user.telephone && (
-              <Typography variant="subtitle1" mt="10px">
-                {<strong>Telephone number:</strong>} {user.telephone}
-              </Typography>
-            )}
+            <Typography variant="subtitle1" mt="10px">
+              {" "}
+              {<strong>Office:</strong>} {user.office.name}
+            </Typography>
+
             <Typography variant="subtitle1" mt="10px">
               {<strong>Location:</strong>}
             </Typography>
             <Typography variant="subtitle1" mt="10px">
               {user.place}
             </Typography>
-            <Grid
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <Button
-                sx={ButtonGeneric}
-                type="submit"
-                color="primary"
-                variant="contained"
-                onClick={handleBool}
-                endIcon={<EditIcon />}
-              >
-                Edit
-              </Button>
-              <ModalProfile />
-            </Grid>
+
+            {user.telephone && (
+              <Typography variant="subtitle1" mt="10px">
+                {<strong>Tel. n°:</strong>} {user.telephone}
+              </Typography>
+            )}
+            <Typography variant="subtitle1" mt="10px">
+              {" "}
+              {<strong>Email:</strong>} {user.email}
+            </Typography>
           </Grid>
         </Paper>
-        <Button
-          sx={ButtonGeneric}
-          type="submit"
-          color="primary"
-          variant="contained"
-          onClick={handleLogOut}
-        >
-          Log out
-        </Button>
       </Grid>
-      <div style={{ height: "10vh" }}></div>
     </>
   );
 };
 
-export default Profile;
+export default ProfileView;

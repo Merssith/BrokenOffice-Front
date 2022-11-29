@@ -15,6 +15,7 @@ import { updateUser } from "../store/users";
 const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
+  boxShadow: 4,
   transform: "scale(1.2)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",

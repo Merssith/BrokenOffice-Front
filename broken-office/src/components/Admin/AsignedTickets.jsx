@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,21 +18,9 @@ import { useSelector } from "react-redux";
 
 const AsignedTickets = () => {
   const [tickets, setTickets] = useState([]);
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-
-  // De momento me trar MIS tickets.
-  // Deberia traer los tickets que tenga asignados, con el useEffect de abajo
-
-  //   useEffect(() => {
-  //     axios
-  //       .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
-  //       .then((response) => {
-  //         setTickets(response.data);
-  //       })
-  //       .catch("");
-  //   }, [user.id]);
 
   useEffect(() => {
     axios
@@ -63,7 +52,6 @@ const AsignedTickets = () => {
             Asigned Tickets
           </Typography>
         </Grid>
-
         <TableContainer sx={{ width: "100%" }} component={Paper}>
           <Table size="small" aria-label="a dense table">
             <TableHead>
@@ -73,7 +61,6 @@ const AsignedTickets = () => {
                 >
                   <Typography>{<strong>Date</strong>}</Typography>
                 </TableCell>
-
                 <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                   <Typography>{<strong>Device </strong>}</Typography>
                 </TableCell>
@@ -93,15 +80,10 @@ const AsignedTickets = () => {
             </TableHead>
             <TableBody>
               {tickets.map((ticket, i) => (
-                <TableRow
-                  onClick={() => handleManage(ticket.id)}
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <TableRow onClick={() => handleManage(ticket.id)} key={i}>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
                   </TableCell>
-
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     Device name
                   </TableCell>
@@ -109,7 +91,46 @@ const AsignedTickets = () => {
                     {ticket.subject}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                    {ticket.status}
+                    {ticket.status === "OPEN" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#6CDF3C",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "PENDING" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#FFFA1B",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "IN PROCESS" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#F8B932",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
+                    {ticket.status === "CLOSED" ? (
+                      <CircleIcon
+                        sx={{
+                          boxShadow: 6,
+                          borderRadius: "8px",
+                          color: "#F05432",
+                          fontSize: "medium",
+                        }}
+                      />
+                    ) : null}
                   </TableCell>
                 </TableRow>
               ))}

@@ -23,6 +23,7 @@ const ButtonGeneric = {
   marginBottom: "15%",
   color: "#444444",
   width: "auto",
+  boxShadow: 4,
   transform: "scale(1.2)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",
@@ -93,7 +94,7 @@ const ManageTicket = () => {
         sx={{
           width: "100%",
           maxWidth: "800px",
-          boxShadow: 6,
+          boxShadow: 4,
           borderRadius: "8px",
           padding: "8px 8px 16px",
         }}
@@ -101,25 +102,22 @@ const ManageTicket = () => {
         <TicketData ticket={ticket} device={device} />
         <DescriptionPhoto ticket={ticket} />
         <StatusChanger ticket={ticket} />
-        <Grid id="messages">
-          {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
-          <Grid
-            sx={{ marginTop: "10px", display: "flex", flexDirection: "row" }}
-          >
-            <TextField
-              value={message}
-              id="input-message"
-              label="Send a message"
-              fullWidth
-              type="text"
-              size="small"
-              onChange={handleChangeMessage}
-            />
 
-            <Button onClick={handleSend} sx={{ width: "10%" }}>
-              SEND
-            </Button>
-          </Grid>
+        {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
+        <Grid sx={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
+          <TextField
+            value={message}
+            id="input-message"
+            label="Send a message"
+            fullWidth
+            type="text"
+            size="small"
+            onChange={handleChangeMessage}
+          />
+
+          <Button onClick={handleSend} sx={{ width: "10%" }}>
+            SEND
+          </Button>
         </Grid>
       </Grid>
       <Button

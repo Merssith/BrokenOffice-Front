@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@mui/material";
+import { Grid, IconButton, Typography, AppBar } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -16,15 +16,13 @@ const Footer = () => {
     <Grid
       container
       sx={{
-        position: "absolute",
-        bottom: 0,
         width: "100%",
       }}
     >
       <Grid
         sx={{
           width: "100%",
-          pt: "10px",
+
           display: "flex",
           flexDirection: "row",
           backgroundColor: "black",
