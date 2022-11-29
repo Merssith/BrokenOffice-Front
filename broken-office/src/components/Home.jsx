@@ -23,13 +23,12 @@ const ButtonGeneric = {
     color: "white",
   },
 };
-const rol = "admin"; // "admin" - "superadmin"
+const rol = ""; // "admin" - "superadmin"
 
 const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { location, place } = useGeolocation();
-  console.log(user);
 
   useEffect(() => {
     axios
@@ -53,7 +52,7 @@ const Home = () => {
         }}
       >
         <Typography mt="10px" mb="30px" align="center" variant="h5">
-          Welcome, {user.name}
+          Welcome, <strong>{user.name}</strong>
         </Typography>
 
         <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />

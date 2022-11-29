@@ -1,10 +1,24 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Grid, Button, Typography } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import axios from "axios";
 import { message, notification } from "antd";
 import "../styles/ModalProfile.css";
+
+import ChatTable from "./Admin/ChatTable";
+import DescriptionPhoto from "./Admin/DescriptionPhoto";
+import DateNameEmail from "./Admin/DateNameEmail";
+import IdDeviceStatus from "./Admin/IdDeviceStatus";
+
 const ButtonGeneric = {
   marginTop: "10%",
   marginBottom: "15%",
@@ -25,6 +39,7 @@ const SingleTicket = () => {
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -34,6 +49,18 @@ const SingleTicket = () => {
       })
       .catch("");
   }, [params.id]);
+
+  const handleChangeMessage = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    if (message !== "") {
+      axios.post(`/api/incidents/note/${ticket.id}`, { note: message });
+      setMessage("");
+    }
+  };
 
   const handleDeleteTicket = () => {
     // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
@@ -65,50 +92,65 @@ const SingleTicket = () => {
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        TicketID: {ticket.id}
+        Single Ticket
       </Typography>
-      <Grid>
-        <Typography mt="10px" align="center">
-          {<strong>Status</strong>}
-        </Typography>
-        <Typography mb="30px" align="center">
-          {ticket.status}
-        </Typography>
-        <Typography mt="10px" align="center">
-          {<strong>Device</strong>}
-        </Typography>
-        {ticket.device ? (
-          <Typography mb="30px" align="center">
-            {ticket.device}
-          </Typography>
-        ) : (
-          <Typography mb="30px" align="center">
-            No device detected
-          </Typography>
-        )}
-        <Typography mt="10px" align="center">
-          {<strong>Location</strong>}
-        </Typography>
-        <Typography mb="30px" align="center">
-          {ticket.place}
-        </Typography>
-        <Typography mt="10px" align="center">
-          {<strong>Subject</strong>}
-        </Typography>
-        <Typography mb="30px" align="center">
-          {ticket.subject}
-        </Typography>
-      </Grid>
-      <Grid>
-        <Typography mt="10px" align="center">
-          {<strong>Details</strong>}
-        </Typography>
-        <Typography mb="30px" align="center">
-          {ticket.details}
-        </Typography>
-      </Grid>
-      <Grid sx={{ width: "70%", maxWidth: "350px" }}>
-        <img width="100%" src={ticket.photo} alt="Ticket" />
+      <Grid
+        sx={{
+          width: "100%",
+          maxWidth: "800px",
+          boxShadow: 6,
+          borderRadius: "8px",
+          padding: "8px",
+        }}
+      >
+        <Grid
+          id="tkt-info"
+          sx={{
+            marginTop: "10px",
+            width: "100%",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            flexFlow: "row wrap",
+            boxShadow: 1,
+            borderRadius: "5px",
+          }}
+        >
+          <IdDeviceStatus ticket={ticket} />
+          <DateNameEmail ticket={ticket} />
+        </Grid>
+
+        <DescriptionPhoto ticket={ticket} />
+
+        <Grid id="messages">
+          {ticket.notes ? (
+            <>
+              <ChatTable messages={ticket.notes} />{" "}
+              <Grid
+                sx={{
+                  marginTop: "10px",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <TextField
+                  value={message}
+                  id="input-message"
+                  label="Send a message"
+                  fullWidth
+                  type="text"
+                  size="small"
+                  onChange={handleChangeMessage}
+                />
+
+                <Button onClick={handleSend} sx={{ width: "10%" }}>
+                  SEND
+                </Button>
+              </Grid>
+            </>
+          ) : null}
+        </Grid>
       </Grid>
       <Button
         sx={ButtonGeneric}
