@@ -18,6 +18,7 @@ import ChatTable from "./Admin/ChatTable";
 import DescriptionPhoto from "./Admin/DescriptionPhoto";
 import DateNameEmail from "./Admin/DateNameEmail";
 import IdDeviceStatus from "./Admin/IdDeviceStatus";
+import TicketData from "./Admin/TicketData";
 
 const ButtonGeneric = {
   marginTop: "10%",
@@ -103,24 +104,7 @@ const SingleTicket = () => {
           padding: "8px",
         }}
       >
-        <Grid
-          id="tkt-info"
-          sx={{
-            marginTop: "10px",
-            width: "100%",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            flexFlow: "row wrap",
-            boxShadow: 1,
-            borderRadius: "5px",
-          }}
-        >
-          <IdDeviceStatus ticket={ticket} />
-          <DateNameEmail ticket={ticket} />
-        </Grid>
-
+        <TicketData ticket={ticket} />
         <DescriptionPhoto ticket={ticket} />
 
         <Grid id="messages">
