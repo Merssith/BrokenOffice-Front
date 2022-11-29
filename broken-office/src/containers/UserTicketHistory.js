@@ -1,6 +1,8 @@
 import {
   Grid,
+  Pagination,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -10,17 +12,21 @@ import {
   Typography,
 } from "@mui/material";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const UserTicketHistory = () => {
+  const [pagNum, setPagNum] = useState(1);
   const [tickets, setTickets] = useState([]);
+  const [quantity, setQuantity] = useState(0);
   const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-
+  ////////////////
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
@@ -29,11 +35,25 @@ const UserTicketHistory = () => {
       })
       .catch("");
   }, [user.id]);
+  /////////////////
+  useEffect(() => {
+    setQuantity(tickets.length / 3);
+  }, [tickets]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
   };
+  const handlePagination = (e, p) => {
+    setPagNum(p);
+  };
 
+  const handleShowContent = () => {
+    return tickets.slice();
+  };
+
+  // console.log("QUANTITY", quantity);
+
+  // console.log(tickets);
   return (
     <>
       <Grid
@@ -71,7 +91,7 @@ const UserTicketHistory = () => {
                   <Typography>{<strong>Subject</strong>}</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                <Typography>{<strong>Status</strong>}</Typography>
+                  <Typography>{<strong>Status</strong>}</Typography>
                 </TableCell>
                 <TableCell
                   sx={{ textAlign: "center", fontSize: 12 }}
@@ -89,7 +109,13 @@ const UserTicketHistory = () => {
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                      fontSize: 12,
+                      wordWrap: "break-word",
+                    }}
+                  >
                     {ticket.subject}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
@@ -105,6 +131,16 @@ const UserTicketHistory = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <Stack sx={{ width: "22rem", marginTop: "2rem" }}>
+          <Pagination
+            count={quantity}
+            color="primary"
+            variant="outlined"
+            shape="rounded"
+            onChange={handlePagination}
+          />
+        </Stack>
       </Grid>
     </>
   );
