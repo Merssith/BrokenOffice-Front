@@ -1,7 +1,17 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Grid, Typography } from "@mui/material";
 
 const DateNameEmail = ({ ticket }) => {
+  const [data, setData] = useState({
+    date: "hola",
+    user: { fullName: "algo", email: "algo2" },
+  });
+
+  useEffect(() => {
+    setData(ticket);
+  }, [ticket]);
+
   return (
     <Grid
       id="name-email"
@@ -17,14 +27,14 @@ const DateNameEmail = ({ ticket }) => {
       }}
     >
       <Grid sx={{ width: "20%", textAlign: "center" }}>
-        <Typography sx={{ fontSize: 14 }}>{ticket.date}</Typography>
+        <Typography sx={{ fontSize: 14 }}>{data.date}</Typography>
       </Grid>
-      <Grid sx={{ width: "40%", textAlign: "center" }}>
-        <Typography sx={{ fontSize: 14 }}>ticket.user.fullName</Typography>
+      {/* <Grid sx={{ width: "40%", textAlign: "center" }}>
+        <Typography sx={{ fontSize: 14 }}>{data.user.fullName}</Typography>
       </Grid>
       <Grid sx={{ width: "20%", textAlign: "center" }}>
-        <Typography sx={{ fontSize: 14 }}>ticket.user.email</Typography>
-      </Grid>
+        <Typography sx={{ fontSize: 14 }}>{data.user.email}</Typography>
+      </Grid> */}
     </Grid>
   );
 };

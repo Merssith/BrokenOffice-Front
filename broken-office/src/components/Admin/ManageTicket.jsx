@@ -36,6 +36,7 @@ const ButtonGeneric = {
 
 const ManageTicket = () => {
   const [ticket, setTicket] = useState({});
+  const [device, setDevice] = useState({});
   const params = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -47,6 +48,15 @@ const ManageTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
+  }, [ticket.id]);
+
+  useEffect(() => {
+    if (ticket.itemId) {
+      axios.get(`/api/item/${ticket.itemId}`).then((response) => {
+        setDevice(response.data);
+        console.log(response.data);
+      });
+    }
   }, [ticket.id]);
 
   const handleChangeMessage = (e) => {
@@ -88,24 +98,7 @@ const ManageTicket = () => {
           padding: "8px 8px 16px",
         }}
       >
-        {/* <Grid
-          id="tkt-info"
-          sx={{
-            marginTop: "10px",
-            width: "100%",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            flexFlow: "row wrap",
-            boxShadow: 1,
-            borderRadius: "5px",
-          }}
-        >
-          <IdDeviceStatus ticket={ticket} />
-          <DateNameEmail ticket={ticket} />
-        </Grid> */}
-        <TicketData ticket={ticket} />
+        <TicketData ticket={ticket} device={device} />
         <DescriptionPhoto ticket={ticket} />
         <StatusChanger ticket={ticket} />
         <Grid id="messages">
