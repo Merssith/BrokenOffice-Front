@@ -95,9 +95,10 @@ const AsignedTickets = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
+                          backgroundColor: "#444444",
                           borderRadius: "8px",
                           color: "#6CDF3C",
-                          fontSize: "medium",
+                          fontSize: "small",
                         }}
                       />
                     ) : null}
@@ -105,9 +106,10 @@ const AsignedTickets = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
+                          backgroundColor: "#444444",
                           borderRadius: "8px",
                           color: "#FFFA1B",
-                          fontSize: "medium",
+                          fontSize: "small",
                         }}
                       />
                     ) : null}
@@ -115,9 +117,10 @@ const AsignedTickets = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
+                          backgroundColor: "#444444",
                           borderRadius: "8px",
                           color: "#F8B932",
-                          fontSize: "medium",
+                          fontSize: "small",
                         }}
                       />
                     ) : null}
@@ -125,9 +128,10 @@ const AsignedTickets = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
+                          backgroundColor: "#444444",
                           borderRadius: "8px",
                           color: "#F05432",
-                          fontSize: "medium",
+                          fontSize: "small",
                         }}
                       />
                     ) : null}
