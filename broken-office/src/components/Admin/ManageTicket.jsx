@@ -51,8 +51,6 @@ const ManageTicket = () => {
       .catch("");
   }, [ticket.id]);
 
-
-
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
   };
@@ -92,7 +90,7 @@ const ManageTicket = () => {
           padding: "8px 8px 16px",
         }}
       >
-        <TicketData ticket={ticket}  />
+        <TicketData ticket={ticket} />
         <DescriptionPhoto ticket={ticket} />
         <StatusChanger ticket={ticket} />
 

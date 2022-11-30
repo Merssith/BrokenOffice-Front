@@ -3,12 +3,12 @@ import {
   DataGrid,
   getGridSingleSelectOperators,
   getGridStringOperators,
-  GridEventListener
+  GridEventListener,
 } from "@mui/x-data-grid";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import {  Button, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useMemo } from "react";
 import { Typography } from "antd";
 import { setUser } from "../../store/users";
@@ -50,19 +50,19 @@ const ViewUsers = () => {
         field: "fullName",
         headerName: "Fullname",
         sortable: false,
-        filterable: false
+        filterable: false,
       },
       {
         field: "place",
         headerName: "Place",
         filterable: false,
-        sortable: false
+        sortable: false,
       },
       {
         field: "userRoleId",
         headerName: "Role ID",
         sortable: false,
-        filterable: false
+        filterable: false,
       },
     ],
     []
@@ -83,8 +83,8 @@ const ViewUsers = () => {
   //const [columnName, setColumnName] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const onFilterChange = React.useCallback((e) => {
-     setFilterValue(e.items[0].value);
-      //setColumnName(e.items[0].columnField);
+    setFilterValue(e.items[0].value);
+    //setColumnName(e.items[0].columnField);
   }, []);
 
   // const [sortValue, setSortValue] = useState("");
@@ -97,7 +97,7 @@ const ViewUsers = () => {
 
   const onSubmit = () => {
     //console.log("entró", filterValue);
-      axios
+    axios
       .get(`http://localhost:3001/api/users/search/${filterValue}`, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -105,24 +105,28 @@ const ViewUsers = () => {
       .then((response) => {
         setUsers([response.data]);
       })
-      .catch("")
-    }
+      .catch("");
+  };
   //console.log("ESTE ES EL SET USERS", users )
 
-  const handleRowClick: GridEventListener<'rowClick'> = (params) => {
-     navigate(`/users/${params.id}`)
+  const handleRowClick = (params) => {
+    navigate(`/users/${params.id}`);
   };
+
   return (
     <div>
-      <Grid container sx={{
+      <Grid
+        container
+        sx={{
           width: "95%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           paddingBottom: "30px",
           margin: "auto",
-        }}>
-           <Grid>
+        }}
+      >
+        <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
             Users List
           </Typography>
@@ -142,11 +146,16 @@ const ViewUsers = () => {
           //onClick={alert("HOLA")}
           // sortingMode="server"
           // onSortModelChange={handleSortModelChange}
-          />
-        <Button  sx={ButtonGeneric}
+        />
+        <Button
+          sx={ButtonGeneric}
           type="submit"
           color="primary"
-          variant="contained" onClick={onSubmit}>Filtro</Button>
+          variant="contained"
+          onClick={onSubmit}
+        >
+          Filtro
+        </Button>
       </Grid>
     </div>
   );
