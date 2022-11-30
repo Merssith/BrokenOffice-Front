@@ -38,6 +38,7 @@ function App() {
       dispatch(setUser(usuario.data));
     });
   }, []);
+  
   const isActive = useMediaQuery("(max-width: 800px)");
   return (
     <Box
