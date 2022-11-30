@@ -3,12 +3,12 @@ import {
   DataGrid,
   getGridSingleSelectOperators,
   getGridStringOperators,
-  GridEventListener
+  GridEventListener,
 } from "@mui/x-data-grid";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import {  Button, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useMemo } from "react";
 import { Typography } from "antd";
 
@@ -44,7 +44,7 @@ const ViewTickets = () => {
           (operator) => operator.value === "is"
         ),
         sortable: false,
-        filterable: false
+        filterable: false,
       },
       {
         field: "subject",
@@ -53,40 +53,39 @@ const ViewTickets = () => {
           (operator) => operator.value === "is"
         ),
         sortable: false,
-        filterable: false
+        filterable: false,
       },
       {
         field: "status",
         headerName: "Status",
-        valueOptions: [
-          "ALL",
-          "OPEN",
-          "IN PROCESS",
-          "PENDING",
-          "CLOSED",
-        ],
-        filterOperators: getGridSingleSelectOperators()
-          .filter(a => a.value === "is"),
-        sortable: false
+        valueOptions: ["ALL", "OPEN", "IN PROCESS", "PENDING", "CLOSED"],
+        filterOperators: getGridSingleSelectOperators().filter(
+          (a) => a.value === "is"
+        ),
+        sortable: false,
       },
     ],
     []
   );
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/api/incidents/all`)
-      .then((response) => {
-        setTickets(response.data);
-      })
-      .catch("");
-  }, [], tickets);
+  useEffect(
+    () => {
+      axios
+        .get(`http://localhost:3001/api/incidents/all`)
+        .then((response) => {
+          setTickets(response.data);
+        })
+        .catch("");
+    },
+    [],
+    tickets
+  );
 
   //const [columnName, setColumnName] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const onFilterChange = React.useCallback((e) => {
-     setFilterValue(e.items[0].value);
-      //setColumnName(e.items[0].columnField);
+    setFilterValue(e.items[0].value);
+    //setColumnName(e.items[0].columnField);
   }, []);
 
   // const [sortValue, setSortValue] = useState("");
@@ -99,41 +98,50 @@ const ViewTickets = () => {
 
   const onSubmit = () => {
     //console.log("entró", filterValue);
-    if(filterValue === "ALL"){
-      axios.get(`http://localhost:3001/api/incidents/all`, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }).then((response) => {
-        setTickets(response.data);
-      })
-      .catch("")
-    } else{
+    if (filterValue === "ALL") {
       axios
-      .get(`http://localhost:3001/api/incidents/search?status=${filterValue}`, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      })
-      .then((response) => {
-        setTickets(response.data);
-      })
-      .catch("")
+        .get(`http://localhost:3001/api/incidents/all`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          setTickets(response.data);
+        })
+        .catch("");
+    } else {
+      axios
+        .get(
+          `http://localhost:3001/api/incidents/search?status=${filterValue}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          setTickets(response.data);
+        })
+        .catch("");
     }
-  }
-
-  const handleRowClick: GridEventListener<'rowClick'> = (params) => {
-    navigate(`/tickets/${params.id}`)
   };
+
+  const handleRowClick = (params) => {
+    navigate(`/tickets/${params.id}`);
+  };
+  
   return (
     <div>
-      <Grid container sx={{
+      <Grid
+        container
+        sx={{
           width: "95%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           paddingBottom: "30px",
           margin: "auto",
-        }}>
-           <Grid>
+        }}
+      >
+        <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
             Ticket List
           </Typography>
@@ -153,11 +161,16 @@ const ViewTickets = () => {
           //onClick={alert("HOLA")}
           // sortingMode="server"
           // onSortModelChange={handleSortModelChange}
-          />
-        <Button  sx={ButtonGeneric}
+        />
+        <Button
+          sx={ButtonGeneric}
           type="submit"
           color="primary"
-          variant="contained" onClick={onSubmit}>Filtro</Button>
+          variant="contained"
+          onClick={onSubmit}
+        >
+          Filtro
+        </Button>
       </Grid>
     </div>
   );

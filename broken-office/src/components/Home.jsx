@@ -34,7 +34,10 @@ const Home = () => {
   useEffect(() => {
     axios
       .put(`/api/users/update/${user.id}`, {
-        geoCords: location.coordinates.lat + "," + location.coordinates.lng,
+        geoCords: {
+          lat: location.coordinates.lat,
+          lng: location.coordinates.lng,
+        },
         place: place,
       })
       .then((res) => dispatch(setUser(res.data)));

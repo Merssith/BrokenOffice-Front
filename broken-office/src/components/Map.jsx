@@ -35,11 +35,11 @@ export default function SimpleMap() {
   const initialPosition = {
     center: {
       lat: -39.70171,
-      lng: -64.628424,
+      lng: -61.628424,
     },
-    zoom: 4,
+    zoom: 3,
   };
-  // console.log(ubicaciones);
+
 
   return (
     <>
@@ -49,34 +49,38 @@ export default function SimpleMap() {
           defaultCenter={initialPosition.center}
           defaultZoom={initialPosition.zoom}
         >
-          {users.map((user, i) => (
+          {users ? (
             <>
-              {user.userRoleId === 3 ? (
-                <PlaceIcon
-                  key={i}
-                  sx={{ color: "red" }}
-                  lat={user.geoCords.lat}
-                  lng={user.geoCords.lng}
-                />
-              ) : null}
-              {user.userRoleId === 2 ? (
-                <PlaceIcon
-                  key={i}
-                  sx={{ color: "green" }}
-                  lat={user.geoCords.lat}
-                  lng={user.geoCords.lng}
-                />
-              ) : null}
-              {user.userRoleId === 1 ? (
-                <PlaceIcon
-                  key={i}
-                  sx={{ color: "blue" }}
-                  lat={user.geoCords.lat}
-                  lng={user.geoCords.lng}
-                />
-              ) : null}
+              {users.map((user, i) => (
+                <>
+                  {user.userRoleId === 3 ? (
+                    <PlaceIcon
+                      key={i}
+                      sx={{ color: "red" }}
+                      lat={user.geoCords.lat}
+                      lng={user.geoCords.lng}
+                    />
+                  ) : null}
+                  {user.userRoleId === 2 ? (
+                    <PlaceIcon
+                      key={i}
+                      sx={{ color: "green" }}
+                      lat={user.geoCords.lat}
+                      lng={user.geoCords.lng}
+                    />
+                  ) : null}
+                  {user.userRoleId === 1 ? (
+                    <PlaceIcon
+                      key={i}
+                      sx={{ color: "blue" }}
+                      lat={user.geoCords.lat}
+                      lng={user.geoCords.lng}
+                    />
+                  ) : null}
+                </>
+              ))}
             </>
-          ))}
+          ) : null}
         </GoogleMapReact>
       </Grid>
       <Grid sx={{ display: "flex", flexDirection: "column" }}>
