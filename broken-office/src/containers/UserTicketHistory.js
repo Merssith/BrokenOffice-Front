@@ -1,6 +1,8 @@
 import {
   Grid,
+  Pagination,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -8,32 +10,69 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Box,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const UserTicketHistory = () => {
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+  const [pagination, setPagination] = useState(initialStatePagination);
+
+  const [pagNum, setPagNum] = useState(1);
   const [tickets, setTickets] = useState([]);
   const user = useSelector((state) => state.user);
+  // const [quantity, setQuantity] = useState(0);
+  const [pageQuery, setPageQuery] = useSearchParams();
 
   const navigate = useNavigate();
+  ////////////////
+  // useEffect(() => {
+  //   setPageQuery({ page: pagination.currentPage });
+  //   axios
+  //     .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
+  //     .then((res) => {
+  //       setTickets(res.data.incidents);
+  //       if (pagination.totalPages === null)
+  //         setPagination({ ...pagination, totalPages: res.data.totalPages });
+  //     })
+  //     .catch("");
+  // }, [user.id]);
 
   useEffect(() => {
+    setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
-      .then((response) => {
-        setTickets(response.data);
+      .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
+      .then((res) => {
+        setTickets(res.data.incidents);
+        if (pagination.totalPages === null)
+          setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, [user.id]);
+  }, [user.id, pagination, pageQuery]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
   };
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
+  };
+
+  const handleShowContent = () => {
+    return tickets.slice();
+  };
+
+  // console.log(tickets);
 
   return (
     <>
@@ -87,7 +126,13 @@ const UserTicketHistory = () => {
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                      fontSize: 12,
+                      wordWrap: "break-word",
+                    }}
+                  >
                     {ticket.subject}
                   </TableCell>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
@@ -142,6 +187,17 @@ const UserTicketHistory = () => {
           </Table>
         </TableContainer>
       </Grid>
+
+      <Pagination
+        count={pagination.totalPages || 0}
+        page={pagination.currentPage}
+        onChange={handlePagination}
+        sx={{
+          position: "absolute",
+          flexWrap: "nowrap",
+          marginTop: "37.5rem",
+        }}
+      />
     </>
   );
 };

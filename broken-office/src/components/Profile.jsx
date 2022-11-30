@@ -131,7 +131,11 @@ const Profile = () => {
               {" "}
               {<strong>Glober ID:</strong>} {user.id}
             </Typography>
-            <Typography variant="subtitle1" mt="10px">
+            <Typography
+              sx={{ wordWrap: "break-word" }}
+              variant="subtitle1"
+              mt="10px"
+            >
               {" "}
               {<strong>Email:</strong>} {user.email}
             </Typography>
