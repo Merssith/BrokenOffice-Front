@@ -121,7 +121,7 @@ const ViewTickets = () => {
   }
 
   const handleRowClick: GridEventListener<'rowClick'> = (params) => {
-    navigate(`/ticket/${params.id}`)
+    navigate(`/tickets/${params.id}`)
   };
   return (
     <div>

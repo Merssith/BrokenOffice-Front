@@ -63,8 +63,8 @@ function App() {
           <Route path="/tickets/manage/:id" element={<ManageTicket />} />
           <Route path="/tickets/all" element={<ViewTickets />} />
           <Route path="/users/all" element={<ViewUsers />} />
-          <Route path="/users/id" element={<ProfileView />} />
-          <Route path="/tickets/id" element={<TicketView />} />
+          <Route path="/users/:id" element={<ProfileView />} />
+          <Route path="/tickets/:id" element={<TicketView />} />
           <Route path="/map" element={<Map />} />
         </Routes>
         {location.pathname === "/" || !user.email || !isActive ? null : (
