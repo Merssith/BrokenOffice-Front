@@ -23,7 +23,7 @@ const ButtonGeneric = {
     color: "white",
   },
 };
-const rol = "admin"; // "admin" - "superadmin"
+const rol = ""; // "admin" - "superadmin"
 
 const Home = () => {
   const dispatch = useDispatch();
