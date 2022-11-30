@@ -48,8 +48,9 @@ function App() {
         {/* User logged routes*/}
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/ticket/create" element={<NewTicket />} />
-        <Route path="/ticket/history" element={<UserTicketHistory />} />
+        <Route path="/ticket/history/*" element={<UserTicketHistory />} />
         <Route path="/ticket/:id" element={<SingleTicket />} />
+
         {/* Admin routes*/}
         <Route path="/tickets" element={<AsignedTickets />} />
         <Route path="/tickets/manage/:id" element={<ManageTicket />} />

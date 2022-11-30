@@ -29,7 +29,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { location, place } = useGeolocation();
-  console.log(user);
 
   useEffect(() => {
     axios

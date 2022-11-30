@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Box,
 } from "@mui/material";
 
 import React from "react";
@@ -18,42 +19,60 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const UserTicketHistory = () => {
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+  const [pagination, setPagination] = useState(initialStatePagination);
+
   const [pagNum, setPagNum] = useState(1);
   const [tickets, setTickets] = useState([]);
-  const [quantity, setQuantity] = useState(0);
   const user = useSelector((state) => state.user);
+  // const [quantity, setQuantity] = useState(0);
+  const [pageQuery, setPageQuery] = useSearchParams();
 
   const navigate = useNavigate();
   ////////////////
+  // useEffect(() => {
+  //   setPageQuery({ page: pagination.currentPage });
+  //   axios
+  //     .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
+  //     .then((res) => {
+  //       setTickets(res.data.incidents);
+  //       if (pagination.totalPages === null)
+  //         setPagination({ ...pagination, totalPages: res.data.totalPages });
+  //     })
+  //     .catch("");
+  // }, [user.id]);
+
   useEffect(() => {
+    setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`http://localhost:3001/api/incidents/byUser/${user.id}`)
-      .then((response) => {
-        setTickets(response.data);
+      .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
+      .then((res) => {
+        setTickets(res.data.incidents);
+        if (pagination.totalPages === null)
+          setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, [user.id]);
-  /////////////////
-  useEffect(() => {
-    setQuantity(tickets.length / 3);
-  }, [tickets]);
+  }, [user.id, pagination, pageQuery]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
   };
-  const handlePagination = (e, p) => {
-    setPagNum(p);
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
   };
 
   const handleShowContent = () => {
     return tickets.slice();
   };
 
-  // console.log("QUANTITY", quantity);
-
   // console.log(tickets);
+
   return (
     <>
       <Grid
@@ -131,17 +150,18 @@ const UserTicketHistory = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
-        <Stack sx={{ width: "22rem", marginTop: "2rem" }}>
-          <Pagination
-            count={quantity}
-            color="primary"
-            variant="outlined"
-            shape="rounded"
-            onChange={handlePagination}
-          />
-        </Stack>
       </Grid>
+
+      <Pagination
+        count={pagination.totalPages || 0}
+        page={pagination.currentPage}
+        onChange={handlePagination}
+        sx={{
+          position: "absolute",
+          flexWrap: "nowrap",
+          marginTop: "37.5rem",
+        }}
+      />
     </>
   );
 };
