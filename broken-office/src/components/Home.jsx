@@ -13,6 +13,7 @@ const ButtonGeneric = {
   margin: "2rem",
   color: "#444444",
   width: "8rem",
+  boxShadow: 4,
   transform: "scale(1.3)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",
@@ -23,7 +24,7 @@ const ButtonGeneric = {
     color: "white",
   },
 };
-const rol = "admin"; // "admin" - "superadmin"
+const rol = ""; // "admin" - "superadmin"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const Home = () => {
         }}
       >
         <Typography mt="10px" mb="30px" align="center" variant="h5">
-          Welcome, {user.name}
+          Welcome, <strong>{user.name}</strong>
         </Typography>
 
         <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />

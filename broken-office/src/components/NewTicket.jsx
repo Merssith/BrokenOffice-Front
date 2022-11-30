@@ -13,6 +13,7 @@ const ButtonGeneric = {
   margin: "1.5rem",
   color: "#444444",
   width: "auto",
+  boxShadow: 4,
   transform: "scale(1.3)",
   backgroundColor: "#BFD732",
   borderRadius: "20px",

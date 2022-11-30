@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@mui/material";
+import { Grid, IconButton, Typography, AppBar } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -13,19 +13,27 @@ const Footer = () => {
   });
 
   return (
-    <Grid container>
+    <Grid
+      container
+      sx={{
+        width: "100%",
+      }}
+    >
       <Grid
-        display="flex"
-        direction="row"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        // sx={{ width: "100vw" }}
-        bgcolor="black"
-        color="white"
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          backgroundColor: "black",
+          color: "#9e9e9e",
+        }}
       >
-        <Grid item align="center" lg={4}>
+        <Grid
+          id="izquierda"
+          sx={{ alignItems: "center", textAlign: "center", width: "33%" }}
+        >
           <img
-            style={{ width: "25%" }}
+            style={{ width: "45%" }}
             src={logoGlobantWhiteGreen01}
             alt="Globant-White-Green-01"
           ></img>
@@ -33,17 +41,17 @@ const Footer = () => {
             All rights reserved Globant {new Date().getFullYear()}
           </Typography>
         </Grid>
-
-        <Grid item lg={4} align="center">
+        <Grid id="centro" sx={{ textAlign: "center", width: "33%" }}>
           <Typography>Contact Us</Typography>
           <Box sx={{ color: "#9e9e9e" }}>
-            <Typography>Drop us a line</Typography>
             <Typography>hi@globant.com</Typography>
             <Typography>+1 877 215 5230</Typography>
           </Box>
         </Grid>
-
-        <Grid item lg={4} align="center">
+        <Grid
+          id="derecha"
+          sx={{ alignItems: "center", textAlign: "center", width: "33%" }}
+        >
           <Typography>Follow Us</Typography>
           <SocialBox sx={{ justifyContent: "center" }}>
             <Link href="/" target="_blank">
