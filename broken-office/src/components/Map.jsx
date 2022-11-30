@@ -43,8 +43,6 @@ export default function SimpleMap() {
   };
   console.log(ubicaciones);
 
-
-
   return (
     <>
       <Grid style={{ height: "65vh", width: "100%" }}>
@@ -87,7 +85,7 @@ export default function SimpleMap() {
 //       defaultZoom={10}
 //       defaultCenter={{ lat: -34.397, lng: 150.644 }}
 //     />
-//   );
+//   )
 // };
 
 // export default withScriptsjs(withGoogleMap(Map));
