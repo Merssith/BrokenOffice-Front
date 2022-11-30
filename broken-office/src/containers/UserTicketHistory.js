@@ -195,7 +195,6 @@ const UserTicketHistory = () => {
         sx={{
           position: "absolute",
           flexWrap: "nowrap",
-          marginTop: "37.5rem",
         }}
       />
     </>

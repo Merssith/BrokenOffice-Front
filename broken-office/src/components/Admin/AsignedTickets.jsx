@@ -8,9 +8,10 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Pagination,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-
+import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -18,21 +19,35 @@ import { useSelector } from "react-redux";
 
 const AsignedTickets = () => {
   const [tickets, setTickets] = useState([]);
-  // const user = useSelector((state) => state.user);
-
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+  const [pagination, setPagination] = useState(initialStatePagination);
+  const user = useSelector((state) => state.user);
+  const [pageQuery, setPageQuery] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`/api/incidents/assignedToMe`)
-      .then((response) => {
-        setTickets(response.data);
+      .get(`http://localhost:3001/api/incidents/assignedToMe?${pageQuery}`, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setTickets(res.data.incidents);
+        if (pagination.totalPages === null)
+          setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, []);
+  }, [pagination, pageQuery]);
 
   const handleManage = (id) => {
     navigate(`/tickets/manage/${id}`);
+  };
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
   };
 
   return (
@@ -141,6 +156,16 @@ const AsignedTickets = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Pagination
+          count={pagination.totalPages || 0}
+          page={pagination.currentPage}
+          onChange={handlePagination}
+          sx={{
+            position: "absolute",
+            flexWrap: "nowrap",
+            marginTop: "39.5rem",
+          }}
+        />
       </Grid>
     </>
   );
