@@ -59,7 +59,7 @@ const UserTicketHistory = () => {
           setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, [user.id, pagination, pageQuery]);
+  }, [user, pagination, pageQuery]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
@@ -135,12 +135,15 @@ const UserTicketHistory = () => {
                   >
                     {ticket.subject}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell
+                    value={ticket.status}
+                    sx={{ textAlign: "center", fontSize: 12 }}
+                  >
                     {ticket.status === "OPEN" ? (
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
-                          backgroundColor: "#444444",
+                          backgroundColor: "#6CDF3C",
                           borderRadius: "8px",
                           color: "#6CDF3C",
                           fontSize: "small",
@@ -151,7 +154,7 @@ const UserTicketHistory = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
-                          backgroundColor: "#444444",
+                          backgroundColor: "#FFFA1B",
                           borderRadius: "8px",
                           color: "#FFFA1B",
                           fontSize: "small",
@@ -162,7 +165,7 @@ const UserTicketHistory = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
-                          backgroundColor: "#444444",
+                          backgroundColor: "#F8B932",
                           borderRadius: "8px",
                           color: "#F8B932",
                           fontSize: "small",
@@ -173,7 +176,7 @@ const UserTicketHistory = () => {
                       <CircleIcon
                         sx={{
                           boxShadow: 6,
-                          backgroundColor: "#444444",
+                          backgroundColor: "#F05432",
                           borderRadius: "8px",
                           color: "#F05432",
                           fontSize: "small",
@@ -193,9 +196,10 @@ const UserTicketHistory = () => {
         page={pagination.currentPage}
         onChange={handlePagination}
         sx={{
-          position: "absolute",
+          display: "flex",
+          justifyContent: "center",
           flexWrap: "nowrap",
-          marginTop: "37.5rem",
+          // marginTop: "37.5rem",
         }}
       />
     </>
