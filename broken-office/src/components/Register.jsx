@@ -84,8 +84,15 @@ const Register = () => {
         })
         .then((res) => console.log(res));
       navigate("/login");
-    } else {
-      alert("The data entered is not correct");
+    }
+    if (!isValidEmail) {
+      alert("Invalid email address");
+    }
+    if (!isValidPass) {
+      alert("Invalid password");
+    }
+    if (!areSamePass) {
+      alert("Passwords must be the same")
     }
   };
 
@@ -139,9 +146,9 @@ const Register = () => {
         required
         onChange={emailOnChange}
       />
-      {isValidEmail ? null : (
+      {/* {isValidEmail ? null : (
         <FormHelperText error>Invalid email address</FormHelperText>
-      )}
+      )} */}
 
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
@@ -152,13 +159,12 @@ const Register = () => {
         required
         onChange={passwordOnChange}
       />
-      {isValidPass ? null : (
-        <FormHelperText error>
-          It must be at least 6 characters
-          <br /> one uppercase, one lowercase,
-          <br />a number and a special character
+      {
+        <FormHelperText >
+          It must be at least 6 characters,1 uppercase, 1 lowercase, a number
+          and a special character
         </FormHelperText>
-      )}
+      }
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={passwordTwo}
@@ -168,9 +174,9 @@ const Register = () => {
         required
         onChange={passwordTwoOnChange}
       />
-      {areSamePass ? null : (
+      {/* {areSamePass ? null : (
         <FormHelperText error>Passwords must be the same</FormHelperText>
-      )}
+      )} */}
 
       <Button
         sx={ButtonGeneric}
