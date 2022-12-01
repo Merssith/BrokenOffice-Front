@@ -21,8 +21,8 @@ import IdDeviceStatus from "./Admin/IdDeviceStatus";
 import TicketData from "./Admin/TicketData";
 
 const ButtonGeneric = {
-  marginTop: "10%",
-  marginBottom: "15%",
+  marginTop: "40px",
+  marginBottom: "15px",
   color: "#444444",
   width: "auto",
   boxShadow: 4,
@@ -43,6 +43,7 @@ const SingleTicket = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [device, setDevice] = useState({});
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     axios
@@ -57,12 +58,19 @@ const SingleTicket = () => {
     setMessage(e.target.value);
   };
 
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
   const handleSend = (e) => {
-    e.preventDefault();
     if (message !== "") {
       axios.post(`/api/incidents/note/${ticket.id}`, { note: message });
       setMessage("");
     }
+  };
+
+  const handleShare = (ticketId, email) => {
+    axios.post(`/api/incidents/share/${ticketId}`, { email: email });
   };
 
   const handleDeleteTicket = () => {
@@ -84,69 +92,105 @@ const SingleTicket = () => {
   };
 
   return (
-    <Grid
-      sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingBottom: "30px",
-        margin: "auto",
-      }}
-    >
-      <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Single Ticket
-      </Typography>
-      <Grid
-        sx={{
-          width: "100%",
-          maxWidth: "800px",
-          boxShadow: 6,
-          borderRadius: "8px",
-          padding: "8px",
-        }}
-      >
-        <TicketData ticket={ticket} />
-        <DescriptionPhoto ticket={ticket} />
-
-        {ticket.notes ? (
-          <>
-            <ChatTable messages={ticket.notes} />{" "}
+    <>
+      {ticket.id ? (
+        <>
+          <Grid
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingBottom: "30px",
+              margin: "auto",
+            }}
+          >
+            <Typography mt="10px" mb="30px" align="center" variant="h5">
+              Single Ticket
+            </Typography>
             <Grid
               sx={{
+                width: "100%",
+                maxWidth: "800px",
+                boxShadow: 6,
+                borderRadius: "8px",
+                padding: "8px",
+              }}
+            >
+              <TicketData ticket={ticket} />
+              <DescriptionPhoto ticket={ticket} />
+
+              {ticket.notes ? (
+                <>
+                  <ChatTable messages={ticket.notes} />{" "}
+                  <Grid
+                    sx={{
+                      marginTop: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <TextField
+                      value={message}
+                      id="input-message"
+                      label="Send a message"
+                      fullWidth
+                      type="text"
+                      size="small"
+                      onChange={handleChangeMessage}
+                    />
+
+                    <Button onClick={handleSend} sx={{ width: "10%" }}>
+                      SEND
+                    </Button>
+                  </Grid>
+                </>
+              ) : null}
+            </Grid>
+            <Typography mt="30px" align="center" variant="h6">
+              Share this incident
+            </Typography>
+            <Grid
+              sx={{
+                width: "100%",
                 marginTop: "10px",
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "center",
               }}
             >
               <TextField
-                value={message}
-                id="input-message"
-                label="Send a message"
+                sx={{ width: "65%" }}
+                value={email}
+                id="input-share"
+                label="Enter an e-mail address"
                 fullWidth
                 type="text"
                 size="small"
-                onChange={handleChangeMessage}
+                onChange={handleChangeEmail}
               />
 
-              <Button onClick={handleSend} sx={{ width: "10%" }}>
-                SEND
+              <Button
+                // onClick={handleShare(ticket.id, email)}
+                sx={{ width: "5%" }}
+              >
+                Share
               </Button>
             </Grid>
-          </>
-        ) : null}
-      </Grid>
-      <Button
-        sx={ButtonGeneric}
-        onClick={handleDeleteTicket}
-        type="button"
-        variant="contained"
-        component="label"
-        fullWidth
-      >
-        Delete Ticket
-      </Button>
-    </Grid>
+            <Button
+              sx={ButtonGeneric}
+              onClick={handleDeleteTicket}
+              type="button"
+              variant="contained"
+              component="label"
+              fullWidth
+            >
+              Delete Ticket
+            </Button>
+          </Grid>
+        </>
+      ) : null}
+    </>
   );
 };
 

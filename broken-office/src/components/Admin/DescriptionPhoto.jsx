@@ -54,6 +54,7 @@ const DescriptionPhoto = ({ ticket }) => {
           minWidth: "50%",
           maxWidth: "300px",
           margin: "auto",
+          marginBottom: "8px",
         }}
       >
         <img width="99%" src={ticket.photo} alt="Ticket" />

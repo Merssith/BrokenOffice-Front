@@ -27,8 +27,6 @@ const Photo = () => {
   const navigate = useNavigate();
   const webcamRef = React.useRef(null);
 
-  
-
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
 
@@ -41,15 +39,18 @@ const Photo = () => {
       {isActive ? (
         <div
           style={{
+            backgroundColor: "red",
             display: "flex",
             flexDirection: "column",
-            width: "100%",
+            width: "50%",
             alignItems: "center",
           }}
         >
           <Webcam
-            style={{ height: "15rem", marginTop: "5rem" }}
+            style={{ width: "40%", height: "50rem", marginTop: "5rem" }}
             audio={false}
+            width={640}
+            height={480}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
           />
@@ -57,11 +58,10 @@ const Photo = () => {
             variant="contained"
             sx={ButtonGeneric}
             onClick={capture}
-            endIcon={<AddAPhotoIcon sx={{size:'large'}}/>}
+            endIcon={<AddAPhotoIcon sx={{ size: "large" }} />}
           >
             Capture photo
             <div style={{ width: "1rem" }}></div>
-            
           </Button>
           {/* {imgSrc && <img src={imageSrc} />} */}
         </div>

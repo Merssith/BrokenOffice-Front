@@ -49,7 +49,7 @@ const ManageTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
-  }, [ticket.id]);
+  }, [ticket.status, ticket.notes]);
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -95,6 +95,8 @@ const ManageTicket = () => {
         <StatusChanger ticket={ticket} />
 
         {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
+
+        
         <Grid sx={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
           <TextField
             value={message}

@@ -79,11 +79,12 @@ const Login = () => {
     }
     if (!isValidEmail) {
       setMessage("Invalid email address");
+      setOpen(true);
     }
     if (!isValidPass) {
       setMessage("Invalid password");
+      setOpen(true);
     }
-    setOpen(true);
   };
   const handleClose = (
     event?: React.SyntheticEvent | Event,
