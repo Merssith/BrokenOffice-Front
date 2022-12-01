@@ -35,7 +35,7 @@ const ViewTickets = () => {
   useEffect(() => {
     if (filterValue === "ALL") {
       axios
-        .get(`http://localhost:3001/api/incidents/all`, {
+        .get(`/api/incidents/all`, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
@@ -45,13 +45,10 @@ const ViewTickets = () => {
         .catch("");
     } else {
       axios
-        .get(
-          `http://localhost:3001/api/incidents/search?status=${filterValue}`,
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        )
+        .get(`/api/incidents/search?status=${filterValue}`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
         .then((response) => {
           setTickets(response.data);
         })
@@ -85,27 +82,27 @@ const ViewTickets = () => {
         {tickets.length ? (
           <>
             <TableContainer sx={{ width: "100%" }} component={Paper}>
-              <Table size="small" aria-label="a dense table">
+              <Table aria-label="a dense table">
                 <TableHead>
                   <TableRow>
                     <TableCell
-                      sx={{ width: "15%", textAlign: "center", fontSize: 12 }}
+                      sx={{ width: "15%", textAlign: "center", fontSize: 14 }}
                     >
                       <Typography>{<strong>Date</strong>}</Typography>
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                    <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                       <Typography>{<strong> ID </strong>}</Typography>
                     </TableCell>
                     <TableCell
                       sx={{
                         width: "30%",
                         textAlign: "center",
-                        fontSize: 12,
+                        fontSize: 14,
                       }}
                     >
                       <Typography>{<strong>Subject</strong>}</Typography>
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                    <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                       <Typography>
                         {
                           <Dropdown isOpen={dropdown} toggle={handleDropdown}>
@@ -152,16 +149,16 @@ const ViewTickets = () => {
                 <TableBody>
                   {tickets.map((ticket, i) => (
                     <TableRow onClick={() => handleManage(ticket.id)} key={i}>
-                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                         {ticket.date}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                         {ticket.id}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                         {ticket.subject}
                       </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                         {ticket.status === "OPEN" ? (
                           <CircleIcon
                             sx={{

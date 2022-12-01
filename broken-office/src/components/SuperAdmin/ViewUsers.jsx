@@ -93,18 +93,18 @@ const ViewUsers = () => {
           </Typography>
         </Grid>
         <TableContainer sx={{ width: "100%" }} component={Paper}>
-          <Table size="small" aria-label="a dense table">
+          <Table aria-label="a dense table">
             <TableHead>
               <TableRow>
                 <TableCell
-                  sx={{ width: "15%", textAlign: "center", fontSize: 12 }}
+                  sx={{ width: "15%", textAlign: "center", fontSize: 14 }}
                 >
                   <Typography>{<strong>User ID</strong>}</Typography>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                   <Typography>{<strong> Name </strong>}</Typography>
                 </TableCell>
-                <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                   <Typography>
                     {
                       <Dropdown isOpen={dropdown} toggle={handleDropdown}>
@@ -136,13 +136,13 @@ const ViewUsers = () => {
             <TableBody>
               {users.map((user, i) => (
                 <TableRow onClick={() => handleManage(user.id)} key={i}>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                     {user.id}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                     {user.fullName}
                   </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                     {user.userRole.name}
                   </TableCell>
                 </TableRow>
