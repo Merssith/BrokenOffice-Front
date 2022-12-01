@@ -27,7 +27,7 @@ import SingleTicket from "./components/SingleTicket";
 import Photo from "./containers/Photo";
 import { useMediaQuery, Container } from "@mui/material";
 import NavBarDesktop from "./components/NavBarDesktop";
-
+import "./styles/global.css";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -38,6 +38,7 @@ function App() {
       dispatch(setUser(usuario.data));
     });
   }, []);
+
   const isActive = useMediaQuery("(max-width: 800px)");
   return (
     <Box
@@ -62,8 +63,8 @@ function App() {
           <Route path="/tickets/manage/:id" element={<ManageTicket />} />
           <Route path="/tickets/all" element={<ViewTickets />} />
           <Route path="/users/all" element={<ViewUsers />} />
-          <Route path="/users/id" element={<ProfileView />} />
-          <Route path="/tickets/id" element={<TicketView />} />
+          <Route path="/users/:id" element={<ProfileView />} />
+          <Route path="/tickets/:id" element={<TicketView />} />
           <Route path="/map" element={<Map />} />
         </Routes>
         {location.pathname === "/" || !user.email || !isActive ? null : (

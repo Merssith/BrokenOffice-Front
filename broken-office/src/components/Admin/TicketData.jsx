@@ -8,7 +8,7 @@ import {
   Paper,
 } from "@mui/material";
 
-const TicketData = ({ ticket, device }) => {
+const TicketData = ({ ticket }) => {
   return (
     <>
       {ticket.user ? (
@@ -59,9 +59,9 @@ const TicketData = ({ ticket, device }) => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  {device.brand ? (
+                  {ticket.item ? (
                     <TableCell sx={{ textAlign: "left", width: "33%" }}>
-                      {device.brand} {device.model}
+                      {ticket.item.brand} {ticket.item.model}
                     </TableCell>
                   ) : (
                     <TableCell sx={{ textAlign: "left", width: "33%" }}>

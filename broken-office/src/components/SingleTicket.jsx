@@ -106,7 +106,7 @@ const SingleTicket = () => {
           padding: "8px",
         }}
       >
-        <TicketData ticket={ticket} device={device} />
+        <TicketData ticket={ticket} />
         <DescriptionPhoto ticket={ticket} />
 
         {ticket.notes ? (

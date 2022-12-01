@@ -51,15 +51,6 @@ const ManageTicket = () => {
       .catch("");
   }, [ticket.id]);
 
-  useEffect(() => {
-    if (ticket.itemId) {
-      axios.get(`/api/item/${ticket.itemId}`).then((response) => {
-        setDevice(response.data);
-        console.log(response.data);
-      });
-    }
-  }, [ticket.id]);
-
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
   };
@@ -99,7 +90,7 @@ const ManageTicket = () => {
           padding: "8px 8px 16px",
         }}
       >
-        <TicketData ticket={ticket} device={device} />
+        <TicketData ticket={ticket} />
         <DescriptionPhoto ticket={ticket} />
         <StatusChanger ticket={ticket} />
 
