@@ -1,103 +1,38 @@
-import React, { useEffect, useState } from "react";
 import {
-  DataGrid,
-  getGridSingleSelectOperators,
-  getGridStringOperators,
-  GridEventListener,
-} from "@mui/x-data-grid";
-import { useNavigate } from "react-router";
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Button,
+} from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Button, Grid } from "@mui/material";
-import { useMemo } from "react";
-import { Typography } from "antd";
 
 const ViewTickets = () => {
   const [tickets, setTickets] = useState([]);
-  const user = useSelector((state) => state.user);
+  const [filterValue, setFilterValue] = useState("ALL");
+  const [dropdown, setDropdown] = useState(false);
 
   const navigate = useNavigate();
-  // const [rowId, setRowId] = useState(null);
-  // const [pageSize, setPageSize] = useState(5);
 
-  const ButtonGeneric = {
-    margin: "2rem",
-    color: "#444444",
-    width: "auto",
-    transform: "scale(1.2)",
-    backgroundColor: "#BFD732",
-    borderRadius: "20px",
-    "&:hover": {
-      backgroundColor: "#BFD732",
-    },
-    "&:active": {
-      color: "white",
-    },
-  };
-
-  const columns = useMemo(
-    () => [
-      {
-        field: "date",
-        headerName: "Date",
-        filterOperators: getGridStringOperators().filter(
-          (operator) => operator.value === "is"
-        ),
-        sortable: false,
-        filterable: false,
-      },
-      {
-        field: "subject",
-        headerName: "Subject",
-        filterOperators: getGridStringOperators().filter(
-          (operator) => operator.value === "is"
-        ),
-        sortable: false,
-        filterable: false,
-      },
-      {
-        field: "status",
-        headerName: "Status",
-        valueOptions: ["ALL", "OPEN", "IN PROCESS", "PENDING", "CLOSED"],
-        filterOperators: getGridSingleSelectOperators().filter(
-          (a) => a.value === "is"
-        ),
-        sortable: false,
-      },
-    ],
-    []
-  );
-
-  useEffect(
-    () => {
-      axios
-        .get(`http://localhost:3001/api/incidents/all`)
-        .then((response) => {
-          setTickets(response.data);
-        })
-        .catch("");
-    },
-    [],
-    tickets
-  );
-
-  //const [columnName, setColumnName] = useState("");
-  const [filterValue, setFilterValue] = useState("");
-  const onFilterChange = React.useCallback((e) => {
-    setFilterValue(e.items[0].value);
-    //setColumnName(e.items[0].columnField);
-  }, []);
-
-  // const [sortValue, setSortValue] = useState("");
-  // const handleSortModelChange = React.useCallback((e) => {
-  //   setSortValue(e[0].sort);
-  //   setColumnName(e.items[0].field);
-  //   //console.log("ESTE ES EL SORT VALUE Y COLUMN", sortValue,columnName)
-
-  // });
-
-  const onSubmit = () => {
-    //console.log("entró", filterValue);
+  useEffect(() => {
     if (filterValue === "ALL") {
       axios
         .get(`http://localhost:3001/api/incidents/all`, {
@@ -122,16 +57,17 @@ const ViewTickets = () => {
         })
         .catch("");
     }
-  };
+  }, [tickets.length, filterValue]);
 
-  const handleRowClick = (params) => {
-    navigate(`/tickets/${params.id}`);
+  const handleManage = (id) => {
+    navigate(`/tickets/manage/${id}`);
   };
-  
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
+  };
   return (
-    <div>
+    <>
       <Grid
-        container
         sx={{
           width: "95%",
           display: "flex",
@@ -143,36 +79,143 @@ const ViewTickets = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Ticket List
+            All Tickets
           </Typography>
         </Grid>
-
-        <DataGrid
-          rows={tickets}
-          columns={columns}
-          getRowId={(row) => row.id}
-          autoHeight
-          // rowsPerPageOptions={[5, 10, 20]}
-          // pageSize={pageSize}
-          // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          filterMode="server"
-          onFilterModelChange={onFilterChange}
-          onRowClick={handleRowClick}
-          //onClick={alert("HOLA")}
-          // sortingMode="server"
-          // onSortModelChange={handleSortModelChange}
-        />
-        <Button
-          sx={ButtonGeneric}
-          type="submit"
-          color="primary"
-          variant="contained"
-          onClick={onSubmit}
-        >
-          Filtro
-        </Button>
+        {tickets.length ? (
+          <>
+            <TableContainer sx={{ width: "100%" }} component={Paper}>
+              <Table size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      sx={{ width: "15%", textAlign: "center", fontSize: 12 }}
+                    >
+                      <Typography>{<strong>Date</strong>}</Typography>
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <Typography>{<strong> ID </strong>}</Typography>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        width: "30%",
+                        textAlign: "center",
+                        fontSize: 12,
+                      }}
+                    >
+                      <Typography>{<strong>Subject</strong>}</Typography>
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                      <Typography>
+                        {
+                          <Dropdown isOpen={dropdown} toggle={handleDropdown}>
+                            <DropdownToggle caret className="dropdownBtn">
+                              Status
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              <DropdownItem header>
+                                Filter by Status
+                              </DropdownItem>
+                              <DropdownItem diviver />
+                              <DropdownItem
+                                onClick={() => setFilterValue("ALL")}
+                              >
+                                All tickets
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("OPEN")}
+                              >
+                                Open
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("PENDING")}
+                              >
+                                Pending
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("IN PROCESS")}
+                              >
+                                In process
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("CLOSED")}
+                              >
+                                Closed
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </Dropdown>
+                        }
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {tickets.map((ticket, i) => (
+                    <TableRow onClick={() => handleManage(ticket.id)} key={i}>
+                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                        {ticket.date}
+                      </TableCell>
+                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                        {ticket.id}
+                      </TableCell>
+                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                        {ticket.subject}
+                      </TableCell>
+                      <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
+                        {ticket.status === "OPEN" ? (
+                          <CircleIcon
+                            sx={{
+                              boxShadow: 6,
+                              backgroundColor: "#6CDF3C",
+                              borderRadius: "8px",
+                              color: "#6CDF3C",
+                              fontSize: "small",
+                            }}
+                          />
+                        ) : null}
+                        {ticket.status === "PENDING" ? (
+                          <CircleIcon
+                            sx={{
+                              boxShadow: 6,
+                              backgroundColor: "#FFFA1B",
+                              borderRadius: "8px",
+                              color: "#FFFA1B",
+                              fontSize: "small",
+                            }}
+                          />
+                        ) : null}
+                        {ticket.status === "IN PROCESS" ? (
+                          <CircleIcon
+                            sx={{
+                              boxShadow: 6,
+                              backgroundColor: "#F8B932",
+                              borderRadius: "8px",
+                              color: "#F8B932",
+                              fontSize: "small",
+                            }}
+                          />
+                        ) : null}
+                        {ticket.status === "CLOSED" ? (
+                          <CircleIcon
+                            sx={{
+                              boxShadow: 6,
+                              backgroundColor: "#F05432",
+                              borderRadius: "8px",
+                              color: "#F05432",
+                              fontSize: "small",
+                            }}
+                          />
+                        ) : null}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
+        ) : null}
       </Grid>
-    </div>
+    </>
   );
 };
 

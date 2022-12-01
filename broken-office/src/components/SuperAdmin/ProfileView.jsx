@@ -1,13 +1,21 @@
 import React from "react";
-import { Paper, Grid, Typography } from "@mui/material";
+import { Paper, Grid, Typography, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useParams } from "react-router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 
 const ProfileView = () => {
   const params = useParams();
   const [user, setUser] = useState({});
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     axios
@@ -20,6 +28,47 @@ const ProfileView = () => {
       })
       .catch("");
   }, [params.id]);
+
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
+  };
+  const handleDelete = (userId) => {
+    axios.delete(`/api/users/delete/${userId}`, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+  };
+
+  const handleSetUser = (userId) => {
+    axios.put(
+      `/api/users/update/${userId}`,
+      { userRoleId: 3 },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+  };
+  const handleSetAdmin = (userId) => {
+    axios.put(
+      `/api/users/update/${userId}`,
+      { userRoleId: 2 },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+  };
+  const handleSetSuperAdmin = (userId) => {
+    axios.put(
+      `/api/users/update/${userId}`,
+      { userRoleId: 1 },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+  };
 
   return (
     <>
@@ -95,7 +144,91 @@ const ProfileView = () => {
                 </Typography>
                 <Typography variant="subtitle1" mt="10px">
                   {" "}
-                  {<strong>Rol:</strong>} {user.userRole.name}
+                  {<strong>Rol:</strong>}{" "}
+                  {user.userRole.id == 1 ? (
+                    <>
+                      <Dropdown
+                        isOpen={dropdown}
+                        toggle={handleDropdown}
+                        direction="right"
+                        size="sm"
+                      >
+                        <DropdownToggle caret className="dropdownBtn">
+                          {user.userRole.name}
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem header>Edit user role</DropdownItem>
+                          <DropdownItem diviver />
+                          <DropdownItem onClick={() => handleSetUser(user.id)}>
+                            User
+                          </DropdownItem>
+                          <DropdownItem onClick={() => handleSetAdmin(user.id)}>
+                            Admin
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </>
+                  ) : null}
+                  {user.userRole.id == 2 ? (
+                    <>
+                      <>
+                        <Dropdown
+                          isOpen={dropdown}
+                          toggle={handleDropdown}
+                          direction="right"
+                          size="sm"
+                        >
+                          <DropdownToggle caret className="dropdownBtn">
+                            {user.userRole.name}
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem header>Edit user role</DropdownItem>
+                            <DropdownItem diviver />
+                            <DropdownItem
+                              onClick={() => handleSetUser(user.id)}
+                            >
+                              User
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => handleSetSuperAdmin(user.id)}
+                            >
+                              Super Admin
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
+                      </>
+                    </>
+                  ) : null}
+                  {user.userRole.id == 3 ? (
+                    <>
+                      <>
+                        <Dropdown
+                          isOpen={dropdown}
+                          toggle={handleDropdown}
+                          direction="right"
+                          size="sm"
+                        >
+                          <DropdownToggle caret className="dropdownBtn">
+                            {user.userRole.name}
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem header>Edit user role</DropdownItem>
+                            <DropdownItem diviver />
+                            <DropdownItem
+                              onClick={() => handleSetAdmin(user.id)}
+                            >
+                              Admin
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => handleSetSuperAdmin(user.id)}
+                            >
+                              Super Admin
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
+                      </>
+                    </>
+                  ) : null}
                 </Typography>
                 <Typography variant="subtitle1" mt="10px">
                   {" "}
@@ -118,6 +251,10 @@ const ProfileView = () => {
                   {" "}
                   {<strong>Email:</strong>} {user.email}
                 </Typography>
+                <Button onClick={() => handleDelete(user.id)}>
+                  {" "}
+                  DELETE USER{" "}
+                </Button>
               </Grid>
             </Paper>
           </>
