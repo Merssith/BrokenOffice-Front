@@ -5,7 +5,7 @@ import {
   Button,
   Typography,
   Link,
-  FormHelperText,
+  Snackbar,
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -38,6 +38,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPass, setIsValidPass] = useState(true);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const emailOnChange = (e) => {
     const emailInput = e.target.value;
@@ -74,13 +76,25 @@ const Login = () => {
         .catch((err) => {
           // console.log("ERROR!");
         });
-    }  if (!isValidEmail) {
-      alert("Invalid email address");
+    }
+    if (!isValidEmail) {
+      setMessage("Invalid email address");
     }
     if (!isValidPass) {
-      alert("Invalid password");
+      setMessage("Invalid password");
     }
+    setOpen(true);
   };
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <Grid
       sx={{
@@ -123,15 +137,44 @@ const Login = () => {
           <br />a number and a special character
         </FormHelperText>
       )} */}
-      <Button
-        sx={ButtonGeneric}
-        type="submit"
-        color="primary"
-        variant="contained"
-        onClick={handleLogin}
-      >
-        Login
-      </Button>
+      {email === "" || password === "" ? (
+        <Button
+          sx={ButtonGeneric}
+          type="submit"
+          color="primary"
+          variant="contained"
+          onClick={handleLogin}
+          disabled
+        >
+          Login
+        </Button>
+      ) : (
+        <>
+          {" "}
+          <Button
+            sx={ButtonGeneric}
+            type="submit"
+            color="primary"
+            variant="contained"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>{" "}
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            message={message}
+            autoHideDuration={3000}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            ContentProps={{
+              sx: {
+                background: "red",
+                color: "#444444",
+              },
+            }}
+          />
+        </>
+      )}
       <Typography
         sx={{ fontSize: "small ", textAlign: "center", marginTop: "5px" }}
       >

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import {
   Grid,
   TextField,
   Button,
   Typography,
   FormHelperText,
+  Snackbar,
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { isEmail, isValidPassword, samePassword } from "../utils/validation";
 
 const ButtonGeneric = {
@@ -30,22 +30,20 @@ const ButtonGeneric = {
 const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [globerId, setGloberId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordTwo, setPasswordTwo] = useState(""); //se puede borrar no se usa
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPass, setIsValidPass] = useState(true);
   const [areSamePass, setAreSamePass] = useState(true);
+  const [message, setMessage] = useState("")
+  const [open, setOpen] = useState(false)
 
   const nameOnChange = (event) => {
     setName(event.target.value);
   };
   const lastNameOnChange = (event) => {
     setLastName(event.target.value);
-  };
-  const globerIdOnChange = (event) => {
-    setGloberId(event.target.value);
   };
   const emailOnChange = (event) => {
     const emailInput = event.target.value;
@@ -86,16 +84,17 @@ const Register = () => {
       navigate("/login");
     }
     if (!isValidEmail) {
-      alert("Invalid email address");
+      setMessage("Invalid email address");
     }
     if (!isValidPass) {
-      alert("Invalid password");
+      setMessage("Invalid password");
     }
     if (!areSamePass) {
-      alert("Passwords must be the same")
+      setMessage("Passwords must be the same")
     }
+    setOpen(true)
   };
-
+const handleClose = (event?: React.SyntheticEvent | Event, reason?: string)=>{ if(reason === "clickaway"){return}setOpen(false)}
   return (
     <Grid
       sx={{
@@ -177,8 +176,20 @@ const Register = () => {
       {/* {areSamePass ? null : (
         <FormHelperText error>Passwords must be the same</FormHelperText>
       )} */}
-
-      <Button
+{(name === "" || lastName === "" || email === "" || password === "" || passwordTwo === "" )?(
+        <Button
+        sx={ButtonGeneric}
+        onClick={handleSubmit}
+        type="submit"
+        variant="contained"
+        component="label"
+        fullWidth
+        disabled
+      >
+        Register
+      </Button>
+) :
+      (<><Button
         sx={ButtonGeneric}
         onClick={handleSubmit}
         type="submit"
@@ -187,7 +198,12 @@ const Register = () => {
         fullWidth
       >
         Register
-      </Button>
+      </Button> <Snackbar open={open} onClose={handleClose} message={message} autoHideDuration={3000} anchorOrigin={{vertical:"top", horizontal:"left"}} ContentProps={{
+    sx: {
+      background: "red",
+      color: "#444444"
+    }
+  }}/></>)}
       <Typography sx={{ textAlign: "center", marginTop: "20px" }}>
         Already registered?
       </Typography>
