@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
   Button,
+  Pagination,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,43 +25,63 @@ import {
 } from "reactstrap";
 
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const ViewUsers = () => {
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+
   const [users, setUsers] = useState([]);
   const [dropdown, setDropdown] = useState(false);
   const [filterValue, setFilterValue] = useState(0);
 
   const navigate = useNavigate();
+  const [pagination, setPagination] = useState(initialStatePagination);
+  const [pageQuery, setPageQuery] = useSearchParams();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (filterValue === 0) {
+      setPageQuery({ page: pagination.currentPage });
+
       axios
-        .get(`/api/users/all`, {
+        .get(`/api/users/all?page=${pagination.currentPage}`, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((response) => {
-          setUsers(response.data);
+          setUsers(response.data.users);
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
         })
         .catch("");
     } else {
+      setPageQuery({ page: pagination.currentPage });
+
       axios
         .get(
-          `http://localhost:3001/api/incidents/search?status=${filterValue}`,
+          `http://localhost:3001/api/users/filter?role=${filterValue}&${pageQuery}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }
         )
         .then((response) => {
-          setUsers(response.data);
+          setUsers(response.data.users);
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
         })
         .catch("");
     }
-  }, [users.length, filterValue]);
+  }, [user, pageQuery, filterValue, pagination.currentPage]);
 
   const handleManage = (id) => {
     navigate(`/users/${id}`);
@@ -74,6 +95,11 @@ const ViewUsers = () => {
       withCredentials: true,
     });
   };
+
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
+  };
+  console.log(pageQuery);
 
   return (
     <>
@@ -134,7 +160,7 @@ const ViewUsers = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user, i) => (
+              {users?.map((user, i) => (
                 <TableRow onClick={() => handleManage(user.id)} key={i}>
                   <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                     {user.id}
@@ -151,6 +177,17 @@ const ViewUsers = () => {
           </Table>
         </TableContainer>
       </Grid>
+      <Pagination
+        count={pagination.totalPages || 0}
+        page={pagination.currentPage}
+        onChange={handlePagination}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "nowrap",
+          // marginTop: "37.5rem",
+        }}
+      />
     </>
   );
 };

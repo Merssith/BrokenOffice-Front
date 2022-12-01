@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
   Button,
+  Pagination,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -24,37 +25,71 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const ViewTickets = () => {
+  const initialStatePagination = {
+    totalPages: null,
+    currentPage: 1,
+  };
+
   const [tickets, setTickets] = useState([]);
   const [filterValue, setFilterValue] = useState("ALL");
   const [dropdown, setDropdown] = useState(false);
+  const [pagination, setPagination] = useState(initialStatePagination);
+  const [pageQuery, setPageQuery] = useSearchParams();
 
   const navigate = useNavigate();
 
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
     if (filterValue === "ALL") {
+      setPageQuery({ page: pagination.currentPage });
       axios
-        .get(`/api/incidents/all`, {
+
+        .get(`http://localhost:3001/api/incidents/all?${pageQuery}`, {
+
+      
+
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((response) => {
-          setTickets(response.data);
+          setTickets(response.data.incidents);
+
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
         })
         .catch("");
     } else {
+      setPageQuery({ page: pagination.currentPage });
+
       axios
-        .get(`/api/incidents/search?status=${filterValue}`, {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        })
+
+        .get(
+          `http://localhost:3001/api/incidents/search?status=${filterValue}&${pageQuery}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
+
+
+
         .then((response) => {
-          setTickets(response.data);
+          setTickets(response.data.incidents);
+
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
         })
         .catch("");
     }
-  }, [tickets.length, filterValue]);
+  }, [user, filterValue, pageQuery]);
 
   const handleManage = (id) => {
     navigate(`/tickets/manage/${id}`);
@@ -62,6 +97,12 @@ const ViewTickets = () => {
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
+
+  const handlePagination = (e, value) => {
+    setPagination({ ...pagination, currentPage: value });
+  };
+  console.log(pagination.totalPages);
+
   return (
     <>
       <Grid
@@ -212,6 +253,18 @@ const ViewTickets = () => {
           </>
         ) : null}
       </Grid>
+      <Pagination
+        count={pagination.totalPages || 0}
+        page={pagination.currentPage}
+        onChange={handlePagination}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "nowrap",
+          // marginTop: "37.5rem",
+        }}
+      />
+      <div stlye={{ height: "5vh" }}></div>
     </>
   );
 };
