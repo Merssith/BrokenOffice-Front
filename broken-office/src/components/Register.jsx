@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   Grid,
   TextField,
@@ -36,8 +36,8 @@ const Register = () => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPass, setIsValidPass] = useState(true);
   const [areSamePass, setAreSamePass] = useState(true);
-  const [message, setMessage] = useState("")
-  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const nameOnChange = (event) => {
     setName(event.target.value);
@@ -85,16 +85,26 @@ const Register = () => {
     }
     if (!isValidEmail) {
       setMessage("Invalid email address");
+      setOpen(true);
     }
     if (!isValidPass) {
       setMessage("Invalid password");
+      setOpen(true);
     }
     if (!areSamePass) {
-      setMessage("Passwords must be the same")
+      setMessage("Passwords must be the same");
+      setOpen(true);
     }
-    setOpen(true)
   };
-const handleClose = (event?: React.SyntheticEvent | Event, reason?: string)=>{ if(reason === "clickaway"){return}setOpen(false)}
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   return (
     <Grid
       sx={{
@@ -159,7 +169,7 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string)=>{ i
         onChange={passwordOnChange}
       />
       {
-        <FormHelperText >
+        <FormHelperText>
           It must be at least 6 characters,1 uppercase, 1 lowercase, a number
           and a special character
         </FormHelperText>
@@ -176,34 +186,49 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string)=>{ i
       {/* {areSamePass ? null : (
         <FormHelperText error>Passwords must be the same</FormHelperText>
       )} */}
-{(name === "" || lastName === "" || email === "" || password === "" || passwordTwo === "" )?(
+      {name === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === "" ||
+      passwordTwo === "" ? (
         <Button
-        sx={ButtonGeneric}
-        onClick={handleSubmit}
-        type="submit"
-        variant="contained"
-        component="label"
-        fullWidth
-        disabled
-      >
-        Register
-      </Button>
-) :
-      (<><Button
-        sx={ButtonGeneric}
-        onClick={handleSubmit}
-        type="submit"
-        variant="contained"
-        component="label"
-        fullWidth
-      >
-        Register
-      </Button> <Snackbar open={open} onClose={handleClose} message={message} autoHideDuration={3000} anchorOrigin={{vertical:"top", horizontal:"left"}} ContentProps={{
-    sx: {
-      background: "red",
-      color: "#444444"
-    }
-  }}/></>)}
+          sx={ButtonGeneric}
+          onClick={handleSubmit}
+          type="submit"
+          variant="contained"
+          component="label"
+          fullWidth
+          disabled
+        >
+          Register
+        </Button>
+      ) : (
+        <>
+          <Button
+            sx={ButtonGeneric}
+            onClick={handleSubmit}
+            type="submit"
+            variant="contained"
+            component="label"
+            fullWidth
+          >
+            Register
+          </Button>{" "}
+          <Snackbar
+            open={open}
+            onClose={handleClose}
+            message={message}
+            autoHideDuration={3000}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            ContentProps={{
+              sx: {
+                background: "red",
+                color: "#444444",
+              },
+            }}
+          />
+        </>
+      )}
       <Typography sx={{ textAlign: "center", marginTop: "20px" }}>
         Already registered?
       </Typography>

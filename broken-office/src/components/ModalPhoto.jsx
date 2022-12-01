@@ -65,12 +65,14 @@ function ModalPhoto() {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "100%",
+            width: "50%",
+            margin: "auto",
             alignItems: "center",
           }}
         >
           <Webcam
-            style={{ height: "15rem", marginTop: "5rem" }}
+            style={{ margin: "15px" }}
+            width={320}
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
@@ -96,7 +98,8 @@ function ModalPhoto() {
           }}
         >
           <Webcam
-            style={{ height: "50vh" }}
+            style={{ margin: "15px" }}
+            width={420}
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"

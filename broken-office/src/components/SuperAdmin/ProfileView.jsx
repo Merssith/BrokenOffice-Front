@@ -12,6 +12,22 @@ import {
   DropdownToggle,
 } from "reactstrap";
 
+const ButtonGeneric = {
+  margin: "2rem",
+  color: "#444444",
+  width: "auto",
+  boxShadow: 4,
+  transform: "scale(1.2)",
+  backgroundColor: "#BFD732",
+  borderRadius: "20px",
+  "&:hover": {
+    backgroundColor: "#BFD732",
+  },
+  "&:active": {
+    color: "white",
+  },
+};
+
 const ProfileView = () => {
   const params = useParams();
   const [user, setUser] = useState({});
@@ -251,7 +267,10 @@ const ProfileView = () => {
                   {" "}
                   {<strong>Email:</strong>} {user.email}
                 </Typography>
-                <Button onClick={() => handleDelete(user.id)}>
+                <Button
+                  style={ButtonGeneric}
+                  onClick={() => handleDelete(user.id)}
+                >
                   {" "}
                   DELETE USER{" "}
                 </Button>
