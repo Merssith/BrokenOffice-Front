@@ -199,7 +199,6 @@ const UserTicketHistory = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          // marginTop: "37.5rem",
         }}
       />
     </>
