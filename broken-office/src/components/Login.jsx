@@ -74,8 +74,11 @@ const Login = () => {
         .catch((err) => {
           // console.log("ERROR!");
         });
-    } else {
-      alert("The data entered is not correct");
+    }  if (!isValidEmail) {
+      alert("Invalid email address");
+    }
+    if (!isValidPass) {
+      alert("Invalid password");
     }
   };
   return (
@@ -101,9 +104,9 @@ const Login = () => {
         required
         onChange={emailOnChange}
       />
-      {isValidEmail ? null : (
+      {/* {isValidEmail ? null : (
         <FormHelperText error>Invalid email address</FormHelperText>
-      )}
+      )} */}
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         label="Password"
@@ -113,13 +116,13 @@ const Login = () => {
         required
         onChange={passwordOnChange}
       />
-      {isValidPass ? null : (
+      {/* {isValidPass ? null : (
         <FormHelperText error>
           It must be at least 6 characters
           <br /> one uppercase, one lowercase,
           <br />a number and a special character
         </FormHelperText>
-      )}
+      )} */}
       <Button
         sx={ButtonGeneric}
         type="submit"
