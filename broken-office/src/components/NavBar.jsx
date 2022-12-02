@@ -6,6 +6,7 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
+import DarkModeButtton from "./DarkModeButtton";
 
 const navColor = createTheme({
   palette: {
@@ -38,6 +39,7 @@ function NavBar() {
               >
                 BROKEN OFFICE
               </Typography>
+              <DarkModeButtton/>
             </div>
           </Toolbar>
         </AppBar>
