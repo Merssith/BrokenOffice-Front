@@ -1,0 +1,13 @@
+.dropdownBtn {
+  color: black;
+  font-weight: bold;
+  border: 0px;
+  background-color: transparent;
+}
+.dropdownBtn:focus {
+  color: black;
+  background: transparent;
+}
+.dropdownBtn:hover {
+  background: transparent;
+}

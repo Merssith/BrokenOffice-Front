@@ -48,13 +48,13 @@ const ViewTickets = () => {
       setPageQuery({ page: pagination.currentPage });
       axios
 
-        .get(`http://localhost:3001/api/incidents/all?${pageQuery}`, {
-
-      
-
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        })
+        .get(
+          `http://localhost:3001/api/incidents/all?page=${pagination.currentPage}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           setTickets(response.data.incidents);
 
@@ -70,14 +70,12 @@ const ViewTickets = () => {
       axios
 
         .get(
-          `http://localhost:3001/api/incidents/search?status=${filterValue}&${pageQuery}`,
+          `http://localhost:3001/api/incidents/search?status=${filterValue}&page=${pagination.currentPage}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           }
         )
-
-
 
         .then((response) => {
           setTickets(response.data.incidents);
@@ -89,7 +87,7 @@ const ViewTickets = () => {
         })
         .catch("");
     }
-  }, [user, filterValue, pageQuery]);
+  }, [user, filterValue, pagination.currentPage]);
 
   const handleManage = (id) => {
     navigate(`/tickets/manage/${id}`);

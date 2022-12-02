@@ -44,7 +44,7 @@ const ManageTicket = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/incidents/search?id=${params.id}`)
+      .get(`/api/incidents/filter/${params.id}`)
       .then((response) => {
         setTicket(response.data[0]);
       })
@@ -96,7 +96,6 @@ const ManageTicket = () => {
 
         {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
 
-        
         <Grid sx={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
           <TextField
             value={message}

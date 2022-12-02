@@ -29,10 +29,10 @@ const UserTicketHistory = () => {
   };
   const [pagination, setPagination] = useState(initialStatePagination);
 
-  const [pagNum, setPagNum] = useState(1);
+  
   const [tickets, setTickets] = useState([]);
   const user = useSelector((state) => state.user);
-  // const [quantity, setQuantity] = useState(0);
+
   const [pageQuery, setPageQuery] = useSearchParams();
 
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ const UserTicketHistory = () => {
   useEffect(() => {
     setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
+      .get(`/api/incidents/byUser/${user.id}?${pageQuery}`)
       .then((res) => {
         setTickets(res.data.incidents);
         if (pagination.totalPages === null)
