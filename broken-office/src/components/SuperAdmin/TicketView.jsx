@@ -50,6 +50,7 @@ const TicketView = () => {
       duration: 4,
     });
   };
+  
   const handleDeleteTicket = () => {
     // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
     axios.delete(`/api/incidents/delete/${ticket.id}`);

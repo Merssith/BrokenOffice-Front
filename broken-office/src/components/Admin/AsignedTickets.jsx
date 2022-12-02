@@ -80,7 +80,7 @@ const AsignedTickets = () => {
           >
             <Grid>
               <Typography mt="10px" mb="30px" align="center" variant="h5">
-                Asigned Tickets
+                Assigned Tickets
               </Typography>
             </Grid>
             <TableContainer sx={{ width: "100%" }} component={Paper}>
