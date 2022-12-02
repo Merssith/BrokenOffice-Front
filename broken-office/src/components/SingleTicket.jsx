@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   Grid,
   Button,
@@ -38,6 +39,7 @@ const ButtonGeneric = {
 };
 
 const SingleTicket = () => {
+  const user = useSelector((state) => state.user);
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ const SingleTicket = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/incidents/search?id=${params.id}`)
+      .get(`/api/incidents/filter/${params.id}`)
       .then((response) => {
         setTicket(response.data[0]);
       })

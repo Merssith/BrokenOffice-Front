@@ -17,6 +17,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/styles.css";
 import {
   Dropdown,
   DropdownItem,
@@ -66,7 +67,7 @@ const ViewUsers = () => {
 
       axios
         .get(
-          `http://localhost:3001/api/users/filter?role=${filterValue}&${pageQuery}`,
+          `http://localhost:3001/api/users/filter?role=${filterValue}&page=${pagination.currentPage}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
@@ -81,7 +82,7 @@ const ViewUsers = () => {
         })
         .catch("");
     }
-  }, [user, pageQuery, filterValue, pagination.currentPage]);
+  }, [user, filterValue, pagination.currentPage]);
 
   const handleManage = (id) => {
     navigate(`/users/${id}`);

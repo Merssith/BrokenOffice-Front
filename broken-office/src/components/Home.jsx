@@ -142,7 +142,7 @@ const Home = () => {
                 style={{ color: "#444444", textDecoration: "none" }}
                 to="/tickets"
               >
-                ASIGNED TICKETS
+                ASSIGNED TICKETS
               </Link>
             </Button>
           </>
