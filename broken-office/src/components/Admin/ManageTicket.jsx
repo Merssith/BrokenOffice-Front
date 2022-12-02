@@ -91,8 +91,8 @@ const ManageTicket = () => {
         }}
       >
         <TicketData ticket={ticket} />
-        <DescriptionPhoto ticket={ticket} />
         <StatusChanger ticket={ticket} />
+        <DescriptionPhoto ticket={ticket} />
 
         {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
 

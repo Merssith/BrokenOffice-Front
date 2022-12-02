@@ -15,6 +15,7 @@ const TicketData = ({ ticket }) => {
         <>
           <TableContainer
             sx={{
+              boxShadow: 0,
               marginTop: "10px",
               width: "100%",
               padding: "auto",
@@ -35,7 +36,7 @@ const TicketData = ({ ticket }) => {
             </Table>
           </TableContainer>
           <TableContainer
-            sx={{ marginTop: "10px", width: "100%" }}
+            sx={{ marginTop: "10px", width: "100%", boxShadow: 0 }}
             component={Paper}
           >
             <Table size="small">
@@ -53,7 +54,7 @@ const TicketData = ({ ticket }) => {
             </Table>
           </TableContainer>
           <TableContainer
-            sx={{ marginTop: "10px", width: "100%" }}
+            sx={{ marginTop: "10px", width: "100%", boxShadow: 0 }}
             component={Paper}
           >
             <Table size="small">
@@ -70,7 +71,7 @@ const TicketData = ({ ticket }) => {
                   )}
 
                   <TableCell sx={{ textAlign: "right", width: "33%" }}>
-                    Status: {ticket.status}
+                    Status: <strong>{ticket.status}</strong>
                   </TableCell>
                 </TableRow>
               </TableHead>

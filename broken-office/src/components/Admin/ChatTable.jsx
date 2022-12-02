@@ -16,7 +16,7 @@ const ChatTable = ({ messages }) => {
   return (
     <>
       <TableContainer
-        sx={{ marginTop: "15px", width: "100%" }}
+        sx={{ boxShadow: 0, marginTop: "15px", width: "100%" }}
         component={Paper}
       >
         <Table size="small">

@@ -1,10 +1,35 @@
 import React from "react";
 import axios from "axios";
-import { Grid, Typography, FormControl, Select, MenuItem } from "@mui/material";
+import { useState } from "react";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 const StatusChanger = ({ ticket }) => {
+  const [commit, setCommit] = useState("");
+  const [commitOpen, setCommitOpen] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const handleCommit = (e) => {
+    setCommit(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(commit);
+    axios.put(`/api/incidents/update/${ticket.id}`, { status: status });
+    setCommit("");
+  };
   const handleStatus = (e) => {
-    axios.put(`/api/incidents/update/${ticket.id}`, { status: e.target.value });
+    e.preventDefault();
+    setStatus(e.target.value);
+    setCommitOpen(!commitOpen);
   };
 
   return (
@@ -14,36 +39,87 @@ const StatusChanger = ({ ticket }) => {
           marginTop: "10px",
           alignItems: "center",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "space-around",
           gap: "10px",
-          boxShadow: 1,
+          // boxShadow: 1,
           borderRadius: "8px",
           padding: "8px",
         }}
       >
-        <Typography sx={{ fontSize: 14 }}>
-          Ticket status: <strong>{ticket.status}</strong>. Change status here
-        </Typography>
-        <FormControl sx={{ width: "30%" }}>
-          <Select
-            id="status-select"
-            value={ticket.status}
-            size="small"
-            displayEmpty
-            onChange={handleStatus}
+        <Grid
+          sx={{
+            width: "100%",
+            // maxWidth: "500px",
+
+            marginTop: "10px",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography sx={{ fontSize: 16 }}>Change status here</Typography>
+          <FormControl sx={{ width: "40%", maxWidth: "160px" }}>
+            <Select
+              id="status-select"
+              value={ticket.status}
+              size="small"
+              displayEmpty
+              onChange={handleStatus}
+            >
+              <MenuItem value="OPEN">OPEN</MenuItem>
+              <MenuItem value="PENDING">PENDING</MenuItem>
+              <MenuItem value="IN PROCESS">IN PROCESS</MenuItem>
+              <MenuItem value="CLOSED">CLOSED</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        {commitOpen ? (
+          <Grid
+            sx={{
+              width: "100%",
+
+              marginTop: "5px",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
           >
-            <MenuItem value="OPEN">OPEN</MenuItem>
-            <MenuItem value="PENDING">PENDING</MenuItem>
-            <MenuItem value="IN PROCESS">IN PROCESS</MenuItem>
-            <MenuItem value="CLOSED">CLOSED</MenuItem>
-          </Select>
-        </FormControl>
+            <Typography sx={{ fontSize: 14, textAlign: "center" }}>
+              To save changes, please commit something
+            </Typography>
+            <Grid
+              sx={{
+                width: "100%",
+                margin: "auto",
+                marginTop: "10px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <TextField
+                value={commit}
+                id="input-message"
+                label="Reason to change status"
+                fullWidth
+                type="text"
+                size="small"
+                onChange={handleCommit}
+              />
+
+              <Button size="small" onClick={handleSubmit} sx={{ width: "5%" }}>
+                Commit
+              </Button>
+            </Grid>
+          </Grid>
+        ) : null}
       </Grid>
     </>
   );
 };
 
 export default StatusChanger;
-
-

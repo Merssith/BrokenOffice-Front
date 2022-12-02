@@ -186,9 +186,10 @@ const ViewUsers = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          // marginTop: "37.5rem",
+          mb: "100px",
         }}
       />
+      {/* <div stlye={{ height: "400px" }}></div> */}
     </>
   );
 };
