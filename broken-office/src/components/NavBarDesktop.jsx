@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ArticleIcon from "@mui/icons-material/Article";
+import DarkModeButtton from "./DarkModeButtton";
 
 function NavBarDesktop() {
   return (
@@ -14,6 +15,7 @@ function NavBarDesktop() {
         >
           <Box sx={{ flexGrow: 0 }} />
           <Typography variant="h6">BROKEN OFFICE</Typography>
+          <DarkModeButtton/>
           <Box sx={{ flexGrow: 0.5 }} />
           <IconButton color="primary">
             <Link to="/">
