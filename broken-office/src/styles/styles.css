@@ -11,3 +11,9 @@
 .dropdownBtn:hover {
   background: transparent;
 }
+.dropdownBtn:active {
+  color: black;
+  font-weight: bold;
+  border: 0px;
+  background-color: transparent;
+}

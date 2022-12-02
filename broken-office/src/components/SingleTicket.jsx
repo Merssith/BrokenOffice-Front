@@ -173,7 +173,7 @@ const SingleTicket = () => {
               />
 
               <Button
-                // onClick={handleShare(ticket.id, email)}
+                onClick={handleShare(ticket.id, email)}
                 sx={{ width: "5%" }}
               >
                 Share
