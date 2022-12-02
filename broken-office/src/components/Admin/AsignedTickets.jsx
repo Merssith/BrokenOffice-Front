@@ -16,6 +16,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 
 const AsignedTickets = () => {
   const initialStatePagination = {
@@ -27,6 +34,8 @@ const AsignedTickets = () => {
   const navigate = useNavigate();
   const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
+  const [filterValue, setFilterValue] = useState("ALL");
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     setPageQuery({ page: pagination.currentPage });
@@ -43,6 +52,10 @@ const AsignedTickets = () => {
 
       .catch("");
   }, [user, pagination.currentPage]);
+
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
+  };
 
   const handleManage = (id) => {
     navigate(`/tickets/manage/${id}`);
@@ -91,8 +104,47 @@ const AsignedTickets = () => {
                     >
                       <Typography>{<strong>Subject</strong>}</Typography>
                     </TableCell>
-                    <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                      <Typography>{<strong>Status</strong>}</Typography>
+                    <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
+                      <Typography>
+                        {
+                          <Dropdown isOpen={dropdown} toggle={handleDropdown}>
+                            <DropdownToggle caret className="dropdownBtn">
+                              Status
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              <DropdownItem header>
+                                Filter by Status
+                              </DropdownItem>
+                              <DropdownItem diviver />
+                              <DropdownItem
+                                onClick={() => setFilterValue("ALL")}
+                              >
+                                All tickets
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("OPEN")}
+                              >
+                                Open
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("PENDING")}
+                              >
+                                Pending
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("IN PROCESS")}
+                              >
+                                In process
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => setFilterValue("CLOSED")}
+                              >
+                                Closed
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </Dropdown>
+                        }
+                      </Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>

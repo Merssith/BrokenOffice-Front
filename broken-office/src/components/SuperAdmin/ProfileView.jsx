@@ -43,7 +43,7 @@ const ProfileView = () => {
         setUser(response.data);
       })
       .catch("");
-  }, [params.id]);
+  }, [user.userRole]);
 
   const handleDropdown = () => {
     setDropdown(!dropdown);

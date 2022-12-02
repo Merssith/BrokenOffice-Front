@@ -90,7 +90,7 @@ const ViewTickets = () => {
   }, [user, filterValue, pagination.currentPage]);
 
   const handleManage = (id) => {
-    navigate(`/tickets/manage/${id}`);
+    navigate(`/tickets/${id}`);
   };
   const handleDropdown = () => {
     setDropdown(!dropdown);
