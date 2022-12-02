@@ -14,7 +14,6 @@ import {
 import axios from "axios";
 import { message, notification } from "antd";
 import "../styles/ModalProfile.css";
-
 import ChatTable from "./Admin/ChatTable";
 import DescriptionPhoto from "./Admin/DescriptionPhoto";
 import DateNameEmail from "./Admin/DateNameEmail";
@@ -54,7 +53,7 @@ const SingleTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
-  }, [params.id]);
+  }, [ticket.id]);
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -72,7 +71,10 @@ const SingleTicket = () => {
   };
 
   const handleShare = (ticketId, email) => {
+    console.log(ticketId);
+    console.log(email);
     axios.post(`/api/incidents/share/${ticketId}`, { email: email });
+    setEmail("");
   };
 
   const handleDeleteTicket = () => {
@@ -171,9 +173,8 @@ const SingleTicket = () => {
                 size="small"
                 onChange={handleChangeEmail}
               />
-
               <Button
-                onClick={handleShare(ticket.id, email)}
+                onClick={() => handleShare(ticket.id, email)}
                 sx={{ width: "5%" }}
               >
                 Share

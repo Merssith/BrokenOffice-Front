@@ -186,7 +186,7 @@ const ViewTickets = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {tickets.map((ticket, i) => (
+                  {tickets.reverse().map((ticket, i) => (
                     <TableRow onClick={() => handleManage(ticket.id)} key={i}>
                       <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                         {ticket.date}
@@ -259,10 +259,10 @@ const ViewTickets = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          // marginTop: "37.5rem",
+          mb: "100px",
         }}
       />
-      <div stlye={{ height: "5vh" }}></div>
+   
     </>
   );
 };

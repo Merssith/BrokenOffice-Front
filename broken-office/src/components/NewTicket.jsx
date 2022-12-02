@@ -8,6 +8,7 @@ import { setPhoto } from "../store/photo";
 import { setModalBool } from "../store/modalBool";
 import ModalPhoto from "./ModalPhoto";
 import { message } from "antd";
+import { useNavigate } from "react-router";
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -27,13 +28,12 @@ const ButtonGeneric = {
 
 const NewTicket = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const photo = useSelector((state) => state.photo);
-  // console.log("esta es la foto", photo);
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [device, setDevice] = useState("");
-
   const modalBool = useSelector((state) => state.modalBool);
 
   //////////////////HANDLES
@@ -44,9 +44,7 @@ const NewTicket = () => {
       dispatch(setModalBool(true));
     }
   };
-  const handleDevice = (e) => {
-    setDevice(e.target.value);
-  };
+
   const handleSubject = (e) => {
     setSubject(e.target.value);
   };
@@ -54,9 +52,8 @@ const NewTicket = () => {
     setDescription(e.target.value);
   };
 
-  const handleNewTicket = async (e) => {
+  const handleCreateTicket = async (e) => {
     e.preventDefault();
-
     axios
       .post(
         "/api/incidents",
@@ -74,13 +71,14 @@ const NewTicket = () => {
           withCredentials: true,
         }
       )
-      .then(() => {
+      .then((res) => {
+        let tkt = res.data.id;
         dispatch(setPhoto(""));
+        messageSuccess();
+        setSubject("");
+        setDescription("");
+        navigate(`/ticket/${tkt}`);
       });
-    messageSuccess();
-
-    document.getElementById("subject-input").value = "";
-    document.getElementById("description-input").value = "";
   };
 
   const messageSuccess = () => {
@@ -118,24 +116,6 @@ const NewTicket = () => {
             margin: "auto",
           }}
         >
-          {/* <FormControl sx={{ width: "100%", marginTop: "15px" }}>
-            <InputLabel>Select device</InputLabel>
-            <Select
-              labelId="usuarios-select"
-              id="usuarios-select"
-              label="Seleccionar Usuario"
-              value={device}
-              onChange={handleDevice}
-            >
-              {User.devices
-                ? user.map((usuario, i) => (
-                    <MenuItem key={i} value={usuario.id}>
-                      {usuario.devices}
-                    </MenuItem>
-                  ))
-                : null}
-            </Select>
-          </FormControl> */}
           <TextField
             sx={{
               marginTop: "15px",
@@ -143,6 +123,7 @@ const NewTicket = () => {
               maxWidth: "500px",
               margin: "auto",
             }}
+            value={subject}
             id="subject-input"
             label="Subject"
             placeholder="Subject"
@@ -157,6 +138,7 @@ const NewTicket = () => {
               marginLeft: "auto",
               marginRight: "auto",
             }}
+            value={description}
             id="description-input"
             label="Description"
             placeholder="Enter a description here..."
@@ -182,7 +164,7 @@ const NewTicket = () => {
           sx={ButtonGeneric}
           type="button"
           variant="contained"
-          onClick={handleNewTicket}
+          onClick={handleCreateTicket}
           fullWidth
         >
           Submit

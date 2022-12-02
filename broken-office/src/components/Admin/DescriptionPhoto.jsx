@@ -12,7 +12,7 @@ const DescriptionPhoto = ({ ticket }) => {
         flexDirection: "row",
         justifyContent: "space-between",
         flexFlow: "row wrap",
-        boxShadow: 1,
+        // boxShadow: 1,
         borderRadius: "5px",
       }}
     >
