@@ -15,6 +15,7 @@ import { isEmail, isValidPassword } from "../utils/validation";
 
 const ButtonGeneric = {
   margin: "2rem",
+  mt: "70px",
   color: "#444444",
   width: "8rem",
   boxShadow: 4,
@@ -78,11 +79,11 @@ const Login = () => {
         });
     }
     if (!isValidEmail) {
-      setMessage("Invalid email address");
+      setMessage("Invalid email or password");
       setOpen(true);
     }
     if (!isValidPass) {
-      setMessage("Invalid password");
+      setMessage("Invalid email or password");
       setOpen(true);
     }
   };
@@ -131,6 +132,25 @@ const Login = () => {
         required
         onChange={passwordOnChange}
       />
+      <Snackbar
+        open={open}
+        onClose={handleClose}
+        message={message}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        ContentProps={{
+          sx: {
+            display: "flex",
+            justifyContent: "center",
+            textAlign: "center",
+            margin: "auto",
+            mt: "100px",
+            background: "transparent",
+            color: "#BC3113",
+            boxShadow: 0,
+          },
+        }}
+      />
       {/* {isValidPass ? null : (
         <FormHelperText error>
           It must be at least 6 characters
@@ -161,19 +181,6 @@ const Login = () => {
           >
             Login
           </Button>{" "}
-          <Snackbar
-            open={open}
-            onClose={handleClose}
-            message={message}
-            autoHideDuration={3000}
-            anchorOrigin={{ vertical: "top", horizontal: "left" }}
-            ContentProps={{
-              sx: {
-                background: "red",
-                color: "#444444",
-              },
-            }}
-          />
         </>
       )}
       <Typography
@@ -187,7 +194,22 @@ const Login = () => {
         Not registered?
       </Typography>
       <Button
-        sx={ButtonGeneric}
+        sx={{
+          margin: "2rem",
+          mt: "40px",
+          color: "#444444",
+          width: "8rem",
+          boxShadow: 4,
+          transform: "scale(1.2)",
+          backgroundColor: "#BFD732",
+          borderRadius: "20px",
+          "&:hover": {
+            backgroundColor: "#BFD732",
+          },
+          "&:active": {
+            color: "white",
+          },
+        }}
         type="button"
         variant="contained"
         href="/register"

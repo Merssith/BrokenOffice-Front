@@ -168,12 +168,7 @@ const Register = () => {
         required
         onChange={passwordOnChange}
       />
-      {
-        <FormHelperText>
-          It must be at least 6 characters,1 uppercase, 1 lowercase, a number
-          and a special character
-        </FormHelperText>
-      }
+      {}
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
         value={passwordTwo}
@@ -183,6 +178,17 @@ const Register = () => {
         required
         onChange={passwordTwoOnChange}
       />
+      <FormHelperText
+        sx={{
+          width: "70%",
+          margin: "auto",
+          display: "flex",
+          textAlign: "center",
+        }}
+      >
+        It must be at least 6 characters,1 uppercase, 1 lowercase, a number and
+        a special character
+      </FormHelperText>
       {/* {areSamePass ? null : (
         <FormHelperText error>Passwords must be the same</FormHelperText>
       )} */}
@@ -205,7 +211,22 @@ const Register = () => {
       ) : (
         <>
           <Button
-            sx={ButtonGeneric}
+            sx={{
+              margin: "2rem",
+              mt: "40px",
+              color: "#444444",
+              width: "auto",
+              boxShadow: 4,
+              transform: "scale(1.2)",
+              backgroundColor: "#BFD732",
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: "#BFD732",
+              },
+              "&:active": {
+                color: "white",
+              },
+            }}
             onClick={handleSubmit}
             type="submit"
             variant="contained"
@@ -218,12 +239,18 @@ const Register = () => {
             open={open}
             onClose={handleClose}
             message={message}
-            autoHideDuration={3000}
-            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            autoHideDuration={2000}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
             ContentProps={{
               sx: {
-                background: "red",
-                color: "#444444",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                margin: "auto",
+                mt: "100px",
+                background: "transparent",
+                color: "#BC3113",
+                boxShadow: 0,
               },
             }}
           />
