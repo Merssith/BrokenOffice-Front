@@ -3,6 +3,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import globant from "../utils/globant.png";
+import globantDark from "../utils/globantWhite.png";
 import "../styles/global.css";
 import useGeolocation from "../hooks/useGeolocation";
 import axios from "axios";
@@ -29,6 +30,7 @@ const rol = ""; // "admin" - "superadmin"
 const Home = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const theme = useSelector((state) => state.theme);
   const { location, place } = useGeolocation();
 
   useEffect(() => {
@@ -58,8 +60,11 @@ const Home = () => {
         <Typography mt="10px" mb="30px" align="center" variant="h5">
           Welcome, <strong>{user.name}</strong>
         </Typography>
-
-        <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
+        {!theme ? (
+          <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
+        ) : (
+          <img style={{ width: "75%", maxWidth: "400px" }} src={globantDark} />
+        )}
         <Button
           sx={ButtonGeneric}
           type="submit"
