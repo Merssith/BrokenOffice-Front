@@ -182,7 +182,7 @@ const AsignedTickets = () => {
                         {ticket.date}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                        Device name
+                        {ticket.item.device}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                         {ticket.subject}
