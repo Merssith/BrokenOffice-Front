@@ -112,7 +112,7 @@ const ManageTicket = () => {
           </Button>
         </Grid>
       </Grid>
-      <Button
+      {/* <Button
         sx={ButtonGeneric}
         onClick={handleDeleteTicket}
         type="button"
@@ -121,7 +121,8 @@ const ManageTicket = () => {
         fullWidth
       >
         Delete Ticket
-      </Button>
+      </Button> */}
+      <Grid sx={{ mb: "100px" }} />
     </Grid>
   );
 };

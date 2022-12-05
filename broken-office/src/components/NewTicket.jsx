@@ -170,7 +170,7 @@ const NewTicket = () => {
           Submit
         </Button>
       </Grid>
-      <div style={{ height: "3rem" }}></div>
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

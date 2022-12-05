@@ -1,5 +1,15 @@
 import React from "react";
-import { Paper, Grid, Typography, Button } from "@mui/material";
+import {
+  Paper,
+  Grid,
+  Typography,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -32,6 +42,8 @@ const ProfileView = () => {
   const params = useParams();
   const [user, setUser] = useState({});
   const [dropdown, setDropdown] = useState(false);
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -53,6 +65,7 @@ const ProfileView = () => {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
+    navigate("/users/all");
   };
 
   const handleSetUser = (userId) => {
@@ -84,6 +97,14 @@ const ProfileView = () => {
         withCredentials: true,
       }
     );
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -267,18 +288,46 @@ const ProfileView = () => {
                   {" "}
                   {<strong>Email:</strong>} {user.email}
                 </Typography>
-                <Button
-                  style={ButtonGeneric}
-                  onClick={() => handleDelete(user.id)}
-                >
-                  {" "}
-                  DELETE USER{" "}
+                <Button style={ButtonGeneric} onClick={handleClickOpen}>
+                  DELETE USER
                 </Button>
+                <div>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Are you sure?"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        This ticket will be removed from our database.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions
+                      sx={{ display: "flex", justifyContent: "space-around" }}
+                    >
+                      <Button sx={ButtonGeneric} onClick={handleClose}>
+                        No
+                      </Button>
+                      <Button
+                        sx={ButtonGeneric}
+                        onClick={() => handleDelete(user.id)}
+                        autoFocus
+                      >
+                        Confirm
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
               </Grid>
             </Paper>
           </>
         ) : null}
       </Grid>
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

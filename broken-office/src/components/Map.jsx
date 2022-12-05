@@ -29,17 +29,21 @@ export default function SimpleMap() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/users/all`).then((res) => setUsers(res.data));
-  }, [users.length]);
+    axios
+      .get(`/api/users/allUsers`, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((res) => setUsers(res.data));
+  }, []);
 
   const initialPosition = {
     center: {
       lat: -39.70171,
       lng: -61.628424,
     },
-    zoom: 3,
+    zoom: 5,
   };
-
 
   return (
     <>
@@ -49,21 +53,22 @@ export default function SimpleMap() {
           defaultCenter={initialPosition.center}
           defaultZoom={initialPosition.zoom}
         >
-          {users ? (
+          {users.length ? (
             <>
-              {users.map((user, i) => (
+              {users.map((user) => (
                 <>
+                  {console.log(user.id, user.geoCords.lat)}
                   {user.userRoleId === 3 ? (
                     <PlaceIcon
-                      key={i}
+                      key={user.id}
                       sx={{ color: "red" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
                     />
                   ) : null}
-                  {user.userRoleId === 2 ? (
+                  {/* {user.userRoleId === 2 ? (
                     <PlaceIcon
-                      key={i}
+                      key={user.id}
                       sx={{ color: "green" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
@@ -71,12 +76,12 @@ export default function SimpleMap() {
                   ) : null}
                   {user.userRoleId === 1 ? (
                     <PlaceIcon
-                      key={i}
+                      key={user.id}
                       sx={{ color: "blue" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
                     />
-                  ) : null}
+                  ) : null} */}
                 </>
               ))}
             </>
@@ -97,6 +102,7 @@ export default function SimpleMap() {
           <Typography> Superadmin</Typography>
         </Grid>
       </Grid>
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 }

@@ -186,10 +186,9 @@ const ViewUsers = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          mb: "100px",
         }}
       />
-      {/* <div stlye={{ height: "400px" }}></div> */}
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };
