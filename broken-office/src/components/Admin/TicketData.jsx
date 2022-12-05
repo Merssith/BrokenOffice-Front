@@ -62,7 +62,7 @@ const TicketData = ({ ticket }) => {
                 <TableRow>
                   {ticket.item ? (
                     <TableCell sx={{ textAlign: "left", width: "33%" }}>
-                      {ticket.item.brand} {ticket.item.model}
+                     {ticket.item.device} {ticket.item.brand} {ticket.item.model}
                     </TableCell>
                   ) : (
                     <TableCell sx={{ textAlign: "left", width: "33%" }}>

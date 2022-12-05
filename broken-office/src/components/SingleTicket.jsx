@@ -7,6 +7,8 @@ import {
   Button,
   Typography,
   TextField,
+  Alert,
+  Link,
   FormControl,
   Select,
   MenuItem,
@@ -45,6 +47,8 @@ const SingleTicket = () => {
   const [message, setMessage] = useState("");
   const [device, setDevice] = useState({});
   const [email, setEmail] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
   useEffect(() => {
     axios
@@ -52,7 +56,14 @@ const SingleTicket = () => {
       .then((response) => {
         setTicket(response.data[0]);
       })
-      .catch("");
+      .catch(function (error) {
+        if (error.response.status === 401) {
+          setAlertContent("Unauthorized: Access is denied due to invalid credentials");
+          setAlert(true);
+        } else {
+          console.log(error);
+        }
+      });
   }, [ticket.id]);
 
   const handleChangeMessage = (e) => {
@@ -97,6 +108,7 @@ const SingleTicket = () => {
 
   return (
     <>
+    {alert ? <Alert severity='error' onClose={() => {navigate("/ticket/history?page=1")}}>{alertContent}</Alert> : <></> }
       {ticket.id ? (
         <>
           <Grid
