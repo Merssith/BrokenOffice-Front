@@ -39,14 +39,14 @@ function ModalProfile() {
   const [telPhone, setTelPhone] = useState(user.telephone);
   const [lastName, setLastName] = useState(user.lastName);
   const [isValidEmail, setIsValidEmail] = useState(true);
-
+  
   useEffect(() => {
     setEmail(user.email);
     setName(user.name);
     setTelPhone(user.telephone);
     setLastName(user.lastName);
   }, [user]);
-
+ 
   const emailOnChange = (e) => {
     const emailInput = e.target.value;
     setEmail(emailInput);
@@ -77,12 +77,15 @@ function ModalProfile() {
       url: `/api/users/avatar/${user.id}`,
       data: avatarForm,
       headers: { "Content-Type": "multipart/form-data" },
-    }).then((response) => {});
+    }).then((response) => {
+      
+    });
     return new Promise(function (resolve, reject) {
       setCheckConfirm("spin");
       setTimeout(resolve, 1000);
     }).then(function () {
       setCheckConfirm("checked");
+
       messagePhoto();
     });
   };
@@ -96,7 +99,8 @@ function ModalProfile() {
   const handleSubmit = (e) => {
     // e.preventDefault();
     if (isValidEmail) {
-      axios.put(`/api/users/update/${user.id}`, changes).then(() => {
+      axios.put(`/api/users/update/${user.id}`, changes).then((res) => {
+       
         dispatch(setModalBool(false));
         dispatch(updateUser(changes));
         navigate("/user/profile");

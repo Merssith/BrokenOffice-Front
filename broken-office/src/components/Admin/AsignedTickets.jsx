@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,16 +31,13 @@ const AsignedTickets = () => {
   const [pagination, setPagination] = useState(initialStatePagination);
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
-  const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
   const [filterValue, setFilterValue] = useState("ALL");
   const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     if (filterValue === "ALL") {
-      setPageQuery({ page: pagination.currentPage });
       axios
-
         .get(`api/incidents/assignedToMe?page=${pagination.currentPage}`, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -56,10 +52,7 @@ const AsignedTickets = () => {
         })
         .catch("");
     } else {
-      setPageQuery({ page: pagination.currentPage });
-
       axios
-
         .get(
           `api/incidents/assignedToMe?status=${filterValue}&page=${pagination.currentPage}`,
           {
@@ -107,7 +100,7 @@ const AsignedTickets = () => {
           >
             <Grid>
               <Typography mt="10px" mb="30px" align="center" variant="h5">
-                Assigned Tickets
+                ASSIGNED TICKETS
               </Typography>
             </Grid>
             <TableContainer sx={{ width: "100%", height: "480px" }}>

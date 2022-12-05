@@ -5,7 +5,6 @@ import {
   Grid,
   Button,
   Typography,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,7 +12,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import axios from "axios";
-import { message, notification } from "antd";
+import { message } from "antd";
 import ChatTable from "../Admin/ChatTable";
 import DescriptionPhoto from "../Admin/DescriptionPhoto";
 import TicketData from "../Admin/TicketData";
@@ -91,7 +90,7 @@ const TicketView = () => {
             }}
           >
             <Typography mt="10px" mb="30px" align="center" variant="h5">
-              Single Ticket
+              SINGLE TICKET
             </Typography>
             <Grid
               sx={{

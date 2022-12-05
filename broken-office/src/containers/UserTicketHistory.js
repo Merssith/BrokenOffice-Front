@@ -2,16 +2,13 @@ import {
   Grid,
   Pagination,
   Paper,
-  Stack,
   Table,
   TableBody,
-  TablePagination,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Typography,
-  Box,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
@@ -21,7 +18,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
 const UserTicketHistory = () => {
   const initialStatePagination = {
@@ -30,22 +26,19 @@ const UserTicketHistory = () => {
   };
   const [pagination, setPagination] = useState(initialStatePagination);
   const [tickets, setTickets] = useState([]);
-  const [vacias, setVacias] = useState([]);
   const user = useSelector((state) => state.user);
-  const [pageQuery, setPageQuery] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`/api/incidents/byUser/${user.id}?${pageQuery}`)
+      .get(`/api/incidents/byUser/${user.id}?page=${pagination.currentPage}`)
       .then((res) => {
         setTickets(res.data.incidents);
         if (pagination.totalPages === null)
           setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, [user, pagination, pageQuery]);
+  }, [user, pagination, pagination.currentPage]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
@@ -53,13 +46,6 @@ const UserTicketHistory = () => {
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-
-  const handleShowContent = () => {
-    return tickets.slice();
-  };
-
-  // console.log(tickets.length);
-  // console.log(vacias);
 
   return (
     <>
@@ -75,7 +61,7 @@ const UserTicketHistory = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Ticket History
+            MY TICKETS
           </Typography>
         </Grid>
 
@@ -192,6 +178,7 @@ const UserTicketHistory = () => {
           flexWrap: "nowrap",
         }}
       />
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

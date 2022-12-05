@@ -8,11 +8,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Button,
   Pagination,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Dropdown,
@@ -25,7 +23,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
 const ViewTickets = () => {
   const initialStatePagination = {
@@ -37,7 +34,7 @@ const ViewTickets = () => {
   const [filterValue, setFilterValue] = useState("ALL");
   const [dropdown, setDropdown] = useState(false);
   const [pagination, setPagination] = useState(initialStatePagination);
-  const [pageQuery, setPageQuery] = useSearchParams();
+
 
   const navigate = useNavigate();
 
@@ -45,7 +42,6 @@ const ViewTickets = () => {
 
   useEffect(() => {
     if (filterValue === "ALL") {
-      setPageQuery({ page: pagination.currentPage });
       axios
 
         .get(`/api/incidents/all?page=${pagination.currentPage}`, {
@@ -62,7 +58,6 @@ const ViewTickets = () => {
         })
         .catch("");
     } else {
-      setPageQuery({ page: pagination.currentPage });
 
       axios
 
@@ -96,7 +91,6 @@ const ViewTickets = () => {
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-  console.log(pagination.totalPages);
 
   return (
     <>
@@ -112,7 +106,7 @@ const ViewTickets = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            All Tickets
+            ALL TICKETS
           </Typography>
         </Grid>
         {tickets.length ? (

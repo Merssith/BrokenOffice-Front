@@ -6,15 +6,10 @@ import {
   Button,
   Typography,
   TextField,
-  FormControl,
-  Select,
-  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import ChatTable from "./ChatTable";
 import DescriptionPhoto from "./DescriptionPhoto";
-import DateNameEmail from "./DateNameEmail";
-import IdDeviceStatus from "./IdDeviceStatus";
 import StatusChanger from "./StatusChanger";
 import TicketData from "./TicketData";
 
@@ -37,10 +32,11 @@ const ButtonGeneric = {
 
 const ManageTicket = () => {
   const [ticket, setTicket] = useState({});
-  const [device, setDevice] = useState({});
   const params = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [notes, setNotes] = useState(ticket.notes)
+  
 
   useEffect(() => {
     axios
@@ -49,7 +45,7 @@ const ManageTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
-  }, [ticket.status, ticket.notes]);
+  }, [notes, message]);
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -79,7 +75,7 @@ const ManageTicket = () => {
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Ticket Manager
+        TICKET MANAGER
       </Typography>
       <Grid
         sx={{
@@ -91,7 +87,7 @@ const ManageTicket = () => {
         }}
       >
         <TicketData ticket={ticket} />
-        <StatusChanger ticket={ticket} />
+        <StatusChanger ticket={ticket} setNotes={setNotes} />
         <DescriptionPhoto ticket={ticket} />
 
         {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}

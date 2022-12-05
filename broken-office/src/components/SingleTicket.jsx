@@ -1,17 +1,12 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
   Grid,
   Button,
   Typography,
   TextField,
   Alert,
-  Link,
-  FormControl,
-  Select,
-  MenuItem,
   Dialog,
   DialogActions,
   DialogContent,
@@ -19,12 +14,9 @@ import {
   DialogTitle,
 } from "@mui/material";
 import axios from "axios";
-import { message, notification } from "antd";
 import "../styles/ModalProfile.css";
 import ChatTable from "./Admin/ChatTable";
 import DescriptionPhoto from "./Admin/DescriptionPhoto";
-import DateNameEmail from "./Admin/DateNameEmail";
-import IdDeviceStatus from "./Admin/IdDeviceStatus";
 import TicketData from "./Admin/TicketData";
 
 const ButtonGeneric = {
@@ -46,12 +38,10 @@ const ButtonGeneric = {
 
 const SingleTicket = () => {
   const [open, setOpen] = useState(false);
-  const user = useSelector((state) => state.user);
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [device, setDevice] = useState({});
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState("");
@@ -137,7 +127,7 @@ const SingleTicket = () => {
             }}
           >
             <Typography mt="10px" mb="30px" align="center" variant="h5">
-              Single Ticket
+              SINGLE TICKET
             </Typography>
             <Grid
               sx={{

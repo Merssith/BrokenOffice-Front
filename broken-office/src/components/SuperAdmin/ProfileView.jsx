@@ -110,7 +110,7 @@ const ProfileView = () => {
   return (
     <>
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Profile
+        PROFILE
       </Typography>
       <Grid
         sx={{

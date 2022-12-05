@@ -8,14 +8,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Button,
   Pagination,
 } from "@mui/material";
-import CircleIcon from "@mui/icons-material/Circle";
-import DeleteIcon from "@mui/icons-material/Delete";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/styles.css";
 import {
@@ -26,7 +21,7 @@ import {
 } from "reactstrap";
 
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -42,13 +37,10 @@ const ViewUsers = () => {
 
   const navigate = useNavigate();
   const [pagination, setPagination] = useState(initialStatePagination);
-  const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (filterValue === 0) {
-      setPageQuery({ page: pagination.currentPage });
-
       axios
         .get(`/api/users/all?page=${pagination.currentPage}`, {
           headers: { "Content-Type": "application/json" },
@@ -63,7 +55,6 @@ const ViewUsers = () => {
         })
         .catch("");
     } else {
-      setPageQuery({ page: pagination.currentPage });
 
       axios
         .get(
@@ -90,17 +81,10 @@ const ViewUsers = () => {
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
-  const handleDelete = (userId) => {
-    axios.get(`/api/users/delete/${userId}`, {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    });
-  };
 
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-  console.log(pageQuery);
 
   return (
     <>
@@ -116,7 +100,7 @@ const ViewUsers = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            All Users
+            ALL USERS
           </Typography>
         </Grid>
 
