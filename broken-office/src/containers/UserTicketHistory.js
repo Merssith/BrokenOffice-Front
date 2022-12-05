@@ -79,9 +79,9 @@ const UserTicketHistory = () => {
           </Typography>
         </Grid>
 
-        <TableContainer sx={{ width: "100%" }} component={Paper}>
+        <TableContainer sx={{ width: "100%", height: "480px" }}>
           <Table aria-label="a dense table">
-            <TableHead>
+            <TableHead sx={{ height: "0px" }}>
               <TableRow>
                 <TableCell
                   sx={{ width: "20%", textAlign: "center", fontSize: 12 }}

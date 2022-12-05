@@ -106,7 +106,7 @@ const ViewUsers = () => {
     <>
       <Grid
         sx={{
-          width: "95%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -119,7 +119,8 @@ const ViewUsers = () => {
             All Users
           </Typography>
         </Grid>
-        <TableContainer sx={{ width: "100%" }} component={Paper}>
+
+        <TableContainer sx={{ width: "100%", height: "500px" }}>
           <Table aria-label="a dense table">
             <TableHead>
               <TableRow>

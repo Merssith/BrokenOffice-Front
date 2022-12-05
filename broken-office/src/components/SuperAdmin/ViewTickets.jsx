@@ -116,136 +116,130 @@ const ViewTickets = () => {
           </Typography>
         </Grid>
         {tickets.length ? (
-          <>
-            <TableContainer sx={{ width: "100%" }} component={Paper}>
-              <Table aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell
-                      sx={{ width: "15%", textAlign: "center", fontSize: 14 }}
-                    >
-                      <Typography>{<strong>Date</strong>}</Typography>
+          <TableContainer sx={{ width: "100%", height: "500px" }}>
+            <Table aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{ width: "15%", textAlign: "center", fontSize: 14 }}
+                  >
+                    <Typography>{<strong>Date</strong>}</Typography>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
+                    <Typography>{<strong> ID </strong>}</Typography>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      width: "30%",
+                      textAlign: "center",
+                      fontSize: 14,
+                    }}
+                  >
+                    <Typography>{<strong>Subject</strong>}</Typography>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
+                    <Typography>
+                      {
+                        <Dropdown isOpen={dropdown} toggle={handleDropdown}>
+                          <DropdownToggle caret className="dropdownBtn">
+                            Status
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem header>Filter by Status</DropdownItem>
+                            <DropdownItem diviver />
+                            <DropdownItem onClick={() => setFilterValue("ALL")}>
+                              All tickets
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => setFilterValue("OPEN")}
+                            >
+                              Open
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => setFilterValue("PENDING")}
+                            >
+                              Pending
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => setFilterValue("IN PROCESS")}
+                            >
+                              In process
+                            </DropdownItem>
+                            <DropdownItem
+                              onClick={() => setFilterValue("CLOSED")}
+                            >
+                              Closed
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </Dropdown>
+                      }
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {tickets.reverse().map((ticket, i) => (
+                  <TableRow onClick={() => handleManage(ticket.id)} key={i}>
+                    <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
+                      {ticket.date}
                     </TableCell>
                     <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                      <Typography>{<strong> ID </strong>}</Typography>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        width: "30%",
-                        textAlign: "center",
-                        fontSize: 14,
-                      }}
-                    >
-                      <Typography>{<strong>Subject</strong>}</Typography>
+                      {ticket.id}
                     </TableCell>
                     <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                      <Typography>
-                        {
-                          <Dropdown isOpen={dropdown} toggle={handleDropdown}>
-                            <DropdownToggle caret className="dropdownBtn">
-                              Status
-                            </DropdownToggle>
-                            <DropdownMenu>
-                              <DropdownItem header>
-                                Filter by Status
-                              </DropdownItem>
-                              <DropdownItem diviver />
-                              <DropdownItem
-                                onClick={() => setFilterValue("ALL")}
-                              >
-                                All tickets
-                              </DropdownItem>
-                              <DropdownItem
-                                onClick={() => setFilterValue("OPEN")}
-                              >
-                                Open
-                              </DropdownItem>
-                              <DropdownItem
-                                onClick={() => setFilterValue("PENDING")}
-                              >
-                                Pending
-                              </DropdownItem>
-                              <DropdownItem
-                                onClick={() => setFilterValue("IN PROCESS")}
-                              >
-                                In process
-                              </DropdownItem>
-                              <DropdownItem
-                                onClick={() => setFilterValue("CLOSED")}
-                              >
-                                Closed
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </Dropdown>
-                        }
-                      </Typography>
+                      {ticket.subject}
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
+                      {ticket.status === "OPEN" ? (
+                        <CircleIcon
+                          sx={{
+                            boxShadow: 6,
+                            backgroundColor: "#6CDF3C",
+                            borderRadius: "8px",
+                            color: "#6CDF3C",
+                            fontSize: "small",
+                          }}
+                        />
+                      ) : null}
+                      {ticket.status === "PENDING" ? (
+                        <CircleIcon
+                          sx={{
+                            boxShadow: 6,
+                            backgroundColor: "#FFFA1B",
+                            borderRadius: "8px",
+                            color: "#FFFA1B",
+                            fontSize: "small",
+                          }}
+                        />
+                      ) : null}
+                      {ticket.status === "IN PROCESS" ? (
+                        <CircleIcon
+                          sx={{
+                            boxShadow: 6,
+                            backgroundColor: "#F8B932",
+                            borderRadius: "8px",
+                            color: "#F8B932",
+                            fontSize: "small",
+                          }}
+                        />
+                      ) : null}
+                      {ticket.status === "CLOSED" ? (
+                        <CircleIcon
+                          sx={{
+                            boxShadow: 6,
+                            backgroundColor: "#F05432",
+                            borderRadius: "8px",
+                            color: "#F05432",
+                            fontSize: "small",
+                          }}
+                        />
+                      ) : null}
                     </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {tickets.reverse().map((ticket, i) => (
-                    <TableRow onClick={() => handleManage(ticket.id)} key={i}>
-                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                        {ticket.date}
-                      </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                        {ticket.id}
-                      </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                        {ticket.subject}
-                      </TableCell>
-                      <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                        {ticket.status === "OPEN" ? (
-                          <CircleIcon
-                            sx={{
-                              boxShadow: 6,
-                              backgroundColor: "#6CDF3C",
-                              borderRadius: "8px",
-                              color: "#6CDF3C",
-                              fontSize: "small",
-                            }}
-                          />
-                        ) : null}
-                        {ticket.status === "PENDING" ? (
-                          <CircleIcon
-                            sx={{
-                              boxShadow: 6,
-                              backgroundColor: "#FFFA1B",
-                              borderRadius: "8px",
-                              color: "#FFFA1B",
-                              fontSize: "small",
-                            }}
-                          />
-                        ) : null}
-                        {ticket.status === "IN PROCESS" ? (
-                          <CircleIcon
-                            sx={{
-                              boxShadow: 6,
-                              backgroundColor: "#F8B932",
-                              borderRadius: "8px",
-                              color: "#F8B932",
-                              fontSize: "small",
-                            }}
-                          />
-                        ) : null}
-                        {ticket.status === "CLOSED" ? (
-                          <CircleIcon
-                            sx={{
-                              boxShadow: 6,
-                              backgroundColor: "#F05432",
-                              borderRadius: "8px",
-                              color: "#F05432",
-                              fontSize: "small",
-                            }}
-                          />
-                        ) : null}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         ) : null}
       </Grid>
       <Pagination
