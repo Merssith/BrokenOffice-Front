@@ -303,7 +303,8 @@ const ProfileView = () => {
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-description">
-                        This ticket will be removed from our database.
+                        This user and all its data will be removed from our
+                        database.
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions

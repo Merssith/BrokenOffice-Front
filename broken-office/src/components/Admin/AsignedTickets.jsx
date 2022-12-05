@@ -103,8 +103,8 @@ const AsignedTickets = () => {
                 ASSIGNED TICKETS
               </Typography>
             </Grid>
-            <TableContainer sx={{ width: "100%" }} component={Paper}>
-              <Table size="small" aria-label="a dense table">
+            <TableContainer sx={{ width: "100%", height: "480px" }}>
+              <Table aria-label="a dense table">
                 <TableHead>
                   <TableRow>
                     <TableCell
