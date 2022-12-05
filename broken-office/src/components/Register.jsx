@@ -268,7 +268,7 @@ const Register = () => {
       >
         Login
       </Button>
-      <div style={{ height: "8vh" }}></div>
+      <Grid sx={{ mb: "100px" }} />
     </Grid>
   );
 };

@@ -181,8 +181,8 @@ const Profile = () => {
         >
           Log out
         </Button>
+        <Grid sx={{ mb: "100px" }} />
       </Grid>
-      <div style={{ height: "10vh" }}></div>
     </>
   );
 };

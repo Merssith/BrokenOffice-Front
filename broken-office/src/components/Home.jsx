@@ -149,6 +149,7 @@ const Home = () => {
         ) : null}
       </Grid>
       <Outlet />
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };
