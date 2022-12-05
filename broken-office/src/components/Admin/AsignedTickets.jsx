@@ -38,20 +38,47 @@ const AsignedTickets = () => {
   const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
-    setPageQuery({ page: pagination.currentPage });
-    axios
-      .get(`/api/incidents/assignedToMe?page=${pagination.currentPage}`)
-      .then((response) => {
-        setTickets(response.data.incidents);
-        if (pagination.totalPages === null)
+    if (filterValue === "ALL") {
+      setPageQuery({ page: pagination.currentPage });
+      axios
+
+        .get(`api/incidents/assignedToMe?page=${pagination.currentPage}`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          setTickets(response.data.incidents);
+
           setPagination({
             ...pagination,
             totalPages: response.data.totalPages,
           });
-      })
+        })
+        .catch("");
+    } else {
+      setPageQuery({ page: pagination.currentPage });
 
-      .catch("");
-  }, [user, pagination.currentPage]);
+      axios
+
+        .get(
+          `api/incidents/assignedToMe?status=${filterValue}&page=${pagination.currentPage}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
+
+        .then((response) => {
+          setTickets(response.data.incidents);
+
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
+        })
+        .catch("");
+    }
+  }, [user, filterValue, pagination.currentPage]);
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
@@ -224,6 +251,7 @@ const AsignedTickets = () => {
           />
         </>
       ) : null}
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

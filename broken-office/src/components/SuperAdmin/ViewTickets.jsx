@@ -48,13 +48,10 @@ const ViewTickets = () => {
       setPageQuery({ page: pagination.currentPage });
       axios
 
-        .get(
-          `http://localhost:3001/api/incidents/all?page=${pagination.currentPage}`,
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        )
+        .get(`/api/incidents/all?page=${pagination.currentPage}`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
         .then((response) => {
           setTickets(response.data.incidents);
 
@@ -87,7 +84,7 @@ const ViewTickets = () => {
         })
         .catch("");
     }
-  }, [user, filterValue, pagination.currentPage]);
+  }, [user, filterValue, pagination.currentPage, tickets.length]);
 
   const handleManage = (id) => {
     navigate(`/tickets/${id}`);
@@ -259,10 +256,9 @@ const ViewTickets = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          mb: "100px",
         }}
       />
-   
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

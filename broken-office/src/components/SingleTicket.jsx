@@ -12,6 +12,11 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import axios from "axios";
 import { message, notification } from "antd";
@@ -40,6 +45,7 @@ const ButtonGeneric = {
 };
 
 const SingleTicket = () => {
+  const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
   const [ticket, setTicket] = useState({});
   const params = useParams();
@@ -64,7 +70,16 @@ const SingleTicket = () => {
           console.log(error);
         }
       });
-  }, [ticket.id]);
+  }, [ticket.notes]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -89,10 +104,10 @@ const SingleTicket = () => {
   };
 
   const handleDeleteTicket = () => {
-    // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
+    handleClose();
     axios.delete(`/api/incidents/delete/${ticket.id}`);
     messageDelete();
-    navigate("/ticket/history");
+    navigate("/ticket/history/*");
   };
 
   const messageDelete = () => {
@@ -194,7 +209,7 @@ const SingleTicket = () => {
             </Grid>
             <Button
               sx={ButtonGeneric}
-              onClick={handleDeleteTicket}
+              onClick={handleClickOpen}
               type="button"
               variant="contained"
               component="label"
@@ -202,7 +217,39 @@ const SingleTicket = () => {
             >
               Delete Ticket
             </Button>
+            <div>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are you sure?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This ticket will be removed from our database.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions
+                  sx={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <Button sx={ButtonGeneric} onClick={handleClose}>
+                    No
+                  </Button>
+                  <Button
+                    sx={ButtonGeneric}
+                    onClick={handleDeleteTicket}
+                    autoFocus
+                  >
+                    Confirm
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           </Grid>
+          <Grid sx={{ mb: "100px" }} />
         </>
       ) : null}
     </>

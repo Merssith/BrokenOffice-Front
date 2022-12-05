@@ -5,6 +5,7 @@ import {
   Stack,
   Table,
   TableBody,
+  TablePagination,
   TableCell,
   TableContainer,
   TableHead,
@@ -28,26 +29,11 @@ const UserTicketHistory = () => {
     currentPage: 1,
   };
   const [pagination, setPagination] = useState(initialStatePagination);
-
-  
   const [tickets, setTickets] = useState([]);
+  const [vacias, setVacias] = useState([]);
   const user = useSelector((state) => state.user);
-
   const [pageQuery, setPageQuery] = useSearchParams();
-
   const navigate = useNavigate();
-  ////////////////
-  // useEffect(() => {
-  //   setPageQuery({ page: pagination.currentPage });
-  //   axios
-  //     .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
-  //     .then((res) => {
-  //       setTickets(res.data.incidents);
-  //       if (pagination.totalPages === null)
-  //         setPagination({ ...pagination, totalPages: res.data.totalPages });
-  //     })
-  //     .catch("");
-  // }, [user.id]);
 
   useEffect(() => {
     setPageQuery({ page: pagination.currentPage });
@@ -72,7 +58,8 @@ const UserTicketHistory = () => {
     return tickets.slice();
   };
 
-  // console.log(tickets);
+  // console.log(tickets.length);
+  // console.log(vacias);
 
   return (
     <>
@@ -93,7 +80,7 @@ const UserTicketHistory = () => {
         </Grid>
 
         <TableContainer sx={{ width: "100%" }} component={Paper}>
-          <Table size="small" aria-label="a dense table">
+          <Table aria-label="a dense table">
             <TableHead>
               <TableRow>
                 <TableCell
@@ -116,13 +103,10 @@ const UserTicketHistory = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* {console.log(tickets.length)}
+              {console.log(vacias.length)} */}
               {tickets.map((ticket, i) => (
-                <TableRow
-                  onClick={() => handleMoreInfo(ticket.id)}
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  {/* <TableCell sx={{ fontSize: 12 }}>{ticket.id}</TableCell> */}
+                <TableRow onClick={() => handleMoreInfo(ticket.id)} key={i}>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
                   </TableCell>
@@ -186,6 +170,13 @@ const UserTicketHistory = () => {
                   </TableCell>
                 </TableRow>
               ))}
+              {/* {vacias.map((celda, i) => (
+                <TableRow key={i + 8}>
+                  <TableCell>{null}</TableCell>
+                  <TableCell>{null}</TableCell>
+                  <TableCell>{null}</TableCell>
+                </TableRow>
+              ))} */}
             </TableBody>
           </Table>
         </TableContainer>

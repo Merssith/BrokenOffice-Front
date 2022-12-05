@@ -55,6 +55,7 @@ const Start = () => {
       >
         Register
       </Button>
+      <Grid sx={{ mb: "100px" }} />
     </Grid>
   );
 };

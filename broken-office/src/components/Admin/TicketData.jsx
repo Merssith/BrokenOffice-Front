@@ -6,6 +6,7 @@ import {
   TableRow,
   TableCell,
   Paper,
+  Grid,
 } from "@mui/material";
 
 const TicketData = ({ ticket }) => {
