@@ -22,7 +22,6 @@ const StatusChanger = ({ ticket }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(commit);
     axios.put(`/api/incidents/update/${ticket.id}`, {
       status: status,
     });
@@ -30,6 +29,7 @@ const StatusChanger = ({ ticket }) => {
       note: `Ticket status changed to ${status}. Reason: ${commit}`,
     });
     setCommit("");
+    setCommitOpen(!commitOpen);
   };
   const handleStatus = (e) => {
     e.preventDefault();
