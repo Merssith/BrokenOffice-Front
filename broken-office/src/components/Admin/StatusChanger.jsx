@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-const StatusChanger = ({ ticket }) => {
+const StatusChanger = ({ ticket, setNotes }) => {
   const [commit, setCommit] = useState("");
   const [commitOpen, setCommitOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -30,6 +30,7 @@ const StatusChanger = ({ ticket }) => {
       note: `Ticket status changed to ${status}. Reason: ${commit}`,
     });
     setCommit("");
+    setNotes(commit)
   };
   const handleStatus = (e) => {
     e.preventDefault();

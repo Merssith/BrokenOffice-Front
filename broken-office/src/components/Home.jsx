@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import globant from "../utils/globant.png";
 import globantDark from "../utils/globantWhite.png";
 import "../styles/global.css";
@@ -61,9 +61,9 @@ const Home = () => {
           Welcome, <strong>{user.name}</strong>
         </Typography>
         {!theme ? (
-          <img style={{ width: "75%", maxWidth: "400px" }} src={globant} />
+          <img style={{ width: "75%", maxWidth: "400px" }} src={globant} alt='globant'/>
         ) : (
-          <img style={{ width: "75%", maxWidth: "400px" }} src={globantDark} />
+          <img style={{ width: "75%", maxWidth: "400px" }} src={globantDark} alt='globant'/>
         )}
         <Button
           sx={ButtonGeneric}

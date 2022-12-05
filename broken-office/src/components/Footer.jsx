@@ -26,6 +26,8 @@ const Footer = () => {
           flexDirection: "row",
           backgroundColor: "black",
           color: "#9e9e9e",
+          paddingTop: '15px',
+          paddingBottom: '15px'
         }}
       >
         <Grid

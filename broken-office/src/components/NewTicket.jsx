@@ -29,12 +29,10 @@ const ButtonGeneric = {
 const NewTicket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const photo = useSelector((state) => state.photo.photo);
   const incidentPhoto = useSelector((state) => state.photo.incidentPhoto);
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
-  const [device, setDevice] = useState("");
   const modalBool = useSelector((state) => state.modalBool);
   
  
@@ -108,7 +106,7 @@ const NewTicket = () => {
         }}
       >
         <Typography mt="10px" mb="30px" align="center" variant="h5">
-          New Ticket
+          NEW TICKET
         </Typography>
         <Grid
           sx={{
@@ -126,6 +124,7 @@ const NewTicket = () => {
               maxWidth: "500px",
               margin: "auto",
             }}
+            required
             value={subject}
             id="subject-input"
             label="Subject"
@@ -141,6 +140,7 @@ const NewTicket = () => {
               marginLeft: "auto",
               marginRight: "auto",
             }}
+            required
             value={description}
             id="description-input"
             label="Description"
@@ -150,7 +150,7 @@ const NewTicket = () => {
             onChange={handleDescription}
             rows={6}
           />
-         {incidentPhoto &&  <Grid sx={{margin: 'auto', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'row', justifyContent:'center'}}><img style={{width:"100%", marginTop:'5%', marginLeft: "auto", maxWidth:'500px'}}  src={incidentPhoto} /></Grid>}
+         {incidentPhoto &&  <Grid sx={{margin: 'auto', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'row', justifyContent:'center'}}><img style={{width:"100%", marginTop:'5%', marginLeft: "auto", maxWidth:'500px'}}  src={incidentPhoto} alt='incident'/></Grid>}
         </Grid>
         
 
@@ -165,7 +165,16 @@ const NewTicket = () => {
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
         <ModalPhoto />
-        <Button
+        {subject==="" || description==='' || incidentPhoto==='' ? (<Button
+          sx={ButtonGeneric}
+          type="button"
+          variant="contained"
+          onClick={handleCreateTicket}
+          fullWidth
+          disabled
+        >
+          Submit
+        </Button>):(<Button
           sx={ButtonGeneric}
           type="button"
           variant="contained"
@@ -173,7 +182,8 @@ const NewTicket = () => {
           fullWidth
         >
           Submit
-        </Button>
+        </Button>)}
+        
       </Grid>
       <Grid sx={{ mb: "100px" }} />
     </>

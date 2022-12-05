@@ -30,7 +30,6 @@ const ButtonGeneric = {
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
   console.log(user.place);
@@ -59,12 +58,13 @@ const Profile = () => {
       .then(() => navigate("/"));
   };
 
+
   ////////////////////////////////////
 
   return (
     <>
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Profile
+        PROFILE
       </Typography>
       <Grid
         sx={{
@@ -75,7 +75,7 @@ const Profile = () => {
       >
         <Paper
           sx={{
-            width: "70%",
+            width: "90%",
             maxWidth: "400px",
             display: "flex",
             flexDirection: "column",
