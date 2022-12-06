@@ -134,31 +134,81 @@ const ViewTickets = () => {
                     <Typography>
                       {
                         <Dropdown isOpen={dropdown} toggle={handleDropdown}>
-                          <DropdownToggle caret className="dropdownBtn">
+                          <DropdownToggle
+                            caret
+                            className={
+                              darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                            }
+                          >
                             Status
                           </DropdownToggle>
-                          <DropdownMenu>
-                            <DropdownItem header>Filter by Status</DropdownItem>
-                            <DropdownItem diviver />
-                            <DropdownItem onClick={() => setFilterValue("ALL")}>
+                          <DropdownMenu
+                            className={darkMode ? "dropdownMenuDarkMode" : null}
+                          >
+                            <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownHeaderDarkMode"
+                                  : "dropdown-header"
+                              }
+                              header
+                            >
+                              Filter by Status
+                            </DropdownItem>
+                            <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
+                              diviver
+                            />
+                            <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
+                              onClick={() => setFilterValue("ALL")}
+                            >
                               All tickets
                             </DropdownItem>
                             <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
                               onClick={() => setFilterValue("OPEN")}
                             >
                               Open
                             </DropdownItem>
                             <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
                               onClick={() => setFilterValue("PENDING")}
                             >
                               Pending
                             </DropdownItem>
                             <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
                               onClick={() => setFilterValue("IN PROCESS")}
                             >
                               In process
                             </DropdownItem>
                             <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownItemDarkMode"
+                                  : "dropdown-item"
+                              }
                               onClick={() => setFilterValue("CLOSED")}
                             >
                               Closed
@@ -183,96 +233,6 @@ const ViewTickets = () => {
                       {ticket.subject}
                     </TableCell>
                     <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-
-                      <Typography>
-                        {
-                          <Dropdown isOpen={dropdown} toggle={handleDropdown}>
-                            <DropdownToggle
-                              caret
-                              className={
-                                darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
-                              }
-                            >
-                              Status
-                            </DropdownToggle>
-                            <DropdownMenu
-                              className={
-                                darkMode ? "dropdownMenuDarkMode" : null
-                              }
-                            >
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownHeaderDarkMode"
-                                    : "dropdown-header"
-                                }
-                                header
-                              >
-                                Filter by Status
-                              </DropdownItem>
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                diviver
-                              />
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                onClick={() => setFilterValue("ALL")}
-                              >
-                                All tickets
-                              </DropdownItem>
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                onClick={() => setFilterValue("OPEN")}
-                              >
-                                Open
-                              </DropdownItem>
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                onClick={() => setFilterValue("PENDING")}
-                              >
-                                Pending
-                              </DropdownItem>
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                onClick={() => setFilterValue("IN PROCESS")}
-                              >
-                                In process
-                              </DropdownItem>
-                              <DropdownItem
-                                className={
-                                  darkMode
-                                    ? "dropdownItemDarkMode"
-                                    : "dropdown-item"
-                                }
-                                onClick={() => setFilterValue("CLOSED")}
-                              >
-                                Closed
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </Dropdown>
-                        }
-                      </Typography>
-
                       {ticket.status === "OPEN" ? (
                         <CircleIcon
                           sx={{
@@ -317,7 +277,6 @@ const ViewTickets = () => {
                           }}
                         />
                       ) : null}
-
                     </TableCell>
                   </TableRow>
                 ))}
@@ -338,7 +297,6 @@ const ViewTickets = () => {
       />
 
       <Grid sx={{ mb: "100px" }} />
-
     </>
   );
 };
