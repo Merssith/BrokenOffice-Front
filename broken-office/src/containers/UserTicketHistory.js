@@ -65,7 +65,7 @@ const UserTicketHistory = () => {
           </Typography>
         </Grid>
 
-        <TableContainer sx={{ width: "100%", height: "480px" }}>
+        <TableContainer sx={{ width: "100%", height: "600px" }}>
           <Table aria-label="a dense table">
             <TableHead sx={{ height: "0px" }}>
               <TableRow>

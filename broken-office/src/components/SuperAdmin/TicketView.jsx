@@ -139,14 +139,14 @@ const TicketView = () => {
                   sx={{ display: "flex", justifyContent: "space-around" }}
                 >
                   <Button sx={ButtonGeneric} onClick={handleClose}>
-                    No
+                    Cancel
                   </Button>
                   <Button
                     sx={ButtonGeneric}
                     onClick={handleDeleteTicket}
                     autoFocus
                   >
-                    Confirm
+                    Yes
                   </Button>
                 </DialogActions>
               </Dialog>

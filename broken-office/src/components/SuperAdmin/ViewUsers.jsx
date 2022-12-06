@@ -55,7 +55,6 @@ const ViewUsers = () => {
         })
         .catch("");
     } else {
-
       axios
         .get(
           `http://localhost:3001/api/users/filter?role=${filterValue}&page=${pagination.currentPage}`,
@@ -104,7 +103,7 @@ const ViewUsers = () => {
           </Typography>
         </Grid>
 
-        <TableContainer sx={{ width: "100%", height: "500px" }}>
+        <TableContainer sx={{ width: "100%", height: "530px" }}>
           <Table aria-label="a dense table">
             <TableHead>
               <TableRow>

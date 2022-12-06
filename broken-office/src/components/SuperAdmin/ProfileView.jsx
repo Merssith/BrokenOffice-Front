@@ -303,22 +303,21 @@ const ProfileView = () => {
                     </DialogTitle>
                     <DialogContent>
                       <DialogContentText id="alert-dialog-description">
-                        This user and all its data will be removed from our
-                        database.
+                        This user will be removed from our database.
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions
                       sx={{ display: "flex", justifyContent: "space-around" }}
                     >
                       <Button sx={ButtonGeneric} onClick={handleClose}>
-                        No
+                        Cancel
                       </Button>
                       <Button
                         sx={ButtonGeneric}
                         onClick={() => handleDelete(user.id)}
                         autoFocus
                       >
-                        Confirm
+                        Yes
                       </Button>
                     </DialogActions>
                   </Dialog>
