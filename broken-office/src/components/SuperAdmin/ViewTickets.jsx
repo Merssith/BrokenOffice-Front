@@ -1,6 +1,5 @@
 import {
   Grid,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -39,7 +38,6 @@ const ViewTickets = () => {
 
   const user = useSelector((state) => state.user);
   const darkMode = useSelector((state) => state.theme);
-
   useEffect(() => {
     if (filterValue === "ALL") {
       axios
@@ -50,7 +48,6 @@ const ViewTickets = () => {
         })
         .then((response) => {
           setTickets(response.data.incidents);
-
           setPagination({
             ...pagination,
             totalPages: response.data.totalPages,
@@ -70,7 +67,6 @@ const ViewTickets = () => {
 
         .then((response) => {
           setTickets(response.data.incidents);
-
           setPagination({
             ...pagination,
             totalPages: response.data.totalPages,
@@ -221,7 +217,7 @@ const ViewTickets = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickets.reverse().map((ticket, i) => (
+                {tickets.map((ticket, i) => (
                   <TableRow onClick={() => handleManage(ticket.id)} key={i}>
                     <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                       {ticket.date}

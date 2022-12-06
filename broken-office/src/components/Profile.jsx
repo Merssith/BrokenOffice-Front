@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Paper, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -32,7 +32,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
-  console.log(user.place);
 
   //////////////////HANDLES
   const handleBool = () => {
@@ -108,7 +107,7 @@ const Profile = () => {
             <Typography sx={{ textAlign: "center" }} variant="h5">
               {
                 <strong>
-                  {user.name} {user.lastName} {console.log(user)}
+                  {user.name} {user.lastName}
                 </strong>
               }{" "}
               <EditIcon onClick={handleBool} />
@@ -122,7 +121,7 @@ const Profile = () => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="subtitle1" mt="10px">
+            <Typography sx={{mt:'30px'}}variant="subtitle1" mt="10px">
               {" "}
               {<strong>User ID:</strong>} {user.id}
             </Typography>
