@@ -104,7 +104,7 @@ const ViewTickets = () => {
             ALL TICKETS
           </Typography>
         </Grid>
-        {tickets.length ? (
+        {tickets.length ? ( <>
           <TableContainer sx={{ width: "100%", height: "700px" }}>
             <Table aria-label="a dense table">
               <TableHead>
@@ -279,6 +279,7 @@ const ViewTickets = () => {
               </TableBody>
             </Table>
           </TableContainer>
+         </>
         ) : null}
       </Grid>
       <Pagination
