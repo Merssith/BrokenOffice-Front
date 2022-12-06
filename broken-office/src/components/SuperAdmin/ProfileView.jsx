@@ -22,6 +22,7 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const ButtonGeneric = {
   margin: "2rem",
@@ -45,7 +46,7 @@ const ProfileView = () => {
   const [dropdown, setDropdown] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+  const darkMode = useSelector((state) => state.theme);
   const messageSuccess = () => {
     message.success({
       content: "User role modified successfully",
@@ -81,34 +82,40 @@ const ProfileView = () => {
   };
 
   const handleSetUser = (userId) => {
-    axios.put(
-      `/api/users/update/${userId}`,
-      { userRoleId: 3 },
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    ).then(()=> messageSuccess());
+    axios
+      .put(
+        `/api/users/update/${userId}`,
+        { userRoleId: 3 },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then(() => messageSuccess());
   };
   const handleSetAdmin = (userId) => {
-    axios.put(
-      `/api/users/update/${userId}`,
-      { userRoleId: 2 },
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    ).then(()=> messageSuccess());
+    axios
+      .put(
+        `/api/users/update/${userId}`,
+        { userRoleId: 2 },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then(() => messageSuccess());
   };
   const handleSetSuperAdmin = (userId) => {
-    axios.put(
-      `/api/users/update/${userId}`,
-      { userRoleId: 1 },
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    ).then(()=> messageSuccess());
+    axios
+      .put(
+        `/api/users/update/${userId}`,
+        { userRoleId: 1 },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then(() => messageSuccess());
   };
 
   const handleClickOpen = () => {
@@ -202,16 +209,34 @@ const ProfileView = () => {
                         direction="right"
                         size="sm"
                       >
-                        <DropdownToggle caret className="dropdownBtn">
+                        <DropdownToggle caret className={
+                            darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                          }>
                           {user.userRole.name}
                         </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem header>Edit user role</DropdownItem>
-                          <DropdownItem diviver />
-                          <DropdownItem onClick={() => handleSetUser(user.id)}>
+                        <DropdownMenu className={darkMode ? "dropdownMenuDarkMode" : null}>
+                          <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } header>Edit user role</DropdownItem>
+                          <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } diviver />
+                          <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } onClick={() => handleSetUser(user.id)}>
                             User
                           </DropdownItem>
-                          <DropdownItem onClick={() => handleSetAdmin(user.id)}>
+                          <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } onClick={() => handleSetAdmin(user.id)}>
                             Admin
                           </DropdownItem>
                         </DropdownMenu>
@@ -227,18 +252,46 @@ const ProfileView = () => {
                           direction="right"
                           size="sm"
                         >
-                          <DropdownToggle caret className="dropdownBtn">
+                          <DropdownToggle
+                            caret
+                            className={
+                              darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                            }
+                          >
                             {user.userRole.name}
                           </DropdownToggle>
-                          <DropdownMenu>
-                            <DropdownItem header>Edit user role</DropdownItem>
-                            <DropdownItem diviver />
+                          <DropdownMenu
+                            className={darkMode ? "dropdownMenuDarkMode" : null}
+                          >
                             <DropdownItem
+                              className={
+                                darkMode
+                                  ? "dropdownHeaderDarkMode"
+                                  : "dropdown-header"
+                              }
+                              header
+                            >
+                              Edit user role
+                            </DropdownItem>
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } diviver />
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
                               onClick={() => handleSetUser(user.id)}
                             >
                               User
                             </DropdownItem>
-                            <DropdownItem
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
                               onClick={() => handleSetSuperAdmin(user.id)}
                             >
                               Super Admin
@@ -257,18 +310,36 @@ const ProfileView = () => {
                           direction="right"
                           size="sm"
                         >
-                          <DropdownToggle caret className="dropdownBtn">
+                          <DropdownToggle caret className={
+                            darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                          }>
                             {user.userRole.name}
                           </DropdownToggle>
-                          <DropdownMenu>
-                            <DropdownItem header>Edit user role</DropdownItem>
-                            <DropdownItem diviver />
-                            <DropdownItem
+                          <DropdownMenu className={darkMode ? "dropdownMenuDarkMode" : null}>
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } header>Edit user role</DropdownItem>
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            } diviver />
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
                               onClick={() => handleSetAdmin(user.id)}
                             >
                               Admin
                             </DropdownItem>
-                            <DropdownItem
+                            <DropdownItem className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
                               onClick={() => handleSetSuperAdmin(user.id)}
                             >
                               Super Admin
@@ -321,14 +392,14 @@ const ProfileView = () => {
                     <DialogActions
                       sx={{ display: "flex", justifyContent: "space-around" }}
                     >
-                      <Button autoFocus sx={ButtonGeneric} onClick={() => handleDelete(user.id)}>
+                      <Button
+                        autoFocus
+                        sx={ButtonGeneric}
+                        onClick={() => handleDelete(user.id)}
+                      >
                         Yes
                       </Button>
-                      <Button
-                        sx={ButtonGeneric}
-                        onClick={handleClose}
-                        
-                      >
+                      <Button sx={ButtonGeneric} onClick={handleClose}>
                         Cancel
                       </Button>
                     </DialogActions>

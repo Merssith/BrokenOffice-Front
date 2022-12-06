@@ -237,15 +237,15 @@ const SingleTicket = () => {
                 <DialogActions
                   sx={{ display: "flex", justifyContent: "space-around" }}
                 >
-                  <Button sx={ButtonGeneric} onClick={handleClose}>
-                    No
-                  </Button>
                   <Button
                     sx={ButtonGeneric}
                     onClick={handleDeleteTicket}
                     autoFocus
                   >
-                    Confirm
+                    Yes
+                  </Button>
+                  <Button sx={ButtonGeneric} onClick={handleClose}>
+                    Cancel
                   </Button>
                 </DialogActions>
               </Dialog>

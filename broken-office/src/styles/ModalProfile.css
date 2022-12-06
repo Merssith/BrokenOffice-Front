@@ -11,6 +11,11 @@
 }
 
 
-.ant-modal-content {
+/* .ant-modal-content {
   background-color: rgb(69, 69, 69) !important;
+} */
+
+
+.modalStyle .ant-modal-content{
+  background-color: #696969;
 }
