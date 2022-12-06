@@ -1,12 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  Grid,
-  Button,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { Grid, Button, Typography, TextField } from "@mui/material";
 import axios from "axios";
 import ChatTable from "./ChatTable";
 import DescriptionPhoto from "./DescriptionPhoto";
@@ -35,8 +30,7 @@ const ManageTicket = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [notes, setNotes] = useState(ticket.notes)
-  
+  const [notes, setNotes] = useState(ticket.notes);
 
   useEffect(() => {
     axios
@@ -45,7 +39,7 @@ const ManageTicket = () => {
         setTicket(response.data[0]);
       })
       .catch("");
-  }, [notes, message]);
+  }, [ticket.notes, notes, message]);
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -82,31 +76,40 @@ const ManageTicket = () => {
           width: "100%",
           maxWidth: "800px",
           boxShadow: 4,
-          borderRadius: "8px",
-          padding: "8px 8px 16px",
+          borderRadius: "6px",
+          padding: "8px",
         }}
       >
         <TicketData ticket={ticket} />
         <StatusChanger ticket={ticket} setNotes={setNotes} />
         <DescriptionPhoto ticket={ticket} />
 
-        {ticket.notes ? <ChatTable messages={ticket.notes} /> : null}
+        {ticket.notes ? (
+          <>
+            <ChatTable messages={ticket.notes} />{" "}
+            <Grid
+              sx={{
+                marginTop: "10px",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <TextField
+                value={message}
+                id="input-message"
+                label="Send a message"
+                fullWidth
+                type="text"
+                size="small"
+                onChange={handleChangeMessage}
+              />
 
-        <Grid sx={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
-          <TextField
-            value={message}
-            id="input-message"
-            label="Send a message"
-            fullWidth
-            type="text"
-            size="small"
-            onChange={handleChangeMessage}
-          />
-
-          <Button onClick={handleSend} sx={{ width: "10%" }}>
-            SEND
-          </Button>
-        </Grid>
+              <Button onClick={handleSend} sx={{ width: "10%" }}>
+                SEND
+              </Button>
+            </Grid>
+          </>
+        ) : null}
       </Grid>
       {/* <Button
         sx={ButtonGeneric}

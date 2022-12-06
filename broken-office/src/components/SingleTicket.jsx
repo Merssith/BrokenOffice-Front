@@ -54,7 +54,9 @@ const SingleTicket = () => {
       })
       .catch(function (error) {
         if (error.response.status === 401) {
-          setAlertContent("Unauthorized: Access is denied due to invalid credentials");
+          setAlertContent(
+            "Unauthorized: Access is denied due to invalid credentials"
+          );
           setAlert(true);
         } else {
           console.log(error);
@@ -69,7 +71,6 @@ const SingleTicket = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -113,7 +114,18 @@ const SingleTicket = () => {
 
   return (
     <>
-    {alert ? <Alert severity='error' onClose={() => {navigate("/ticket/history?page=1")}}>{alertContent}</Alert> : <></> }
+      {alert ? (
+        <Alert
+          severity="error"
+          onClose={() => {
+            navigate("/ticket/history?page=1");
+          }}
+        >
+          {alertContent}
+        </Alert>
+      ) : (
+        <></>
+      )}
       {ticket.id ? (
         <>
           <Grid
@@ -133,8 +145,8 @@ const SingleTicket = () => {
               sx={{
                 width: "100%",
                 maxWidth: "800px",
-                boxShadow: 6,
-                borderRadius: "8px",
+                boxShadow: 4,
+                borderRadius: "6px",
                 padding: "8px",
               }}
             >
@@ -168,7 +180,7 @@ const SingleTicket = () => {
                 </>
               ) : null}
             </Grid>
-            <Typography mt="30px" align="center" variant="h6">
+            <Typography mt="30px" align="center">
               Share this incident
             </Typography>
             <Grid

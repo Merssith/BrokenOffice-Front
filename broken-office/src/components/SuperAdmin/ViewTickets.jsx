@@ -35,7 +35,6 @@ const ViewTickets = () => {
   const [dropdown, setDropdown] = useState(false);
   const [pagination, setPagination] = useState(initialStatePagination);
 
-
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
@@ -58,7 +57,6 @@ const ViewTickets = () => {
         })
         .catch("");
     } else {
-
       axios
 
         .get(
@@ -110,7 +108,7 @@ const ViewTickets = () => {
           </Typography>
         </Grid>
         {tickets.length ? (
-          <TableContainer sx={{ width: "100%", height: "500px" }}>
+          <TableContainer sx={{ width: "100%", height: "700px" }}>
             <Table aria-label="a dense table">
               <TableHead>
                 <TableRow>

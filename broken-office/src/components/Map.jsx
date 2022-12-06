@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import GoogleMapReact from "google-map-react";
 import useGeolocation from "../hooks/useGeolocation";
 import PlaceIcon from "@mui/icons-material/Place";
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Grid, Typography } from "@mui/material";
@@ -44,6 +45,18 @@ export default function SimpleMap() {
     },
     zoom: 5,
   };
+  const array = [];
+  users.map((user) => {
+    console.log(user);
+    let newObj = {
+      name: user.fullName,
+      lat: user.geoCords.lat,
+      lng: user.geoCords.lng,
+    };
+    array.push(newObj);
+  });
+  console.log(array);
+  console.log(typeof array[1].lat);
 
   return (
     <>
@@ -53,22 +66,20 @@ export default function SimpleMap() {
           defaultCenter={initialPosition.center}
           defaultZoom={initialPosition.zoom}
         >
-          {users.length ? (
+          {array.length ? (
             <>
-              {users.map((user) => (
+              {array.map((user) => (
                 <>
-                  {console.log(user.id, user.geoCords.lat)}
-                  {user.userRoleId === 3 ? (
+                  {console.log(user.name, user.lat, user.lng)}
+                  <div>
                     <PlaceIcon
-                      key={user.id}
                       sx={{ color: "red" }}
-                      lat={user.geoCords.lat}
-                      lng={user.geoCords.lng}
+                      lat={user.lat}
+                      lng={user.lng}
                     />
-                  ) : null}
+                  </div>
                   {/* {user.userRoleId === 2 ? (
                     <PlaceIcon
-                      key={user.id}
                       sx={{ color: "green" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
@@ -76,7 +87,6 @@ export default function SimpleMap() {
                   ) : null}
                   {user.userRoleId === 1 ? (
                     <PlaceIcon
-                      key={user.id}
                       sx={{ color: "blue" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
@@ -86,6 +96,15 @@ export default function SimpleMap() {
               ))}
             </>
           ) : null}
+
+          {/* <PlaceIcon
+            sx={{
+              color: "red",
+            }}
+            lat={users[4].geoCords.lat}
+            lng={users[4].geoCords.lng}
+            text="My Marker"
+          /> */}
         </GoogleMapReact>
       </Grid>
       <Grid sx={{ display: "flex", flexDirection: "column" }}>
