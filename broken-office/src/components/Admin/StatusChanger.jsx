@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-const StatusChanger = ({ ticket }) => {
+const StatusChanger = ({ ticket, setNotes }) => {
   const [commit, setCommit] = useState("");
   const [commitOpen, setCommitOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -22,9 +22,15 @@ const StatusChanger = ({ ticket }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(commit);
-    axios.put(`/api/incidents/update/${ticket.id}`, { status: status });
+    axios.put(`/api/incidents/update/${ticket.id}`, {
+      status: status,
+    });
+    axios.post(`/api/incidents/note/${ticket.id}`, {
+      note: `Ticket status changed to ${status}. Reason: ${commit}`,
+    });
     setCommit("");
+    setNotes(commit)
+    setCommitOpen(!commitOpen);
   };
   const handleStatus = (e) => {
     e.preventDefault();
@@ -89,7 +95,7 @@ const StatusChanger = ({ ticket }) => {
             }}
           >
             <Typography sx={{ fontSize: 14, textAlign: "center" }}>
-              To save changes, please commit something
+              Reason:
             </Typography>
             <Grid
               sx={{

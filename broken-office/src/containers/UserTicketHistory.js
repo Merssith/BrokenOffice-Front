@@ -2,7 +2,6 @@ import {
   Grid,
   Pagination,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -10,7 +9,6 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Box,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 
@@ -20,7 +18,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
 const UserTicketHistory = () => {
   const initialStatePagination = {
@@ -28,38 +25,20 @@ const UserTicketHistory = () => {
     currentPage: 1,
   };
   const [pagination, setPagination] = useState(initialStatePagination);
-
-  
   const [tickets, setTickets] = useState([]);
   const user = useSelector((state) => state.user);
-
-  const [pageQuery, setPageQuery] = useSearchParams();
-
   const navigate = useNavigate();
-  ////////////////
-  // useEffect(() => {
-  //   setPageQuery({ page: pagination.currentPage });
-  //   axios
-  //     .get(`http://localhost:3001/api/incidents/byUser/${user.id}?${pageQuery}`)
-  //     .then((res) => {
-  //       setTickets(res.data.incidents);
-  //       if (pagination.totalPages === null)
-  //         setPagination({ ...pagination, totalPages: res.data.totalPages });
-  //     })
-  //     .catch("");
-  // }, [user.id]);
 
   useEffect(() => {
-    setPageQuery({ page: pagination.currentPage });
     axios
-      .get(`/api/incidents/byUser/${user.id}?${pageQuery}`)
+      .get(`/api/incidents/byUser/${user.id}?page=${pagination.currentPage}`)
       .then((res) => {
         setTickets(res.data.incidents);
         if (pagination.totalPages === null)
           setPagination({ ...pagination, totalPages: res.data.totalPages });
       })
       .catch("");
-  }, [user, pagination, pageQuery]);
+  }, [user, pagination, pagination.currentPage]);
 
   const handleMoreInfo = (id) => {
     navigate(`/ticket/${id}`);
@@ -67,12 +46,6 @@ const UserTicketHistory = () => {
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-
-  const handleShowContent = () => {
-    return tickets.slice();
-  };
-
-  // console.log(tickets);
 
   return (
     <>
@@ -88,13 +61,13 @@ const UserTicketHistory = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            Ticket History
+            MY TICKETS
           </Typography>
         </Grid>
 
-        <TableContainer sx={{ width: "100%" }} component={Paper}>
-          <Table size="small" aria-label="a dense table">
-            <TableHead>
+        <TableContainer sx={{ width: "100%", height: "600px" }}>
+          <Table aria-label="a dense table">
+            <TableHead sx={{ height: "0px" }}>
               <TableRow>
                 <TableCell
                   sx={{ width: "20%", textAlign: "center", fontSize: 12 }}
@@ -116,13 +89,10 @@ const UserTicketHistory = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* {console.log(tickets.length)}
+              {console.log(vacias.length)} */}
               {tickets.map((ticket, i) => (
-                <TableRow
-                  onClick={() => handleMoreInfo(ticket.id)}
-                  key={i}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  {/* <TableCell sx={{ fontSize: 12 }}>{ticket.id}</TableCell> */}
+                <TableRow onClick={() => handleMoreInfo(ticket.id)} key={i}>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
                   </TableCell>
@@ -186,6 +156,13 @@ const UserTicketHistory = () => {
                   </TableCell>
                 </TableRow>
               ))}
+              {/* {vacias.map((celda, i) => (
+                <TableRow key={i + 8}>
+                  <TableCell>{null}</TableCell>
+                  <TableCell>{null}</TableCell>
+                  <TableCell>{null}</TableCell>
+                </TableRow>
+              ))} */}
             </TableBody>
           </Table>
         </TableContainer>
@@ -201,6 +178,7 @@ const UserTicketHistory = () => {
           flexWrap: "nowrap",
         }}
       />
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

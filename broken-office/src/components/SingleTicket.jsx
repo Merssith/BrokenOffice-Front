@@ -1,23 +1,22 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
   Grid,
   Button,
   Typography,
   TextField,
-  FormControl,
-  Select,
-  MenuItem,
+  Alert,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import axios from "axios";
-import { message, notification } from "antd";
 import "../styles/ModalProfile.css";
 import ChatTable from "./Admin/ChatTable";
 import DescriptionPhoto from "./Admin/DescriptionPhoto";
-import DateNameEmail from "./Admin/DateNameEmail";
-import IdDeviceStatus from "./Admin/IdDeviceStatus";
 import TicketData from "./Admin/TicketData";
 
 const ButtonGeneric = {
@@ -38,13 +37,14 @@ const ButtonGeneric = {
 };
 
 const SingleTicket = () => {
-  const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [device, setDevice] = useState({});
   const [email, setEmail] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
   useEffect(() => {
     axios
@@ -52,8 +52,25 @@ const SingleTicket = () => {
       .then((response) => {
         setTicket(response.data[0]);
       })
-      .catch("");
-  }, [ticket.id]);
+      .catch(function (error) {
+        if (error.response.status === 401) {
+          setAlertContent(
+            "Unauthorized: Access is denied due to invalid credentials"
+          );
+          setAlert(true);
+        } else {
+          console.log(error);
+        }
+      });
+  }, [ticket.notes]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -78,10 +95,10 @@ const SingleTicket = () => {
   };
 
   const handleDeleteTicket = () => {
-    // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
+    handleClose();
     axios.delete(`/api/incidents/delete/${ticket.id}`);
     messageDelete();
-    navigate("/ticket/history");
+    navigate("/ticket/history/*");
   };
 
   const messageDelete = () => {
@@ -97,6 +114,18 @@ const SingleTicket = () => {
 
   return (
     <>
+      {alert ? (
+        <Alert
+          severity="error"
+          onClose={() => {
+            navigate("/ticket/history?page=1");
+          }}
+        >
+          {alertContent}
+        </Alert>
+      ) : (
+        <></>
+      )}
       {ticket.id ? (
         <>
           <Grid
@@ -110,14 +139,14 @@ const SingleTicket = () => {
             }}
           >
             <Typography mt="10px" mb="30px" align="center" variant="h5">
-              Single Ticket
+              SINGLE TICKET
             </Typography>
             <Grid
               sx={{
                 width: "100%",
                 maxWidth: "800px",
-                boxShadow: 6,
-                borderRadius: "8px",
+                boxShadow: 4,
+                borderRadius: "6px",
                 padding: "8px",
               }}
             >
@@ -151,7 +180,7 @@ const SingleTicket = () => {
                 </>
               ) : null}
             </Grid>
-            <Typography mt="30px" align="center" variant="h6">
+            <Typography mt="30px" align="center">
               Share this incident
             </Typography>
             <Grid
@@ -182,7 +211,7 @@ const SingleTicket = () => {
             </Grid>
             <Button
               sx={ButtonGeneric}
-              onClick={handleDeleteTicket}
+              onClick={handleClickOpen}
               type="button"
               variant="contained"
               component="label"
@@ -190,7 +219,39 @@ const SingleTicket = () => {
             >
               Delete Ticket
             </Button>
+            <div>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are you sure?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This ticket will be removed from our database.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions
+                  sx={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <Button sx={ButtonGeneric} onClick={handleClose}>
+                    No
+                  </Button>
+                  <Button
+                    sx={ButtonGeneric}
+                    onClick={handleDeleteTicket}
+                    autoFocus
+                  >
+                    Confirm
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           </Grid>
+          <Grid sx={{ mb: "100px" }} />
         </>
       ) : null}
     </>

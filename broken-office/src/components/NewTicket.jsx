@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { Grid, Typography, TextField, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPhoto } from "../store/photo";
 import { setModalBool } from "../store/modalBool";
 import ModalPhoto from "./ModalPhoto";
 import { message } from "antd";
 import { useNavigate } from "react-router";
+import { setIncidentPhoto } from "../store/photo";
 
 const ButtonGeneric = {
   margin: "1.5rem",
@@ -29,13 +29,13 @@ const ButtonGeneric = {
 const NewTicket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const photo = useSelector((state) => state.photo);
+  const incidentPhoto = useSelector((state) => state.photo.incidentPhoto);
   const user = useSelector((state) => state.user);
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
-  const [device, setDevice] = useState("");
   const modalBool = useSelector((state) => state.modalBool);
-
+  
+ 
   //////////////////HANDLES
   const handleBool = () => {
     if (modalBool === true) {
@@ -64,7 +64,7 @@ const NewTicket = () => {
           geoCords: user.geoCords,
           details: description,
           userId: user.id,
-          photo: photo ? photo : "",
+          photo: incidentPhoto ? incidentPhoto : "",
         },
         {
           headers: { "Content-Type": "application/json" },
@@ -74,6 +74,7 @@ const NewTicket = () => {
       .then((res) => {
         let tkt = res.data.id;
         dispatch(setPhoto(""));
+        dispatch(setIncidentPhoto(""));
         messageSuccess();
         setSubject("");
         setDescription("");
@@ -105,7 +106,7 @@ const NewTicket = () => {
         }}
       >
         <Typography mt="10px" mb="30px" align="center" variant="h5">
-          New Ticket
+          NEW TICKET
         </Typography>
         <Grid
           sx={{
@@ -123,6 +124,7 @@ const NewTicket = () => {
               maxWidth: "500px",
               margin: "auto",
             }}
+            required
             value={subject}
             id="subject-input"
             label="Subject"
@@ -138,6 +140,7 @@ const NewTicket = () => {
               marginLeft: "auto",
               marginRight: "auto",
             }}
+            required
             value={description}
             id="description-input"
             label="Description"
@@ -147,7 +150,9 @@ const NewTicket = () => {
             onChange={handleDescription}
             rows={6}
           />
+         {incidentPhoto &&  <Grid sx={{margin: 'auto', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'row', justifyContent:'center'}}><img style={{width:"100%", marginTop:'5%', marginLeft: "auto", maxWidth:'500px'}}  src={incidentPhoto} alt='incident'/></Grid>}
         </Grid>
+        
 
         <Button
           sx={ButtonGeneric}
@@ -160,7 +165,16 @@ const NewTicket = () => {
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
         <ModalPhoto />
-        <Button
+        {subject==="" || description==='' || incidentPhoto==='' ? (<Button
+          sx={ButtonGeneric}
+          type="button"
+          variant="contained"
+          onClick={handleCreateTicket}
+          fullWidth
+          disabled
+        >
+          Submit
+        </Button>):(<Button
           sx={ButtonGeneric}
           type="button"
           variant="contained"
@@ -168,9 +182,10 @@ const NewTicket = () => {
           fullWidth
         >
           Submit
-        </Button>
+        </Button>)}
+        
       </Grid>
-      <div style={{ height: "3rem" }}></div>
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

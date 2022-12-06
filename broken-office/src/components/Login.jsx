@@ -109,7 +109,7 @@ const Login = () => {
       }}
     >
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Login
+        LOGIN
       </Typography>
       <TextField
         sx={{ marginTop: "15px", width: "80%" }}
@@ -217,6 +217,7 @@ const Login = () => {
       >
         Register
       </Button>
+      <Grid sx={{ mb: "100px" }} />
     </Grid>
   );
 };

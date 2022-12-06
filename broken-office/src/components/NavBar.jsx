@@ -25,11 +25,20 @@ function NavBar() {
     <>
       <ThemeProvider theme={navColor}>
         <AppBar sx={{ zIndex: "1" }}>
-          <Toolbar>
+          <Toolbar
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+             <div
+              style={{
+                width: "35vw",
+              }}
+            ></div>
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
                 width: "100vw",
               }}
             >
@@ -39,7 +48,14 @@ function NavBar() {
               >
                 BROKEN OFFICE
               </Typography>
-              <DarkModeButtton/>
+            </div>
+            <div
+              style={{
+                width: "20vw",
+                marginRight: 0
+              }}
+            >
+              <DarkModeButtton />
             </div>
           </Toolbar>
         </AppBar>

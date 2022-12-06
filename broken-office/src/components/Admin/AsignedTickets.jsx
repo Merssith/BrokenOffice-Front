@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,26 +31,47 @@ const AsignedTickets = () => {
   const [pagination, setPagination] = useState(initialStatePagination);
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
-  const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
   const [filterValue, setFilterValue] = useState("ALL");
   const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
-    setPageQuery({ page: pagination.currentPage });
-    axios
-      .get(`/api/incidents/assignedToMe?page=${pagination.currentPage}`)
-      .then((response) => {
-        setTickets(response.data.incidents);
-        if (pagination.totalPages === null)
+    if (filterValue === "ALL") {
+      axios
+        .get(`api/incidents/assignedToMe?page=${pagination.currentPage}`, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((response) => {
+          setTickets(response.data.incidents);
+
           setPagination({
             ...pagination,
             totalPages: response.data.totalPages,
           });
-      })
+        })
+        .catch("");
+    } else {
+      axios
+        .get(
+          `api/incidents/assignedToMe?status=${filterValue}&page=${pagination.currentPage}`,
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
 
-      .catch("");
-  }, [user, pagination.currentPage]);
+        .then((response) => {
+          setTickets(response.data.incidents);
+
+          setPagination({
+            ...pagination,
+            totalPages: response.data.totalPages,
+          });
+        })
+        .catch("");
+    }
+  }, [user, filterValue, pagination.currentPage]);
 
   const handleDropdown = () => {
     setDropdown(!dropdown);
@@ -80,11 +100,11 @@ const AsignedTickets = () => {
           >
             <Grid>
               <Typography mt="10px" mb="30px" align="center" variant="h5">
-                Assigned Tickets
+                ASSIGNED TICKETS
               </Typography>
             </Grid>
-            <TableContainer sx={{ width: "100%" }} component={Paper}>
-              <Table size="small" aria-label="a dense table">
+            <TableContainer sx={{ width: "100%", height: "620px" }}>
+              <Table aria-label="a dense table">
                 <TableHead>
                   <TableRow>
                     <TableCell
@@ -155,7 +175,7 @@ const AsignedTickets = () => {
                         {ticket.date}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                        Device name
+                        {ticket.item.device}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                         {ticket.subject}
@@ -224,6 +244,7 @@ const AsignedTickets = () => {
           />
         </>
       ) : null}
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

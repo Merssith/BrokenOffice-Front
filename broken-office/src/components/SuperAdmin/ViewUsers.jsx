@@ -8,14 +8,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Button,
   Pagination,
 } from "@mui/material";
-import CircleIcon from "@mui/icons-material/Circle";
-import DeleteIcon from "@mui/icons-material/Delete";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/styles.css";
 import {
@@ -26,7 +21,7 @@ import {
 } from "reactstrap";
 
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -42,14 +37,11 @@ const ViewUsers = () => {
 
   const navigate = useNavigate();
   const [pagination, setPagination] = useState(initialStatePagination);
-  const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
   const darkMode = useSelector((state) => state.theme);
 
   useEffect(() => {
     if (filterValue === 0) {
-      setPageQuery({ page: pagination.currentPage });
-
       axios
         .get(`/api/users/all?page=${pagination.currentPage}`, {
           headers: { "Content-Type": "application/json" },
@@ -64,8 +56,6 @@ const ViewUsers = () => {
         })
         .catch("");
     } else {
-      setPageQuery({ page: pagination.currentPage });
-
       axios
         .get(
           `http://localhost:3001/api/users/filter?role=${filterValue}&page=${pagination.currentPage}`,
@@ -91,23 +81,16 @@ const ViewUsers = () => {
   const handleDropdown = () => {
     setDropdown(!dropdown);
   };
-  const handleDelete = (userId) => {
-    axios.get(`/api/users/delete/${userId}`, {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    });
-  };
 
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-  console.log(pageQuery);
 
   return (
     <>
       <Grid
         sx={{
-          width: "95%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -117,10 +100,11 @@ const ViewUsers = () => {
       >
         <Grid>
           <Typography mt="10px" mb="30px" align="center" variant="h5">
-            All Users
+            ALL USERS
           </Typography>
         </Grid>
-        <TableContainer sx={{ width: "100%" }} component={Paper}>
+
+        <TableContainer sx={{ width: "100%", height: "530px" }}>
           <Table aria-label="a dense table">
             <TableHead>
               <TableRow>
@@ -231,10 +215,9 @@ const ViewUsers = () => {
           display: "flex",
           justifyContent: "center",
           flexWrap: "nowrap",
-          mb: "100px",
         }}
       />
-      {/* <div stlye={{ height: "400px" }}></div> */}
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

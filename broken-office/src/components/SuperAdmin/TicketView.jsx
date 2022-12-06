@@ -1,9 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Grid, Button, Typography, TextField } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import axios from "axios";
-import { message, notification } from "antd";
+import { message } from "antd";
 import ChatTable from "../Admin/ChatTable";
 import DescriptionPhoto from "../Admin/DescriptionPhoto";
 import TicketData from "../Admin/TicketData";
@@ -30,6 +39,7 @@ const TicketView = () => {
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -39,6 +49,14 @@ const TicketView = () => {
       })
       .catch("");
   }, [params.id]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const messageDelete = () => {
     message.success({
@@ -50,9 +68,8 @@ const TicketView = () => {
       duration: 4,
     });
   };
-  
+
   const handleDeleteTicket = () => {
-    // Mensaje "ESTAS SEGURO?" + Boton "SI"-"NO"
     axios.delete(`/api/incidents/delete/${ticket.id}`);
     messageDelete();
     navigate("/tickets/all");
@@ -73,7 +90,7 @@ const TicketView = () => {
             }}
           >
             <Typography mt="10px" mb="30px" align="center" variant="h5">
-              Single Ticket
+              SINGLE TICKET
             </Typography>
             <Grid
               sx={{
@@ -95,7 +112,7 @@ const TicketView = () => {
             </Grid>
             <Button
               sx={ButtonGeneric}
-              onClick={handleDeleteTicket}
+              onClick={handleClickOpen}
               type="button"
               variant="contained"
               component="label"
@@ -103,9 +120,41 @@ const TicketView = () => {
             >
               Delete Ticket
             </Button>
+            <div>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are you sure?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    This ticket will be removed from our database.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions
+                  sx={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <Button sx={ButtonGeneric} onClick={handleClose}>
+                    Cancel
+                  </Button>
+                  <Button
+                    sx={ButtonGeneric}
+                    onClick={handleDeleteTicket}
+                    autoFocus
+                  >
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </div>
           </Grid>
         </>
       ) : null}
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 };

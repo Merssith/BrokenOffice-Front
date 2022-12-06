@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import GoogleMapReact from "google-map-react";
 import useGeolocation from "../hooks/useGeolocation";
 import PlaceIcon from "@mui/icons-material/Place";
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Grid, Typography } from "@mui/material";
@@ -29,17 +30,33 @@ export default function SimpleMap() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/users/all`).then((res) => setUsers(res.data));
-  }, [users.length]);
+    axios
+      .get(`/api/users/allUsers`, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((res) => setUsers(res.data));
+  }, []);
 
   const initialPosition = {
     center: {
       lat: -39.70171,
       lng: -61.628424,
     },
-    zoom: 3,
+    zoom: 5,
   };
-
+  const array = [];
+  users.map((user) => {
+    console.log(user);
+    let newObj = {
+      name: user.fullName,
+      lat: user.geoCords.lat,
+      lng: user.geoCords.lng,
+    };
+    array.push(newObj);
+  });
+  console.log(array);
+  console.log(typeof array[1].lat);
 
   return (
     <>
@@ -49,21 +66,20 @@ export default function SimpleMap() {
           defaultCenter={initialPosition.center}
           defaultZoom={initialPosition.zoom}
         >
-          {users ? (
+          {array.length ? (
             <>
-              {users.map((user, i) => (
+              {array.map((user) => (
                 <>
-                  {user.userRoleId === 3 ? (
+                  {console.log(user.name, user.lat, user.lng)}
+                  <div>
                     <PlaceIcon
-                      key={i}
                       sx={{ color: "red" }}
-                      lat={user.geoCords.lat}
-                      lng={user.geoCords.lng}
+                      lat={user.lat}
+                      lng={user.lng}
                     />
-                  ) : null}
-                  {user.userRoleId === 2 ? (
+                  </div>
+                  {/* {user.userRoleId === 2 ? (
                     <PlaceIcon
-                      key={i}
                       sx={{ color: "green" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
@@ -71,16 +87,24 @@ export default function SimpleMap() {
                   ) : null}
                   {user.userRoleId === 1 ? (
                     <PlaceIcon
-                      key={i}
                       sx={{ color: "blue" }}
                       lat={user.geoCords.lat}
                       lng={user.geoCords.lng}
                     />
-                  ) : null}
+                  ) : null} */}
                 </>
               ))}
             </>
           ) : null}
+
+          {/* <PlaceIcon
+            sx={{
+              color: "red",
+            }}
+            lat={users[4].geoCords.lat}
+            lng={users[4].geoCords.lng}
+            text="My Marker"
+          /> */}
         </GoogleMapReact>
       </Grid>
       <Grid sx={{ display: "flex", flexDirection: "column" }}>
@@ -97,6 +121,7 @@ export default function SimpleMap() {
           <Typography> Superadmin</Typography>
         </Grid>
       </Grid>
+      <Grid sx={{ mb: "100px" }} />
     </>
   );
 }

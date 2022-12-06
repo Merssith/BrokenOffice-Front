@@ -33,7 +33,7 @@ import NavBarDesktop from "./components/NavBarDesktop";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const user = useSelector((state) => state.user);
+   const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios.get("/api/users/me").then((usuario) => {
@@ -66,6 +66,7 @@ function App() {
         flexDirection="column"
       >
         {!isActive ? <NavBarDesktop/> : <NavBar/>}
+        
         <Container flex={1} sx={{ minHeight: "100vh" }}>
           <Routes>
             {/* Public routes */}

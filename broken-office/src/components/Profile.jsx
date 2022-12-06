@@ -30,7 +30,6 @@ const ButtonGeneric = {
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user);
   const modalBool = useSelector((state) => state.modalBool);
   console.log(user.place);
@@ -64,7 +63,7 @@ const Profile = () => {
   return (
     <>
       <Typography mt="10px" mb="30px" align="center" variant="h5">
-        Profile
+        PROFILE
       </Typography>
       <Grid
         sx={{
@@ -73,51 +72,47 @@ const Profile = () => {
           alignItems: "center",
         }}
       >
-        <Paper
+        <Grid
           sx={{
-            width: "70%",
-            maxWidth: "400px",
+            boxShadow: 4,
+            width: "100%",
+            maxWidth: "450px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            padding: "20px",
             margin: "auto",
+            borderRadius: "6px",
+            padding: "16px",
           }}
         >
           <Grid
             sx={{
               width: "100%",
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
+              flexDirection: "column",
               alignItems: "center",
               margin: "auto",
             }}
           >
-            <Grid sx={{ alignItems: "left" }}>
-              <img
-                style={{
-                  width: "100%",
-                  maxWidth: "100px",
-                  borderRadius: "10%",
-                  border: "1px solid black",
-                }}
-                src={user.avatar}
-                alt="User avatar"
-              />
-            </Grid>
-            <Grid>
-              <Typography
-                sx={{ marginLeft: "1rem", textAlign: "center" }}
-                variant="h6"
-              >
-                {
-                  <strong>
-                    {user.name} {user.lastName}
-                  </strong>
-                }
-              </Typography>
-            </Grid>
+            <img
+              style={{
+                width: "100%",
+                maxWidth: "100px",
+                // borderRadius: "5%",
+                // border: "1px solid black",
+              }}
+              src={user.avatar}
+              alt="User avatar"
+            />
+
+            <Typography sx={{ textAlign: "center" }} variant="h5">
+              {
+                <strong>
+                  {user.name} {user.lastName} {console.log(user)}
+                </strong>
+              }{" "}
+              <EditIcon onClick={handleBool} />
+            </Typography>
           </Grid>
           <Grid
             sx={{
@@ -129,7 +124,7 @@ const Profile = () => {
           >
             <Typography variant="subtitle1" mt="10px">
               {" "}
-              {<strong>Glober ID:</strong>} {user.id}
+              {<strong>User ID:</strong>} {user.id}
             </Typography>
             <Typography
               sx={{ wordWrap: "break-word" }}
@@ -158,20 +153,10 @@ const Profile = () => {
                 marginTop: "10px",
               }}
             >
-              <Button
-                sx={ButtonGeneric}
-                type="submit"
-                color="primary"
-                variant="contained"
-                onClick={handleBool}
-                endIcon={<EditIcon />}
-              >
-                Edit
-              </Button>
               <ModalProfile />
             </Grid>
           </Grid>
-        </Paper>
+        </Grid>
         <Button
           sx={ButtonGeneric}
           type="submit"
@@ -181,8 +166,8 @@ const Profile = () => {
         >
           Log out
         </Button>
+        <Grid sx={{ mb: "100px" }} />
       </Grid>
-      <div style={{ height: "10vh" }}></div>
     </>
   );
 };
