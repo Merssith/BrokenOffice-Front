@@ -87,13 +87,7 @@ const Login = () => {
       setOpen(true);
     }
   };
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  const handleClose = () => {
     setOpen(false);
   };
 
