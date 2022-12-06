@@ -17,3 +17,40 @@
   border: 0px;
   background-color: transparent;
 }
+
+.dropdownBtnDarkMode {
+  color: white;
+  font-weight: bold;
+  border: 0px;
+  background-color: transparent;
+}
+
+.dropdownBtnDarkMode:focus {
+  color: #a6ce39;
+  background: transparent;
+}
+
+.dropdownBtnDarkMode:hover {
+  color: #a6ce39;
+  background: transparent;
+}
+
+.dropdownBtnDarkMode:active {
+  color: #a6ce39;
+  font-weight: bold;
+  border: 0px;
+  background-color: transparent;
+}
+
+.dropdownMenuDarkMode {
+  background-color: grey;
+}
+
+.dropdownHeaderDarkMode {
+  color: white;
+}
+
+.dropdownItemDarkMode {
+  color: white;
+  background-color: grey;
+}

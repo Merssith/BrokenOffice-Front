@@ -42,6 +42,7 @@ const ViewTickets = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
+  const darkMode = useSelector((state) => state.theme);
 
   useEffect(() => {
     if (filterValue === "ALL") {
@@ -145,35 +146,83 @@ const ViewTickets = () => {
                       <Typography>
                         {
                           <Dropdown isOpen={dropdown} toggle={handleDropdown}>
-                            <DropdownToggle caret className="dropdownBtn">
+                            <DropdownToggle
+                              caret
+                              className={
+                                darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                              }
+                            >
                               Status
                             </DropdownToggle>
-                            <DropdownMenu>
-                              <DropdownItem header>
+                            <DropdownMenu
+                              className={
+                                darkMode ? "dropdownMenuDarkMode" : null
+                              }
+                            >
+                              <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownHeaderDarkMode"
+                                    : "dropdown-header"
+                                }
+                                header
+                              >
                                 Filter by Status
                               </DropdownItem>
-                              <DropdownItem diviver />
                               <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
+                                diviver
+                              />
+                              <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
                                 onClick={() => setFilterValue("ALL")}
                               >
                                 All tickets
                               </DropdownItem>
                               <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
                                 onClick={() => setFilterValue("OPEN")}
                               >
                                 Open
                               </DropdownItem>
                               <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
                                 onClick={() => setFilterValue("PENDING")}
                               >
                                 Pending
                               </DropdownItem>
                               <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
                                 onClick={() => setFilterValue("IN PROCESS")}
                               >
                                 In process
                               </DropdownItem>
                               <DropdownItem
+                                className={
+                                  darkMode
+                                    ? "dropdownItemDarkMode"
+                                    : "dropdown-item"
+                                }
                                 onClick={() => setFilterValue("CLOSED")}
                               >
                                 Closed
@@ -262,7 +311,6 @@ const ViewTickets = () => {
           mb: "100px",
         }}
       />
-   
     </>
   );
 };

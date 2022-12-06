@@ -44,6 +44,7 @@ const ViewUsers = () => {
   const [pagination, setPagination] = useState(initialStatePagination);
   const [pageQuery, setPageQuery] = useSearchParams();
   const user = useSelector((state) => state.user);
+  const darkMode = useSelector((state) => state.theme);
 
   useEffect(() => {
     if (filterValue === 0) {
@@ -135,22 +136,66 @@ const ViewUsers = () => {
                   <Typography>
                     {
                       <Dropdown isOpen={dropdown} toggle={handleDropdown}>
-                        <DropdownToggle caret className="dropdownBtn">
+                        <DropdownToggle
+                          caret
+                          className={
+                            darkMode ? "dropdownBtnDarkMode" : "dropdownBtn"
+                          }
+                        >
                           Role
                         </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem header>Filter by Role</DropdownItem>
+                        <DropdownMenu
+                          className={darkMode ? "dropdownMenuDarkMode" : null}
+                        >
+                          <DropdownItem
+                            className={
+                              darkMode
+                                ? "dropdownHeaderDarkMode"
+                                : "dropdown-header"
+                            }
+                            header
+                          >
+                            Filter by Role
+                          </DropdownItem>
                           <DropdownItem diviver />
-                          <DropdownItem onClick={() => setFilterValue(0)}>
+                          <DropdownItem
+                            className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
+                            onClick={() => setFilterValue(0)}
+                          >
                             All users
                           </DropdownItem>
-                          <DropdownItem onClick={() => setFilterValue(3)}>
+                          <DropdownItem
+                            className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
+                            onClick={() => setFilterValue(3)}
+                          >
                             User
                           </DropdownItem>
-                          <DropdownItem onClick={() => setFilterValue(2)}>
+                          <DropdownItem
+                            className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
+                            onClick={() => setFilterValue(2)}
+                          >
                             Admin
                           </DropdownItem>
-                          <DropdownItem onClick={() => setFilterValue(1)}>
+                          <DropdownItem
+                            className={
+                              darkMode
+                                ? "dropdownItemDarkMode"
+                                : "dropdown-item"
+                            }
+                            onClick={() => setFilterValue(1)}
+                          >
                             Super Admin
                           </DropdownItem>
                         </DropdownMenu>
