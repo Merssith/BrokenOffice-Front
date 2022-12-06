@@ -32,6 +32,7 @@ function ModalProfile() {
   const dispatch = useDispatch();
   const avatarForm = new FormData();
   const user = useSelector((state) => state.user);
+  const darkMode = useSelector((state) => state.theme);
   const modalBool = useSelector((state) => state.modalBool);
   const [checkConfirm, setCheckConfirm] = useState("none");
   const [email, setEmail] = useState(user.email);
@@ -148,12 +149,13 @@ function ModalProfile() {
 
   return (
     <Modal
+    className={darkMode?"ant-modal-content":"ant-modal-content"}
       title="Edit profile"
       open={modalBool}
       onCancel={handleCancel}
       style={{
         textAlign: "center",
-      }}
+        className: (darkMode? "ant-modal-content":null)      }}
       footer={[
         <Button onClick={handleCancel}>Cancel</Button>,
         <Button color="primary" onClick={handleSubmit}>

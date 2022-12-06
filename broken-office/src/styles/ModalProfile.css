@@ -9,3 +9,8 @@
 .delete svg {
   color: rgb(211, 14, 14);
 }
+
+
+.ant-modal-content {
+  background-color: rgb(69, 69, 69) !important;
+}
