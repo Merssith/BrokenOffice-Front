@@ -1,9 +1,8 @@
 import { Box, CssBaseline } from "@mui/material";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Route, Routes, useLocation } from "react-router";
 import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
-import HomeAdmin from "./containers/HomeAdmin";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -19,14 +18,13 @@ import TicketView from "./components/SuperAdmin/TicketView";
 import Map from "./components/Map";
 
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./store/users";
 import UserTicketHistory from "./containers/UserTicketHistory";
 import Profile from "./components/Profile";
 import SingleTicket from "./components/SingleTicket";
-import Photo from "./containers/Photo";
 import { useMediaQuery, Container } from "@mui/material";
 import NavBarDesktop from "./components/NavBarDesktop";
 
@@ -39,7 +37,7 @@ function App() {
     axios.get("/api/users/me").then((usuario) => {
       dispatch(setUser(usuario.data));
     });
-  }, []);
+  }, [user.id]);
 
   const isActive = useMediaQuery("(max-width: 800px)");
 

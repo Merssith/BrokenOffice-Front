@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useParams } from "react-router";
+import { message } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Dropdown,
@@ -44,6 +45,17 @@ const ProfileView = () => {
   const [dropdown, setDropdown] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
+  const messageSuccess = () => {
+    message.success({
+      content: "User role modified successfully",
+      className: "text",
+      style: {
+        zIndex: "1",
+      },
+      duration: 4,
+    });
+  };
 
   useEffect(() => {
     axios
@@ -76,7 +88,7 @@ const ProfileView = () => {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       }
-    );
+    ).then(()=> messageSuccess());
   };
   const handleSetAdmin = (userId) => {
     axios.put(
@@ -86,7 +98,7 @@ const ProfileView = () => {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       }
-    );
+    ).then(()=> messageSuccess());
   };
   const handleSetSuperAdmin = (userId) => {
     axios.put(
@@ -96,7 +108,7 @@ const ProfileView = () => {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       }
-    );
+    ).then(()=> messageSuccess());
   };
 
   const handleClickOpen = () => {
@@ -182,7 +194,7 @@ const ProfileView = () => {
                 <Typography variant="subtitle1" mt="10px">
                   {" "}
                   {<strong>Rol:</strong>}{" "}
-                  {user.userRole.id == 1 ? (
+                  {user.userRole.id === 1 ? (
                     <>
                       <Dropdown
                         isOpen={dropdown}
@@ -206,7 +218,7 @@ const ProfileView = () => {
                       </Dropdown>
                     </>
                   ) : null}
-                  {user.userRole.id == 2 ? (
+                  {user.userRole.id === 2 ? (
                     <>
                       <>
                         <Dropdown
@@ -236,7 +248,7 @@ const ProfileView = () => {
                       </>
                     </>
                   ) : null}
-                  {user.userRole.id == 3 ? (
+                  {user.userRole.id === 3 ? (
                     <>
                       <>
                         <Dropdown
@@ -309,15 +321,15 @@ const ProfileView = () => {
                     <DialogActions
                       sx={{ display: "flex", justifyContent: "space-around" }}
                     >
-                      <Button sx={ButtonGeneric} onClick={handleClose}>
-                        Cancel
+                      <Button autoFocus sx={ButtonGeneric} onClick={() => handleDelete(user.id)}>
+                        Yes
                       </Button>
                       <Button
                         sx={ButtonGeneric}
-                        onClick={() => handleDelete(user.id)}
-                        autoFocus
+                        onClick={handleClose}
+                        
                       >
-                        Yes
+                        Cancel
                       </Button>
                     </DialogActions>
                   </Dialog>
