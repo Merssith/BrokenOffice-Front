@@ -104,7 +104,7 @@ const ViewTickets = () => {
             ALL TICKETS
           </Typography>
         </Grid>
-        {tickets.length ? ( <>
+        <>
           <TableContainer sx={{ width: "100%", height: "700px" }}>
             <Table aria-label="a dense table">
               <TableHead>
@@ -217,7 +217,7 @@ const ViewTickets = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickets.map((ticket, i) => (
+                {tickets?.map((ticket, i) => (
                   <TableRow onClick={() => handleManage(ticket.id)} key={i}>
                     <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
                       {ticket.date}
@@ -280,7 +280,6 @@ const ViewTickets = () => {
             </Table>
           </TableContainer>
          </>
-        ) : null}
       </Grid>
       <Pagination
         count={pagination.totalPages || 0}

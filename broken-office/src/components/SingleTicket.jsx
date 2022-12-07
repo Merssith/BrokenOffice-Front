@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { message } from "antd";
 import {
   Grid,
   Button,
@@ -41,7 +42,7 @@ const SingleTicket = () => {
   const [ticket, setTicket] = useState({});
   const params = useParams();
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState("");
   const [email, setEmail] = useState("");
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState("");
@@ -73,7 +74,7 @@ const SingleTicket = () => {
   };
 
   const handleChangeMessage = (e) => {
-    setMessage(e.target.value);
+    setMessages(e.target.value);
   };
 
   const handleChangeEmail = (e) => {
@@ -81,9 +82,9 @@ const SingleTicket = () => {
   };
 
   const handleSend = (e) => {
-    if (message !== "") {
-      axios.post(`/api/incidents/note/${ticket.id}`, { note: message });
-      setMessage("");
+    if (messages !== "") {
+      axios.post(`/api/incidents/note/${ticket.id}`, { note: messages });
+      setMessages("");
     }
   };
 
@@ -92,13 +93,6 @@ const SingleTicket = () => {
     console.log(email);
     axios.post(`/api/incidents/share/${ticketId}`, { email: email });
     setEmail("");
-  };
-
-  const handleDeleteTicket = () => {
-    handleClose();
-    axios.delete(`/api/incidents/delete/${ticket.id}`);
-    messageDelete();
-    navigate("/ticket/history/*");
   };
 
   const messageDelete = () => {
@@ -111,6 +105,16 @@ const SingleTicket = () => {
       duration: 4,
     });
   };
+
+  const handleDeleteTicket = () => {
+    handleClose();
+    axios.delete(`/api/incidents/delete/${ticket.id}`);
+    messageDelete();
+    navigate("/ticket/history/*");
+    
+  };
+
+
 
   return (
     <>
@@ -164,7 +168,7 @@ const SingleTicket = () => {
                     }}
                   >
                     <TextField
-                      value={message}
+                      value={messages}
                       id="input-message"
                       label="Send a message"
                       fullWidth

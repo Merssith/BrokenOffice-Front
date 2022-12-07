@@ -86,7 +86,6 @@ const AsignedTickets = () => {
 
   return (
     <>
-      {tickets.length ? (
         <>
           <Grid
             sx={{
@@ -169,7 +168,7 @@ const AsignedTickets = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {tickets.map((ticket, i) => (
+                  {tickets?.map((ticket, i) => (
                     <TableRow onClick={() => handleManage(ticket.id)} key={i}>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                         {ticket.date}
@@ -243,7 +242,6 @@ const AsignedTickets = () => {
             }}
           />
         </>
-      ) : null}
       <Grid sx={{ mb: "100px" }} />
     </>
   );
