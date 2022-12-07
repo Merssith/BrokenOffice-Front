@@ -64,9 +64,7 @@ const Register = () => {
       ? setAreSamePass(true)
       : setAreSamePass(false);
   };
-  const handleGeolocation = (event) => {
-    event.preventDefault(); // Capturar localizacion -> setGeolocation();
-  };
+ 
 
   const navigate = useNavigate();
 

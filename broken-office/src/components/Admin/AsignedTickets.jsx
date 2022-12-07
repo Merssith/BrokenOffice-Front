@@ -1,6 +1,5 @@
 import {
   Grid,
-  Paper,
   Pagination,
   Table,
   TableBody,
@@ -83,7 +82,6 @@ const AsignedTickets = () => {
   const handlePagination = (e, value) => {
     setPagination({ ...pagination, currentPage: value });
   };
-
   return (
     <>
         <>
@@ -174,7 +172,7 @@ const AsignedTickets = () => {
                         {ticket.date}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
-                        {ticket.item.device}
+                      {ticket.item.device}
                       </TableCell>
                       <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                         {ticket.subject}

@@ -89,8 +89,6 @@ const SingleTicket = () => {
   };
 
   const handleShare = (ticketId, email) => {
-    console.log(ticketId);
-    console.log(email);
     axios.post(`/api/incidents/share/${ticketId}`, { email: email });
     setEmail("");
   };

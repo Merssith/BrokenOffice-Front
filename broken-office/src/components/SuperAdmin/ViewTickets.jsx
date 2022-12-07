@@ -213,66 +213,6 @@ const ViewTickets = () => {
                       </Dropdown>
                     }
                   </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {tickets?.map((ticket, i) => (
-                <TableRow onClick={() => handleManage(ticket.id)} key={i}>
-                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                    {ticket.date}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                    {ticket.id}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                    {ticket.subject}
-                  </TableCell>
-                  <TableCell sx={{ textAlign: "center", fontSize: 14 }}>
-                    {ticket.status === "OPEN" ? (
-                      <CircleIcon
-                        sx={{
-                          boxShadow: 6,
-                          backgroundColor: "#6CDF3C",
-                          borderRadius: "8px",
-                          color: "#6CDF3C",
-                          fontSize: "small",
-                        }}
-                      />
-                    ) : null}
-                    {ticket.status === "PENDING" ? (
-                      <CircleIcon
-                        sx={{
-                          boxShadow: 6,
-                          backgroundColor: "#FFFA1B",
-                          borderRadius: "8px",
-                          color: "#FFFA1B",
-                          fontSize: "small",
-                        }}
-                      />
-                    ) : null}
-                    {ticket.status === "IN PROCESS" ? (
-                      <CircleIcon
-                        sx={{
-                          boxShadow: 6,
-                          backgroundColor: "#F8B932",
-                          borderRadius: "8px",
-                          color: "#F8B932",
-                          fontSize: "small",
-                        }}
-                      />
-                    ) : null}
-                    {ticket.status === "CLOSED" ? (
-                      <CircleIcon
-                        sx={{
-                          boxShadow: 6,
-                          backgroundColor: "#F05432",
-                          borderRadius: "8px",
-                          color: "#F05432",
-                          fontSize: "small",
-                        }}
-                      />
-                    ) : null}
                   </TableCell>
                 </TableRow>
               </TableHead>
