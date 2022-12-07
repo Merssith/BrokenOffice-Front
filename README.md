@@ -40,7 +40,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -96,12 +95,6 @@ You must meet the following pre-requisites to be able to use this project
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- API  -->
-
-## Usage
-
-<p>USAGE EXAMPLE HERE</p>
-
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -151,11 +144,11 @@ You must meet the following pre-requisites to be able to use this project
 
 ## Contact
 
-- Mercedes Salcedo » [Email](mercedes.salcedo1989@gmail.com) - [LinkedIn](https://www.linkedin.com/in/mercedessalcedojobs/)
-- Patricio Imbrogno » [Email](patricioimbrogno@gmail.com) - [LinkedIn](https://www.linkedin.com/in/patricio-imbrogno)
-- Rodrigo Escalera » [Email](roescal347@gmail.com) - [LinkedIn](https://www.linkedin.com/in/rodrigo-escalera-a00a97252/)
-- Juan Manuel Arias » [Email](juanmaariasrodriguez@gmail.com) - [LinkedIn](https://www.linkedin.com/in/juan-manuel-arias-rodriguez/)
-- Leandro Echezuri » [Email](leandro.echezuri@gmail.com) - [LinkedIn](https://www.linkedin.com/in/leandro-echezuri-671b58233/)
+- Mercedes Salcedo » [Email](mailto:mercedes.salcedo1989@gmail.com) - [LinkedIn](https://www.linkedin.com/in/mercedessalcedojobs/)
+- Patricio Imbrogno » [Email](mailto:patricioimbrogno@gmail.com) - [LinkedIn](https://www.linkedin.com/in/patricio-imbrogno)
+- Rodrigo Escalera » [Email](mailto:roescal347@gmail.com) - [LinkedIn](https://www.linkedin.com/in/rodrigo-escalera-a00a97252/)
+- Juan Manuel Arias » [Email](mailto:juanmaariasrodriguez@gmail.com) - [LinkedIn](https://www.linkedin.com/in/juan-manuel-arias-rodriguez/)
+- Leandro Echezuri » [Email](mailto:leandro.echezuri@gmail.com) - [LinkedIn](https://www.linkedin.com/in/leandro-echezuri-671b58233/)
 
 Project Link: [https://github.com/Merssith/BrokenOffice-Front](https://github.com/Merssith/BrokenOffice-Front)
 
