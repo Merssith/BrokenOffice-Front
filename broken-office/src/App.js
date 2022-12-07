@@ -75,7 +75,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Box
-        // sx={{ margin: "0px", padding: "0px" }}
+        // sx={{ margin: "0px", padding: "0px"      }}
         display="flex"
         flexDirection="column"
       >
