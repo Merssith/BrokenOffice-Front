@@ -59,8 +59,6 @@ const SingleTicket = () => {
             "Unauthorized: Access is denied due to invalid credentials"
           );
           setAlert(true);
-        } else {
-          console.log(error);
         }
       });
   }, [ticket.notes]);
@@ -109,10 +107,7 @@ const SingleTicket = () => {
     axios.delete(`/api/incidents/delete/${ticket.id}`);
     messageDelete();
     navigate("/ticket/history/*");
-    
   };
-
-
 
   return (
     <>

@@ -15,7 +15,6 @@ import ViewTickets from "./components/SuperAdmin/ViewTickets";
 import ViewUsers from "./components/SuperAdmin/ViewUsers";
 import ProfileView from "./components/SuperAdmin/ProfileView";
 import TicketView from "./components/SuperAdmin/TicketView";
-import Map from "./components/Map";
 
 import { useEffect } from "react";
 import axios from "axios";
@@ -74,11 +73,7 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <Box
-        // sx={{ margin: "0px", padding: "0px"      }}
-        display="flex"
-        flexDirection="column"
-      >
+      <Box display="flex" flexDirection="column">
         {!isActive ? <NavBarDesktop /> : <NavBar />}
 
         <Container flex={1} sx={{ minHeight: "100vh" }}>
@@ -99,7 +94,6 @@ function App() {
             <Route path="/users/all" element={<ViewUsers />} />
             <Route path="/users/:id" element={<ProfileView />} />
             <Route path="/tickets/:id" element={<TicketView />} />
-            <Route path="/map" element={<Map />} />
           </Routes>
           {location.pathname === "/" || !user.email || !isActive ? null : (
             <BottomNav />
