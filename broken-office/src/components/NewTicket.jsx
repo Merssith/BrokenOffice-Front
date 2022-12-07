@@ -34,8 +34,7 @@ const NewTicket = () => {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const modalBool = useSelector((state) => state.modalBool);
-  
- 
+
   //////////////////HANDLES
   const handleBool = () => {
     if (modalBool === true) {
@@ -150,9 +149,30 @@ const NewTicket = () => {
             onChange={handleDescription}
             rows={6}
           />
-         {incidentPhoto &&  <Grid sx={{margin: 'auto', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'row', justifyContent:'center'}}><img style={{width:"100%", marginTop:'5%', marginLeft: "auto", maxWidth:'500px'}}  src={incidentPhoto} alt='incident'/></Grid>}
+          {incidentPhoto && (
+            <Grid
+              sx={{
+                margin: "auto",
+                width: "100%",
+                maxWidth: "500px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                style={{
+                  width: "100%",
+                  marginTop: "5%",
+                  marginLeft: "auto",
+                  maxWidth: "500px",
+                }}
+                src={incidentPhoto}
+                alt="incident"
+              />
+            </Grid>
+          )}
         </Grid>
-        
 
         <Button
           sx={ButtonGeneric}
@@ -165,25 +185,28 @@ const NewTicket = () => {
           {/* <input hidden accept="image/*" multiple type="file" /> */}
         </Button>
         <ModalPhoto />
-        {subject==="" || description==='' || incidentPhoto==='' ? (<Button
-          sx={ButtonGeneric}
-          type="button"
-          variant="contained"
-          onClick={handleCreateTicket}
-          fullWidth
-          disabled
-        >
-          Submit
-        </Button>):(<Button
-          sx={ButtonGeneric}
-          type="button"
-          variant="contained"
-          onClick={handleCreateTicket}
-          fullWidth
-        >
-          Submit
-        </Button>)}
-        
+        {subject === "" || description === "" || incidentPhoto === "" ? (
+          <Button
+            sx={ButtonGeneric}
+            type="button"
+            variant="contained"
+            onClick={handleCreateTicket}
+            fullWidth
+            disabled
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button
+            sx={ButtonGeneric}
+            type="button"
+            variant="contained"
+            onClick={handleCreateTicket}
+            fullWidth
+          >
+            Submit
+          </Button>
+        )}
       </Grid>
       <Grid sx={{ mb: "100px" }} />
     </>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyAl-XghXzVClVpAK2vsLYS1Nb7vOLF6xtg");
+
 Geocode.setLanguage("en");
 Geocode.setRegion("es");
 Geocode.setLocationType("ROOFTOP");
@@ -64,10 +65,9 @@ const useGeolocation = () => {
           }
         }
       }
-  
+
       const localPlace = city + ", " + state + ", " + country;
       setPlace(localPlace);
-     
     },
     (error) => {
       console.error(error);
