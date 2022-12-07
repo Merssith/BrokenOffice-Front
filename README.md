@@ -121,6 +121,8 @@ You must meet the following pre-requisites to be able to use this project
   - [x] Chat
   - [x] Backend monitoring
   - [x] Email service
+  - [x] PWA
+  - [x] DarkMode
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
