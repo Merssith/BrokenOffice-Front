@@ -17,7 +17,6 @@ import ProfileView from "./components/SuperAdmin/ProfileView";
 import TicketView from "./components/SuperAdmin/TicketView";
 import Map from "./components/Map";
 
-
 import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +30,7 @@ import NavBarDesktop from "./components/NavBarDesktop";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-   const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     axios.get("/api/users/me").then((usuario) => {
@@ -45,24 +44,24 @@ function App() {
 
   const darkTheme = createTheme({
     palette: {
-        // palette values for dark mode
+      // palette values for dark mode
       divider: "rgba(255, 255, 255, 0.12)",
-        background: {
-          default: "#444444",
-          paper: "#444444",
-        },
-        text: {
-          primary: '#fff',
-          secondary: "rgba(255, 255, 255, 0.7)",
-          disabled:"rgba(255, 255, 255, 0.5)",
-        },
-        action:{
-          active:"#fff",
-          hover: "rgba(255, 255, 255, 0.08)",
-          selected:"rgba(255, 255, 255, 0.16)",
-          disabled:"rgba(255, 255, 255, 0.3)",
-          disabledBackground:"rgba(255, 255, 255, 0.12)"
-        }
+      background: {
+        default: "#444444",
+        paper: "#444444",
+      },
+      text: {
+        primary: "#fff",
+        secondary: "rgba(255, 255, 255, 0.7)",
+        disabled: "rgba(255, 255, 255, 0.5)",
+      },
+      action: {
+        active: "#fff",
+        hover: "rgba(255, 255, 255, 0.08)",
+        selected: "rgba(255, 255, 255, 0.16)",
+        disabled: "rgba(255, 255, 255, 0.3)",
+        disabledBackground: "rgba(255, 255, 255, 0.12)",
+      },
     },
   });
 
@@ -76,15 +75,15 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Box
-        // sx={{ margin: "0px", padding: "0px" }}
+        // sx={{ margin: "0px", padding: "0px"      }}
         display="flex"
         flexDirection="column"
       >
-        {!isActive ? <NavBarDesktop/> : <NavBar/>}
-        
+        {!isActive ? <NavBarDesktop /> : <NavBar />}
+
         <Container flex={1} sx={{ minHeight: "100vh" }}>
           <Routes>
-            {/* Public routes */}
+            {/* Public routes   */}
             <Route path="/" element={!user.email ? <Start /> : <Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
