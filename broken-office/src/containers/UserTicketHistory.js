@@ -1,7 +1,6 @@
 import {
   Grid,
   Pagination,
-  Paper,
   Table,
   TableBody,
   TableCell,

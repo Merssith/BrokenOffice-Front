@@ -4,7 +4,6 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
   Snackbar,
 } from "@mui/material";
 import axios from "axios";
@@ -71,7 +70,7 @@ const Login = () => {
         )
         .then((user) => {
           dispatch(setUser(user.data));
-          // console.log("LOGUEO EXITOSO!");
+      
           navigate("/");
         })
         .catch((err) => {
@@ -177,11 +176,11 @@ const Login = () => {
           </Button>{" "}
         </>
       )}
-      <Typography
+      {/* <Typography
         sx={{ fontSize: "small ", textAlign: "center", marginTop: "5px" }}
       >
         <Link href="#">Forgot your password?</Link>
-      </Typography>
+      </Typography> */}
       <Typography
         sx={{ fontSize: "medium", textAlign: "center", marginTop: "25px" }}
       >

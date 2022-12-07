@@ -64,11 +64,10 @@ const useGeolocation = () => {
           }
         }
       }
-      // console.log(city, state, country);
+  
       const localPlace = city + ", " + state + ", " + country;
       setPlace(localPlace);
-      // console.log(place); -> Ciudad, Provincia, Pais
-      // console.log(address); -> Direccion, Ciudad, Provincia, Pais
+     
     },
     (error) => {
       console.error(error);

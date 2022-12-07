@@ -47,7 +47,6 @@ export default function SimpleMap() {
   };
   const array = [];
   users.map((user) => {
-    console.log(user);
     let newObj = {
       name: user.fullName,
       lat: user.geoCords.lat,
@@ -55,8 +54,6 @@ export default function SimpleMap() {
     };
     array.push(newObj);
   });
-  console.log(array);
-  console.log(typeof array[1].lat);
 
   return (
     <>
