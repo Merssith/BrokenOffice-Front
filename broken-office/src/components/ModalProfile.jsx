@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { Modal, message } from "antd";
+import { Modal, message, Typography } from "antd";
 import { useEffect, useState } from "react";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import axios from "axios";
@@ -40,14 +40,14 @@ function ModalProfile() {
   const [telPhone, setTelPhone] = useState(user.telephone);
   const [lastName, setLastName] = useState(user.lastName);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  
+
   useEffect(() => {
     setEmail(user.email);
     setName(user.name);
     setTelPhone(user.telephone);
     setLastName(user.lastName);
   }, [user]);
- 
+
   const emailOnChange = (e) => {
     const emailInput = e.target.value;
     setEmail(emailInput);
@@ -78,9 +78,7 @@ function ModalProfile() {
       url: `/api/users/avatar/${user.id}`,
       data: avatarForm,
       headers: { "Content-Type": "multipart/form-data" },
-    }).then((response) => {
-      
-    });
+    }).then((response) => {});
     return new Promise(function (resolve, reject) {
       setCheckConfirm("spin");
       setTimeout(resolve, 1000);
@@ -101,7 +99,6 @@ function ModalProfile() {
     // e.preventDefault();
     if (isValidEmail) {
       axios.put(`/api/users/update/${user.id}`, changes).then((res) => {
-       
         dispatch(setModalBool(false));
         dispatch(updateUser(changes));
         navigate("/user/profile");
@@ -149,18 +146,21 @@ function ModalProfile() {
 
   return (
     <Modal
-    className={darkMode?"ant-modal-content":"ant-modal-content"}
-      title="Edit profile"
+      className={darkMode ? "modalStyle" : "ant-modal-content"}
       open={modalBool}
       onCancel={handleCancel}
       style={{
         textAlign: "center",
-        className: (darkMode? "ant-modal-content":null)      }}
+        className: darkMode ? "ant-modal-content" : null,
+      }}
       footer={[
-        <Button onClick={handleCancel}>Cancel</Button>,
-        <Button color="primary" onClick={handleSubmit}>
+        darkMode? (<><Button sx={{color:"white" }}  onClick={handleCancel}>Cancel</Button>
+        <Button sx={{color:"white" }}  onClick={handleSubmit}>
           Save
-        </Button>,
+        </Button></>):(<><Button sx={{color:"black" }} onClick={handleCancel}>Cancel</Button>
+        <Button sx={{color:"black" }} onClick={handleSubmit}>
+          Save
+        </Button></>)
       ]}
     >
       <div
@@ -171,6 +171,12 @@ function ModalProfile() {
           alignItems: "center",
         }}
       >
+        {darkMode ? (
+          <h6 style={{color: 'white'}}>EDIT PROFILE</h6>
+        ) : (
+          <h6 style={{color: 'black'}}>EDIT PROFILE</h6>
+        )}
+
         <TextField
           sx={{ marginTop: "1rem" }}
           defaultValue={user.name}

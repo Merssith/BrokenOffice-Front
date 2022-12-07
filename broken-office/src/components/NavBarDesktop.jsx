@@ -1,7 +1,6 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ArticleIcon from "@mui/icons-material/Article";
 import DarkModeButtton from "./DarkModeButtton";
@@ -14,7 +13,7 @@ function NavBarDesktop() {
   if (user.email && !isHome) {
     return (
       <>
-        <AppBar position="fixed" color="primary">
+        <AppBar position="fixed" color="primary" sx={{ zIndex: "1" }}>
           <Toolbar
             sx={{ backgroundColor: "#BFD732", height: "7.vh", color: "#444444" }}
           >

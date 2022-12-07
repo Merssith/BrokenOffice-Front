@@ -89,9 +89,7 @@ const UserTicketHistory = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {console.log(tickets.length)}
-              {console.log(vacias.length)} */}
-              {tickets.map((ticket, i) => (
+              {tickets?.map((ticket, i) => (
                 <TableRow onClick={() => handleMoreInfo(ticket.id)} key={i}>
                   <TableCell sx={{ textAlign: "center", fontSize: 12 }}>
                     {ticket.date}
