@@ -24,7 +24,7 @@ function NavBar() {
   return (
     <>
       <ThemeProvider theme={navColor}>
-        <AppBar sx={{ zIndex: "1" }}>
+        <AppBar sx={{ zIndex: "2" }}>
           <Toolbar
             sx={{
               display: "flex",

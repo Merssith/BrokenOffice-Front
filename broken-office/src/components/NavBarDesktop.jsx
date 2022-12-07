@@ -54,7 +54,7 @@ function NavBarDesktop() {
     );
   } else {
     return ( <>
-      <AppBar position="fixed" color="primary">
+      <AppBar position="fixed" color="primary" sx={{ zIndex: "1" }}>
         <Toolbar
           sx={{ display:'flex', flexDirection: 'row', justifyContent:'center', backgroundColor: "#BFD732", height: "7.vh", color: "#444444" }}
         >
